@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Planning.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/utils/MaConnexion.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceCategorie.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Contrat.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Evenement.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceRole.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceEvent.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Role.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceTicket.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceET.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServicePartic.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceVote.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/tests/YYotalent.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServicePlanning.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Voyage.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Video.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Categorie.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/IService.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/User.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Ticket.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceVideo.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Remboursement.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceUser.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Participation.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceVoyage.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/EspaceTalent.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Vote.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceRemb.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceContrat.java</file>
+        </group>
+    </open-files>
+</project-private>
