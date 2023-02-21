@@ -5,99 +5,82 @@
  */
 package tn.esprit.YoTalent.services;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import tn.esprit.YoTalent.entities.Evenement;
-import tn.esprit.YoTalent.entities.Participation;
 
-import tn.esprit.YoTalent.entities.Ticket;
+import tn.esprit.YoTalent.entities.Video;
 import tn.esprit.YoTalent.entities.EspaceTalent;
 
 import tn.esprit.YoTalent.utils.MaConnexion;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tn.esprit.YoTalent.entities.User;
-import tn.esprit.YoTalent.entities.Video;
+import java.sql.PreparedStatement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+
+
 /**
  *
  * @author USER
  */
 public class ServiceET implements IService<EspaceTalent> {
-
-     private Connection cnx;
+    private Connection cnx;
 
     public ServiceET(){
         cnx = MaConnexion.getInstance().getCnx();
-        
     }
 
     @Override
-    public void createOne(EspaceTalent espaceTalent) throws SQLException {
-        String req =   "INSERT INTO `espaceTalent`(`titre`,`idU`,`idVid`,`idCat`,`idC`)" + "VALUES ('"+espaceTalent.getTitre()+"','"+espaceTalent.getIdU()+"','"+espaceTalent.getIdVid()+"','"+espaceTalent.getIdCat()+"','"+espaceTalent.getIdC()+"')";
+    public void createOne(EspaceTalent espacetalent) throws SQLException {
+      String req =   "INSERT INTO `espacetalent`(`titre`,`idU`,`idVid`,`idCat`,`idC`)" + "VALUES ('"+espacetalent.getTitre()+"','"+espacetalent.getIdU()+"','"+espacetalent.getIdVid()+"','"+espacetalent.getIdCat()+"','"+espacetalent.getIdC()+"')";
         Statement st = cnx.createStatement();
         st.executeUpdate(req);
-        System.out.println("EspaceTalent ajouté !");
-  
+        System.out.println("espacetalent ajouté !");
+      
+    }
+    
 
-        
+    @Override
+    public void updateOne(EspaceTalent espacetalent) throws SQLException {
+   String req = "UPDATE espacetalent SET `idEST`=?,`titre`=?, `idU`=?, `idVid`=? , `idCat`=? , `idC`=?  WHERE idEST=" + espacetalent.getIdEST();
+
+
+       
+            PreparedStatement pst =cnx.prepareStatement(req);
+
+            pst.setInt(1, espacetalent.getIdEST());
+            pst.setString(2, espacetalent.getTitre());
+             pst.setInt(3, espacetalent.getIdU());
+              pst.setInt(4, espacetalent.getIdVid());
+               pst.setInt(5, espacetalent.getIdCat());
+                pst.setInt(6, espacetalent.getIdC());
+           
+            pst.executeUpdate();
+            System.out.println("espacetalent " + espacetalent.getTitre() + " is updated successfully");
     }
 
     @Override
-    public void updateOne(EspaceTalent espaceTalent) throws SQLException {
-        String sql = "UPDATE espaceTalent SET `idEST`=?,`titre`=?,`idU`=?,``idVid`=?,`idCat`=? ,`idC`=? WHERE idT=" + espaceTalent.getIdEST();
-        PreparedStatement ste;
-        try {
-            ste = cnx.prepareStatement(sql);
-    
-            ste.setInt(1, espaceTalent.getIdEST());
-            ste.setString(2, espaceTalent.getTitre());
-            ste.setInt(3, espaceTalent.getIdU());
-            ste.setInt(4, espaceTalent.getIdVid());
-
-            ste.setInt(5, espaceTalent.getIdCat());
-                      ste.setInt(6, espaceTalent.getIdC());
-
-
-  
-
-            
-
-            ste.executeUpdate();
-            int rowsUpdated = ste.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("La modification du ticket :" + espaceTalent.getIdEST() + " a été éffectuée avec succès ");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-    
-    }
-
-    @Override
-    public void deletOne(EspaceTalent espaceTalentt) throws SQLException {
-        try {
-            String req = "DELETE FROM espaceTalentt WHERE espaceTalentt.`idEST` = ?";
+    public void deletOne(EspaceTalent espacetalent) throws SQLException {
+try {
+            String req = "DELETE FROM espacetalent WHERE espacetalent.`idEST` = ?";
             PreparedStatement ste = cnx.prepareStatement(req);
-            ste.setInt(1, espaceTalentt.getIdEST());
+            ste.setInt(1, espacetalent.getIdEST());
             ste.executeUpdate();
-            System.out.println("espaceTalentt supprimé");
+            System.out.println("espace talent  supprimé");
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceET.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-    }
+            Logger.getLogger(ServiceVideo.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
+
 
     @Override
     public List<EspaceTalent> selectAll() throws SQLException {
-          List<EspaceTalent> temp = new ArrayList<>();
+              List<EspaceTalent> temp = new ArrayList<>();
 
-        String req = "SELECT * FROM `EspaceTalent`";
+        String req = "SELECT * FROM `espacetalent`";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ResultSet rs = ps.executeQuery();
@@ -107,11 +90,11 @@ public class ServiceET implements IService<EspaceTalent> {
             EspaceTalent Cat = new EspaceTalent();
 
             Cat.setIdEST(rs.getInt(1));
-             Cat.setTitre(rs.getString("titre"));
-            Cat.setIdU(rs.getInt("idU"));
-            Cat.setIdVid(rs.getInt("idVid"));
-            Cat.setIdCat(rs.getInt("idCat"));
-            Cat.setIdC(rs.getInt("idC"));
+            Cat.setTitre(rs.getString("titre"));
+              Cat.setIdU(rs.getInt("idU"));
+              Cat.setIdVid(rs.getInt("idVid"));
+ Cat.setIdCat(rs.getInt("idCat"));
+  Cat.setIdC(rs.getInt("idC"));
 
             temp.add(Cat);
 
@@ -121,9 +104,40 @@ public class ServiceET implements IService<EspaceTalent> {
         return temp;
     }
     
+    public ObservableList<EspaceTalent> FetchEST()throws SQLException{
+       ObservableList<EspaceTalent> espaceTalent = FXCollections.observableArrayList();
+        String req = "SELECT * FROM espaceTalent";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ResultSet rs = ps.executeQuery();
 
-   
+        while (rs.next()){
+
+            EspaceTalent Cat = new EspaceTalent();
+
+            Cat.setIdEST(rs.getInt(1));
+            Cat.setTitre(rs.getString("titre"));
+            Cat.setIdU(rs.getInt("idU"));
+            Cat.setIdVid(rs.getInt("idVid"));
+              Cat.setIdCat(rs.getInt("idCat"));
+                  Cat.setIdC(rs.getInt("idC"));
+            
+           
+
+            espaceTalent.add(Cat);
+
+        }
+
+
+        return espaceTalent;
+    
+    
+    }
+    }
     
     
     
-}
+
+    
+
+    
+

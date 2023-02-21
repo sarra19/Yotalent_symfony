@@ -50,9 +50,9 @@ public class YYotalent {
          ServiceEvent sv = new ServiceEvent();
         */
        
-       EspaceTalent et = new EspaceTalent("hh", 1, 1, 1, 1);
-        EspaceTalent ett = new EspaceTalent("emchi", 1,1,1,1);
-                EspaceTalent ettd = new EspaceTalent(12,"emchi", 1,1,1,1);
+       EspaceTalent et = new EspaceTalent("rrr", 1, 1, 1, 1);
+        EspaceTalent ett = new EspaceTalent(15,"rrekj", 1,1,1,1);
+                EspaceTalent ettd = new EspaceTalent(15);
 
          ServiceET se = new ServiceET();
          
@@ -69,14 +69,15 @@ public class YYotalent {
          /*sv.createOne(pt);
          sv.updateOne(pt);*/
             
-     //se.createOne(ett);
+    // se.createOne(et);
    //se.updateOne(ett);
-                    se.deletOne(ettd);
+                  se.deletOne(ettd);
   
            //   sc.createOne(c);
         // sc.updateOne(f);
           //   sc.deletOne(f);
      
+                    
                // sv.createOne(evv);
        // sv.updateOne(evv);
                      //    sv.deletOne(evv);

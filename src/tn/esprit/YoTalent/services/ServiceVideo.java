@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.PreparedStatement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 
@@ -94,6 +96,33 @@ try {
 
 
         return temp;
+    }
+    
+     public ObservableList<Video> FetchVid()throws SQLException{
+       ObservableList<Video> video = FXCollections.observableArrayList();
+        String req = "SELECT * FROM video";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()){
+
+            Video Cat = new Video();
+
+            Cat.setIdVid(rs.getInt(1));
+            Cat.setNomVid(rs.getString("nomVid"));
+            Cat.setUrl(rs.getString("url"));
+           
+            
+           
+
+            video.add(Cat);
+
+        }
+
+
+        return video;
+    
+    
     }
     }
     

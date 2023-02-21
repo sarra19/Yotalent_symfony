@@ -4,30 +4,30 @@
  * and open the template in the editor.
  */
 package tn.esprit.YoTalent.entities;
-
 import java.util.Objects;
+
+
 
 /**
  *
  * @author USER
  */
 public class EspaceTalent {
-    private int idEST;
+    
+private int idEST;
     private String titre;
- 
-     private int idU;
-     private int idVid;
-      private int idCat;
-    private int idC;
-    //   private User idU;
-  //  private Video idVid;
-  /*  private Categorie idCat;
-    private Contrat idC;*/
+    private int idU,idVid,idCat,idC;
 
     public EspaceTalent() {
     }
 
-    public EspaceTalent(String titre, int idU, int idVid, int idCat, int idC) {
+    public EspaceTalent(int idEST) {
+        this.idEST = idEST;
+    }
+    
+
+    public EspaceTalent(int idEST, String titre, int idU, int idVid, int idCat, int idC) {
+        this.idEST = idEST;
         this.titre = titre;
         this.idU = idU;
         this.idVid = idVid;
@@ -35,10 +35,7 @@ public class EspaceTalent {
         this.idC = idC;
     }
 
-  
-
-    public EspaceTalent(int idEST, String titre, int idU, int idVid, int idCat, int idC) {
-        this.idEST = idEST;
+    public EspaceTalent(String titre, int idU, int idVid, int idCat, int idC) {
         this.titre = titre;
         this.idU = idU;
         this.idVid = idVid;
@@ -101,7 +98,7 @@ public class EspaceTalent {
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
         return hash;
     }
 
@@ -136,9 +133,16 @@ public class EspaceTalent {
     }
     
     
+  
+   
+   
 
    
     
+    
+    
+    
 }
 
-  
+
+

@@ -7,8 +7,10 @@
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/utils/MaConnexion.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceCategorie.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Contrat.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/GUI/InterfaceCategory.fxml</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Evenement.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceRole.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/tests/FXmain.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceEvent.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Role.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceTicket.java</file>
@@ -16,17 +18,22 @@
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServicePartic.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceVote.java</file>
-            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/tests/YYotalent.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/GUI/InterfaceVideoController.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/GUI/InterfVideo.fxml</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServicePlanning.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/tests/YYotalent.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Voyage.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Video.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/GUI/InterfaceCategoryController.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Categorie.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/IService.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/User.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Ticket.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceVideo.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Remboursement.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/GUI/interfaceEST.fxml</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceUser.java</file>
+            <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/GUI/interfESTController.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/Participation.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/services/ServiceVoyage.java</file>
             <file>file:/C:/Users/sarra/Downloads/YYotalent/YYotalent/src/tn/esprit/YoTalent/entities/EspaceTalent.java</file>

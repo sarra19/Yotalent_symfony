@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.PreparedStatement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import tn.esprit.YoTalent.entities.EspaceTalent;
 
 
 
@@ -96,6 +99,30 @@ public class ServiceCategorie implements IService<Categorie> {
 
 
         return temp;
+    }
+     public ObservableList<Categorie> FetchCat()throws SQLException{
+       ObservableList<Categorie> categorie = FXCollections.observableArrayList();
+        String req = "SELECT * FROM categorie";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()){
+
+            Categorie Cat = new Categorie();
+
+            Cat.setIdCat(rs.getInt(1));
+            Cat.setNomCat(rs.getString("nomCat"));
+           
+           
+
+            categorie.add(Cat);
+
+        }
+
+
+        return categorie;
+    
+    
     }
     }
     
