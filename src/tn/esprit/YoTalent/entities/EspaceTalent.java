@@ -16,17 +16,53 @@ public class EspaceTalent {
     
 private int idEST;
     private String titre;
-    private int idU,idVid,idCat,idC;
+    private User idU;
+    
+    private Video idVid;
+    private Categorie idCat;
+    private Contrat idC;
 
     public EspaceTalent() {
     }
 
-    public EspaceTalent(int idEST) {
-        this.idEST = idEST;
+    public EspaceTalent(String titre, User idU) {
+        this.titre = titre;
+        this.idU = idU;
+    }
+
+    public EspaceTalent(String titre, User idU, Video idVid) {
+        this.titre = titre;
+        this.idU = idU;
+        this.idVid = idVid;
+    }
+
+    public EspaceTalent(String titre, User idU, Video idVid, Categorie idCat) {
+        this.titre = titre;
+        this.idU = idU;
+        this.idVid = idVid;
+        this.idCat = idCat;
     }
     
 
-    public EspaceTalent(int idEST, String titre, int idU, int idVid, int idCat, int idC) {
+    public EspaceTalent(int idEST) {
+        this.idEST = idEST;
+    }
+
+    public EspaceTalent(String titre) {
+        this.titre = titre;
+    }
+    
+    
+
+    public EspaceTalent(String titre, User idU, Video idVid, Categorie idCat, Contrat idC) {
+        this.titre = titre;
+        this.idU = idU;
+        this.idVid = idVid;
+        this.idCat = idCat;
+        this.idC = idC;
+    }
+
+    public EspaceTalent(int idEST, String titre, User idU, Video idVid, Categorie idCat, Contrat idC) {
         this.idEST = idEST;
         this.titre = titre;
         this.idU = idU;
@@ -35,13 +71,8 @@ private int idEST;
         this.idC = idC;
     }
 
-    public EspaceTalent(String titre, int idU, int idVid, int idCat, int idC) {
-        this.titre = titre;
-        this.idU = idU;
-        this.idVid = idVid;
-        this.idCat = idCat;
-        this.idC = idC;
-    }
+
+   
 
     public int getIdEST() {
         return idEST;
@@ -59,35 +90,35 @@ private int idEST;
         this.titre = titre;
     }
 
-    public int getIdU() {
+    public User getIdU() {
         return idU;
     }
 
-    public void setIdU(int idU) {
+    public void setIdU(User idU) {
         this.idU = idU;
     }
 
-    public int getIdVid() {
+    public Video getIdVid() {
         return idVid;
     }
 
-    public void setIdVid(int idVid) {
+    public void setIdVid(Video idVid) {
         this.idVid = idVid;
     }
 
-    public int getIdCat() {
+    public Categorie getIdCat() {
         return idCat;
     }
 
-    public void setIdCat(int idCat) {
+    public void setIdCat(Categorie idCat) {
         this.idCat = idCat;
     }
 
-    public int getIdC() {
+    public Contrat getIdC() {
         return idC;
     }
 
-    public void setIdC(int idC) {
+    public void setIdC(Contrat idC) {
         this.idC = idC;
     }
 
@@ -117,25 +148,21 @@ private int idEST;
         if (!Objects.equals(this.titre, other.titre)) {
             return false;
         }
-        if (this.idU != other.idU) {
+        if (!Objects.equals(this.idU, other.idU)) {
             return false;
         }
-        if (this.idVid != other.idVid) {
+        if (!Objects.equals(this.idVid, other.idVid)) {
             return false;
         }
-        if (this.idCat != other.idCat) {
+        if (!Objects.equals(this.idCat, other.idCat)) {
             return false;
         }
-        if (this.idC != other.idC) {
+        if (!Objects.equals(this.idC, other.idC)) {
             return false;
         }
         return true;
     }
     
-    
-  
-   
-   
 
    
     

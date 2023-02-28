@@ -14,10 +14,21 @@ import java.util.Objects;
 public class Contrat {
     private int idC;
     private String nomC,DateDC,DateFC;
-    private Voyage idVoy;
 
     public Contrat() {
     }
+
+    public Contrat(int idC, String nomC, String DateDC, String DateFC) {
+        this.idC = idC;
+        this.nomC = nomC;
+        this.DateDC = DateDC;
+        this.DateFC = DateFC;
+    }
+
+    public Contrat(int idC) {
+        this.idC = idC;
+    }
+    
 
     public Contrat(String nomC, String DateDC, String DateFC) {
         this.nomC = nomC;
@@ -25,20 +36,9 @@ public class Contrat {
         this.DateFC = DateFC;
     }
 
-    public Contrat(String nomC, String DateDC, String DateFC, Voyage idVoy) {
-        this.nomC = nomC;
-        this.DateDC = DateDC;
-        this.DateFC = DateFC;
-        this.idVoy = idVoy;
-    }
 
-    public Contrat(int idC, String nomC, String DateDC, String DateFC, Voyage idVoy) {
-        this.idC = idC;
-        this.nomC = nomC;
-        this.DateDC = DateDC;
-        this.DateFC = DateFC;
-        this.idVoy = idVoy;
-    }
+
+
 
     public int getIdC() {
         return idC;
@@ -72,19 +72,13 @@ public class Contrat {
         this.DateFC = DateFC;
     }
 
-    public Voyage getIdVoy() {
-        return idVoy;
-    }
 
-    public void setIdVoy(Voyage idVoy) {
-        this.idVoy = idVoy;
-    }
-
+    
     @Override
     public String toString() {
-        return "Contrat{" + "idC=" + idC + ", nomC=" + nomC + ", DateDC=" + DateDC + ", DateFC=" + DateFC + ", idVoy=" + idVoy + '}';
+        
+        return String.valueOf(idC);
     }
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -112,9 +106,7 @@ public class Contrat {
         if (!Objects.equals(this.DateFC, other.DateFC)) {
             return false;
         }
-        if (!Objects.equals(this.idVoy, other.idVoy)) {
-            return false;
-        }
+        
         return true;
     }
     

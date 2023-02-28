@@ -22,7 +22,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -36,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import tn.esprit.YoTalent.entities.Categorie;
 import tn.esprit.YoTalent.services.ServiceCategorie;
@@ -116,28 +119,51 @@ public class InterfaceCategoryController implements Initializable {
 
     @FXML
     private void Modify_Button(ActionEvent event) {
-        try{
-     
-       
-         Categorie up=new Categorie(Integer.valueOf(this.IdCat.getText()),this.NomCat.getText());
-         es.updateOne(up);
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Information ");
-            alert.setHeaderText("Categorie update");
-            alert.setContentText("Categorie updated successfully!");
+    try{
+        // check if input fields are empty
+        if (IdCat.getText().isEmpty() || NomCat.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error ");
+            alert.setHeaderText("Error!");
+            alert.setContentText("Fields cannot be empty");
             alert.showAndWait();
-            getEST();
-        } catch(Exception ex){
-            System.out.println("fama ghalta2");
+            return;
         }
-         IdCat.clear();
-       NomCat.clear();
-     
-     
         
+        // check if idCat is a valid integer
+        int idCat;
+        try {
+            idCat = Integer.parseInt(IdCat.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error ");
+            alert.setHeaderText("Error!");
+            alert.setContentText("Invalid value for idCat");
+            alert.showAndWait();
+            return;
+        }
         
+        // create Categorie object with input values
+        Categorie up = new Categorie(idCat, NomCat.getText());
+        es.updateOne(up);
         
+        // show success message and refresh table view
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information ");
+        alert.setHeaderText("Categorie update");
+        alert.setContentText("Categorie updated successfully!");
+        alert.showAndWait();
+        getEST();
+        
+        // clear input fields
+        IdCat.clear();
+        NomCat.clear();
+        
+    } catch(Exception ex){
+        System.out.println("fama ghalta2");
     }
+}
+
 
     @FXML
     private void Delete_Button(ActionEvent event) throws SQLException {
@@ -160,39 +186,52 @@ public class InterfaceCategoryController implements Initializable {
 
     @FXML
     private void AddCat_Button(ActionEvent event) throws SQLException {
-        String nomCat;
-        //BeginsAtdate.setValue(LocalDate.now());
-         if ((NomCat.getText().length()==0))
-                { Alert alert = new Alert(AlertType.ERROR);
-                   alert.setTitle("Error ");
-                    alert.setHeaderText("Error!");
-                    alert.setContentText("Fields cannot be empty");
-                    alert.showAndWait();}
-         
-         
-         else{
-             
-           
-           try{
-            nomCat = String.valueOf(NomCat.getText());
-          
-        }catch(Exception exc){
-            System.out.println("name exception");
-            return;
-        }  
-            
-            Categorie ev=new Categorie(NomCat.getText());
-         es.createOne(ev);
-         getEST();
-          //FXMLLoader loader = new FXMLLoader(getClass().getResource("DisplayEvents.fxml"));
-          Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Information ");
-            alert.setHeaderText("EspaceTalent add");
-            alert.setContentText("EspaceTalent added successfully!");
-            alert.showAndWait();
-         }
-        
+         // Vérifier que l'ID de catégorie est un entier positif
+   
+    
+    // Vérifier que le nom de catégorie n'est pas vide
+    String nomCat = NomCat.getText().trim();
+    if (nomCat.isEmpty()) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Invalid category name");
+        alert.setContentText("Please enter a non-empty name for category.");
+        alert.showAndWait();
+        return;
     }
+    
+    // Créer une nouvelle instance de Categorie avec les valeurs saisies
+    Categorie ev = new Categorie(nomCat);
+    es.createOne(ev);
+    getEST();
+    
+    // Afficher une boîte de dialogue pour confirmer l'ajout de la catégorie
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Information");
+    alert.setHeaderText("Category added");
+    alert.setContentText("Category has been added successfully.");
+    alert.showAndWait();
     }
+
+@FXML
+private void handleArrowImageClickC(MouseEvent event) throws IOException {
+    Parent nextScene = FXMLLoader.load(getClass().getResource("InterfVideo.fxml"));
+    Scene scene = new Scene(nextScene);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.setScene(scene);
+    stage.show();
+}
+
+@FXML
+private void handleBackArrowImageClickC(MouseEvent event) throws IOException {
+    Parent previousScene = FXMLLoader.load(getClass().getResource("interfaceEST.fxml"));
+    Scene scene = new Scene(previousScene);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.setScene(scene);
+    stage.show();
+}
+
+
+}
     
 

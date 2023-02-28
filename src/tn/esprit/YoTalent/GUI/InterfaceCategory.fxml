@@ -249,7 +249,7 @@
       </Label>
       <TextField fx:id="DeleteCat" layoutX="517.0" layoutY="179.0" prefHeight="26.0" prefWidth="51.0" />
       <Button fx:id="Delete" blendMode="COLOR_BURN" layoutX="597.0" layoutY="179.0" mnemonicParsing="false" onAction="#Delete_Button" prefHeight="26.0" prefWidth="81.0" text="      Delete" />
-      <ImageView fx:id="NextCat" fitHeight="30.0" fitWidth="50.0" layoutX="748.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="NextCat" fitHeight="30.0" fitWidth="50.0" layoutX="748.0" layoutY="177.0" onMouseClicked="#handleArrowImageClickC" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/fleche-droite%20(1).png" />
          </image>
@@ -275,7 +275,7 @@
             <Image url="@images/330967651_1683295145422694_8952661565213849821_n.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="PrevCat" fitHeight="30.0" fitWidth="50.0" layoutX="243.0" layoutY="177.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="PrevCat" fitHeight="30.0" fitWidth="50.0" layoutX="243.0" layoutY="177.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#handleBackArrowImageClickC" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/fleche-droite%20(1).png" />
          </image>

@@ -22,6 +22,11 @@ private int idCat;
 
     public Categorie(){}
 
+    public Categorie(int idCat) {
+        this.idCat = idCat;
+    }
+    
+
     public Categorie(String nomCat) {
         this.nomCat = nomCat;
     }
@@ -53,9 +58,9 @@ private int idCat;
 
     @Override
     public String toString() {
-        return "Categorie{" + "idCat=" + idCat + ", nomCat=" + nomCat + '}';
+        
+        return String.valueOf(idCat);
     }
-
     @Override
     public int hashCode() {
         int hash = 5;

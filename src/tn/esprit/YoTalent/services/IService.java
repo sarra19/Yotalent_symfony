@@ -13,7 +13,6 @@ package tn.esprit.YoTalent.services;
 
 import java.sql.SQLException;
 import java.util.List;
-import tn.esprit.YoTalent.entities.Categorie;
 
 public interface IService<T> {
 

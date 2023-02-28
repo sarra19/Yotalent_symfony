@@ -11,18 +11,27 @@ import java.util.Objects;
  *
  * @author USER
  */
+
+import java.util.List;
+
 public class Video {
     private int idVid;
-    private String nomVid,url;
+    private String nomVid;
+    private String url;
+    private List<Video> videos;
 
     public Video() {
+    }
+
+    public Video(int idVid) {
+        this.idVid = idVid;
     }
 
     public Video(String nomVid, String url) {
         this.nomVid = nomVid;
         this.url = url;
     }
-    
+
     public Video(int idVid, String nomVid, String url) {
         this.idVid = idVid;
         this.nomVid = nomVid;
@@ -53,9 +62,17 @@ public class Video {
         this.url = url;
     }
 
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
     @Override
     public String toString() {
-        return "Video{" + "idVid=" + idVid + ", nomVid=" + nomVid + ", url=" + url + '}';
+        return String.valueOf(idVid);
     }
 
     @Override
@@ -82,11 +99,9 @@ public class Video {
         if (!Objects.equals(this.url, other.url)) {
             return false;
         }
+        if (!Objects.equals(this.videos, other.videos)) {
+            return false;
+        }
         return true;
     }
-    
-    
-    
-    
-    
 }

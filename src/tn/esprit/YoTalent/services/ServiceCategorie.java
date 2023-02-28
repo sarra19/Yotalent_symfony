@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tn.esprit.YoTalent.entities.EspaceTalent;
 
 
 
@@ -67,14 +66,25 @@ public class ServiceCategorie implements IService<Categorie> {
             ste.executeUpdate();
             System.out.println("categorie supprimé");
 
-        } catch (SQLException ex) {
+        } catch (SQLException ex) { 
             Logger.getLogger(ServiceCategorie.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     
     }
-    
-
+   public Categorie selectOne(int id) throws SQLException {
+    Categorie categorie = null;
+    String req = "SELECT * FROM categorie WHERE idCat=?";
+    PreparedStatement pst = cnx.prepareStatement(req);
+    pst.setInt(1, id);
+    ResultSet rs = pst.executeQuery();
+    if (rs.next()) {
+        categorie = new Categorie();
+        categorie.setIdCat(rs.getInt("idCat"));
+        categorie.setNomCat(rs.getString("nomCat"));
+    }
+    return categorie;
+}
 
     @Override
     public List<Categorie> selectAll() throws SQLException {

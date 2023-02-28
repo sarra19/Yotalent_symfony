@@ -29,65 +29,42 @@ import tn.esprit.YoTalent.services.ServiceVideo;
 
 
 import java.sql.SQLException;
+import tn.esprit.YoTalent.entities.Contrat;
+import tn.esprit.YoTalent.entities.User;
+import tn.esprit.YoTalent.services.ServiceUser;
 
 public class YYotalent {
 
     public static void main(String[] args) {
-   //  MaConnexion cn1 = MaConnexion.getInstance();
-//        MaConnexion cn2 = MaConnexion.getInstance();
-//        MaConnexion cn3 = MaConnexion.getInstance();
-//        MaConnexion cn4 = MaConnexion.getInstance();
-//
-//   //   System.out.println(cn1.hashCode());
-//        System.out.println(cn2.hashCode());
-//        System.out.println(cn3.hashCode());
-//        System.out.println(cn4.hashCode());
 
-       Categorie c = new Categorie("hh");
-          ServiceCategorie sc = new ServiceCategorie();
-     Categorie f = new Categorie(13,"hh");
-      /* Evenement pt = new Evenement(1,"sarra","fhh","gyhgy","ggg");
-         ServiceEvent sv = new ServiceEvent();
-        */
-       
-       EspaceTalent et = new EspaceTalent("rrr", 1, 1, 1, 1);
-        EspaceTalent ett = new EspaceTalent(15,"rrekj", 1,1,1,1);
-                EspaceTalent ettd = new EspaceTalent(15);
+    // créer un objet EspaceTalent
+    EspaceTalent et = new EspaceTalent("zzz",new User(1),new Video(1),new Categorie(1),new Contrat(1));
+    EspaceTalent etm = new EspaceTalent(27,"yyyy",new User(1),new Video(1),new Categorie(1),new Contrat(1));
+    EspaceTalent etd = new EspaceTalent(27);
+      ServiceET se = new ServiceET();
+      
+      
+      Categorie c = new Categorie("jj");
+      ServiceCategorie sc = new ServiceCategorie();
+      
+      Video v = new Video("iii","..");
+      ServiceVideo sv = new ServiceVideo();
 
-         ServiceET se = new ServiceET();
-         
-           Video ev = new Video( "aaaa","fgg");
-            Video evv = new Video(4, "yyy","fgg");
-         ServiceVideo sv = new ServiceVideo();
-         
-        
-       
+    // set other fields of espacetalent object here...
+
+      try {
             
- 
-        try {
-            
-         /*sv.createOne(pt);
-         sv.updateOne(pt);*/
-            
-    // se.createOne(et);
-   //se.updateOne(ett);
-                  se.deletOne(ettd);
-  
-           //   sc.createOne(c);
-        // sc.updateOne(f);
-          //   sc.deletOne(f);
+                    se.createOne(et);
+//                  se.updateOne(etm);
+//                  se.deletOne(etd);
      
-                    
-               // sv.createOne(evv);
-       // sv.updateOne(evv);
-                     //    sv.deletOne(evv);
-
-     
+         // sc.createOne(c);
              
-            System.out.println(se.selectAll());
+           System.out.println(se.selectAll());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
 
 
     }

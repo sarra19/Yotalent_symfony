@@ -11,8 +11,6 @@ import tn.esprit.YoTalent.utils.MaConnexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import tn.esprit.YoTalent.entities.Categorie;
-import tn.esprit.YoTalent.entities.Voyage;
 
 
 /**
@@ -29,7 +27,7 @@ public class ServiceContrat implements IService<Contrat> {
     @Override
     public void createOne(Contrat contrat) throws SQLException {
         
- String req =   "INSERT INTO contrat`( nomC` ,`DateDC`, DateFC,`idVoy`)" + "VALUES ('"+contrat.getNomC()+"', '"+contrat.getDateDC()+"','"+contrat.getDateFC()+"','"+contrat.getIdVoy()+"')";
+ String req =   "INSERT INTO contrat( `nomC` ,`DateDC`,`DateFC`)" + "VALUES ('"+contrat.getNomC()+"', '"+contrat.getDateDC()+"','"+contrat.getDateFC()+"')";
    
         Statement st = cnx.createStatement();
         st.executeUpdate(req);
@@ -47,7 +45,24 @@ public class ServiceContrat implements IService<Contrat> {
         
     }
 
-  
+  public Contrat selectOne(int id) throws SQLException {
+    Contrat contrat = null;
+    String req = "SELECT * FROM contrat WHERE idC=?";
+    PreparedStatement pst = cnx.prepareStatement(req);
+    pst.setInt(1, id);
+    ResultSet rs = pst.executeQuery();
+    if (rs.next()) {
+        contrat = new Contrat();
+        contrat.setIdC(rs.getInt("idC"));
+        contrat.setNomC(rs.getString("nomC"));
+         contrat.setDateDC(rs.getString("DateDC"));
+          contrat.setDateFC(rs.getString("DateFC"));
+         
+    }
+    return contrat;
+}
+ 
+
    
     @Override
     public List<Contrat> selectAll() throws SQLException {
