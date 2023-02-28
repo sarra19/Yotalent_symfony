@@ -1,0 +1,1 @@
+com.github.plushaze.traynotification.animations.FadeAnimation
