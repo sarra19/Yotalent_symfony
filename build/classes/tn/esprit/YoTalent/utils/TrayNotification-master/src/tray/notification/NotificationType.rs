@@ -1,0 +1,1 @@
+tray.notification.NotificationType
