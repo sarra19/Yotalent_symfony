@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espacetalent index{% endblock %}
+
+{% block body %}
+    <h1>Espacetalent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idest</th>
+                <th>Username</th>
+                <th>Image</th>
+                <th>Nbvotes</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for espacetalent in espacetalents %}
+            <tr>
+                <td>{{ espacetalent.idest }}</td>
+                <td>{{ espacetalent.username }}</td>
+                <td>{{ espacetalent.image }}</td>
+                <td>{{ espacetalent.nbvotes }}</td>
+
+                <td>
+                    <a href="{{ path('app_espace_show', {'idest': espacetalent.idest}) }}">show</a>
+                    <a href="{{ path('app_espace_edit', {'idest': espacetalent.idest}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_espace_new') }}">Create new</a>
+{% endblock %}
