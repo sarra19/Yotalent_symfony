@@ -1,4 +1,28 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <table>
+    <tr>
+   <td> {{ form_label(form.nomvid, 'Nom de la vidéo :') }} </td>
+   <td> {{ form_widget(form.nomvid) }} </td>
+   <td>{{ form_errors(form.nomvid) }}  </td>
+
+   
+</tr>
+
+  <tr>
+   <td> {{ form_label(form.url, 'le url:') }} </td>
+   <td> {{ form_widget(form.url) }} </td>
+   <td>{{ form_errors(form.url) }}  </td>
+
+    
+</tr>
+
+  <tr>
+   <td> {{ form_label(form.idest, 'le idest :') }} </td>
+   <td> {{ form_widget(form.idest) }} </td>
+   <td>{{ form_errors(form.idest) }}  </td>
+
+</tr>
+</table>
     <button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

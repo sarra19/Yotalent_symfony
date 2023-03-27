@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'Back.html.twig' %}
 
 {% block title %}Video{% endblock %}
 
@@ -15,10 +15,10 @@
                 <th>Nomvid</th>
                 <td>{{ video.nomvid }}</td>
             </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ video.url }}</td>
-            </tr>
+            <video controls>
+    <source src="{{ asset('uploads/' ~ video.url) }}" type="video/mp4">
+    Votre navigateur ne supporte pas la balise <code>video</code>.
+</video>
         </tbody>
     </table>
 

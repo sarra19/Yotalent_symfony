@@ -6,6 +6,8 @@ use App\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class VideoType extends AbstractType
 {
@@ -13,7 +15,20 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('nomvid')
-            ->add('url')
+            ->add('url', FileType::class, [
+                'label' => 'url',
+                'mapped' => false, // do not map this field to the entity property
+                'required' => true, // make the field required
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => [
+                            'video/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid video file',
+                    ])
+                ],
+                
+            ])
             ->add('idest')
         ;
     }

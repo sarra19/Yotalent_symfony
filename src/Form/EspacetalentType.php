@@ -6,6 +6,8 @@ use App\Entity\Espacetalent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class EspacetalentType extends AbstractType
 {
@@ -13,7 +15,22 @@ class EspacetalentType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('image')
+            ->add('image', FileType::class, [
+                'label' => 'Image',
+                'mapped' => false, // do not map this field to the entity property
+                'required' => true,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file',
+                    ])
+                ],
+            ])
             ->add('nbvotes')
             ->add('idcat')
             ->add('idu')

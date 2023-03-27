@@ -9,13 +9,13 @@
         <meta name="author" content="Theme Region">
         <meta name="description" content="">
 
-        <title>Playbit - Modern Music Event Template.</title>
+        <title>Yotalent</title>
 
         <!-- Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
         <!-- icons -->
-        <link rel="icon" href="{{asset('assetsF/images/ico/favicon.ico')}}"> 
+        <link rel="icon" href="{{asset('assetsF/images/ico/logo1.png')}}"> 
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('assetsF/../images/ico/apple-touch-icon-144-precomposed.html')}}">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('assetsF/../images/ico/apple-touch-icon-114-precomposed.html')}}">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('assetsF/../images/ico/apple-touch-icon-72-precomposed.html')}}">
@@ -48,7 +48,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"><i class="fa fa-align-justify"></i></span>
                     </button>
-                    <a class="navbar-brand" href="index-2.html"><img class="img-fluid" src="images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="index-2.html"><img class="img-fluid" src="../logo1.png" alt="Logo"></a>
                     
                     <nav id="mainmenu" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
@@ -74,7 +74,7 @@
                                     <li><a href="personal.html">Home - Personal</a></li>
                                 </ul>
                             </li>
-                            <li  class="active">
+                            <li  class="dropdown">
                                 <a href="event-performer.html">
                                     Performers
                                     <div class="equalizer">
@@ -125,7 +125,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            <li  class="active">
                                 <a href="gallery.html">
                                     Gallery
                                     <div class="equalizer">
@@ -195,11 +195,85 @@
             </div><!-- navbar -->                                
         </header><!-- Header --> 
 
+
+<style>
+  .navbar-brand img {
+    max-width: 78px;
+    height: auto;
+  }
+.bar {
+    height: 1px;
+    width: 2px;
+    display: inline-block;
+    background-color: #007bff;
+    bottom: 0;
+    position: absolute;
+    animation-duration: 500ms;
+    -webkit-animation-duration: 500ms;
+    animation-play-state: running;
+    -webkit-animation-play-state: running;
+    animation-direction: alternate;
+    -webkit-animation-direction: alternate;
+    animation-timing-function: linear;
+    -webkit-animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+#navigation .navbar-nav>li>a:focus, #navigation .navbar-nav>li.active>a, #navigation .navbar-nav>li>a:hover, #navigation .navbar-nav>.active>a, #navigation .navbar-nav>.active>a:focus, #navigation .navbar-nav>.active>a:hover {
+    color: #007bff;
+}
+#navigation .navbar-nav>li>a {
+    color: #8dbcef;
+    text-transform: uppercase;
+    padding: 0 20px;
+    line-height: 60px;
+    font-size: 14px;
+    display: block;
+    background-color: transparent;
+}
+.breadcrumb {
+    z-index: 1;
+    background-image: url(../9.jpg);
+    background-color: transparent;
+    position: relative;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.breadcrumb .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(22, 146, 255, 0.4);;
+    z-index: -1;
+}
+
+.copyright a {
+    color: #007bff;
+    font-family: 'allerbold';
+}
+
+.btn.btn-primary {
+    text-transform: uppercase;
+    font-family: 'allerbold';
+    font-size: 14px;
+    text-align: center;
+    border-color: #007bff;
+    background-color: #007bff;
+	padding-top: 10px;
+    padding-bottom: 15px;
+    padding-left:35px;
+    padding-right:60px;
+    position: relative;
+}
+</style>
         <div class="breadcrumb bg-image">
             <div class="overlay"></div>
             <div class="page-title">
                 <h1>Meet Artists</h1>
-                <h2>Event Ferformers</h2>
+                <h2>talent space</h2>
             </div>
         </div><!-- breadcrumb -->         
 

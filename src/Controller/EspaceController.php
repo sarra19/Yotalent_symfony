@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\Espacetalent;
 use App\Form\EspacetalentType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,6 +25,33 @@ class EspaceController extends AbstractController
             'espacetalents' => $espacetalents,
         ]);
     }
+ #[Route('/espace/front/{idcat}', name: 'app_espace_frontcat', methods: ['GET'], requirements: ['idcat' => '\d+'])]
+public function frontcat(EntityManagerInterface $entityManager, $idcat = null): Response
+{
+    $espacetalents = $entityManager
+        ->getRepository(Espacetalent::class)
+        ->findBy(['idcat' => $idcat]);
+
+    return $this->render('espace/index.FrontEE.html.twig', [
+        'espacetalents' => $espacetalents,
+    ]);
+}
+
+
+    
+    
+    #[Route('/front', name: 'app_espace_front', methods: ['GET'])]
+    public function front(EntityManagerInterface $entityManager): Response
+    {
+        $espacetalents = $entityManager
+            ->getRepository(Espacetalent::class)
+            ->findAll();
+
+        return $this->render('espace/index.FrontE.html.twig', [
+            'espacetalents' => $espacetalents,
+        ]);
+    }
+
 
     #[Route('/new', name: 'app_espace_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -33,6 +61,28 @@ class EspaceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+           // Handle file upload
+        $file = $form['image']->getData();
+        if ($file) {
+            $fileName = uniqid().'.'.$file->guessExtension();
+
+            try {
+                $file->move(
+                    $this->getParameter('uploads'),
+                    $fileName
+                );
+            } catch (FileException $e) {
+                // handle exception if something happens during file upload
+            }
+
+            // Update entity with file name
+            $espacetalent->setImage($fileName);
+
+        }
+
+      
+     
             $entityManager->persist($espacetalent);
             $entityManager->flush();
 
@@ -53,6 +103,7 @@ class EspaceController extends AbstractController
         ]);
     }
 
+    
     #[Route('/{idest}/edit', name: 'app_espace_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Espacetalent $espacetalent, EntityManagerInterface $entityManager): Response
     {
@@ -60,6 +111,25 @@ class EspaceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+              // Handle file upload
+        $file = $form['image']->getData();
+        if ($file) {
+            $fileName = uniqid().'.'.$file->guessExtension();
+
+            try {
+                $file->move(
+                    $this->getParameter('uploads'),
+                    $fileName
+                );
+            } catch (FileException $e) {
+                // handle exception if something happens during file upload
+            }
+
+            // Update entity with file name
+            $espacetalent->setImage($fileName);
+
+        }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_espace_index', [], Response::HTTP_SEE_OTHER);
@@ -81,4 +151,5 @@ class EspaceController extends AbstractController
 
         return $this->redirectToRoute('app_espace_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }

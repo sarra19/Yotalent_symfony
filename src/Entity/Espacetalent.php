@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Espacetalent
@@ -25,6 +27,13 @@ class Espacetalent
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Le nom de username est obligatoire.")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "Le nom de  username doit contenir au moins {{ limit }} caractères.",
+     *      maxMessage = "Le nom de  username ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $username;
 
@@ -35,32 +44,38 @@ class Espacetalent
      */
     private $image;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nbVotes", type="integer", nullable=false)
-     */
-    private $nbvotes;
+   /**
+ * @var int
+ *
+ * @ORM\Column(name="nbVotes", type="integer", nullable=false)
+ * @Assert\PositiveOrZero(message="The number of votes must be a positive integer or zero.")
+ */
+private $nbvotes;
+
 
     /**
-     * @var \Categorie
-     *
-     * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCat", referencedColumnName="idCat")
-     * })
-     */
-    private $idcat;
+ * @var \Categorie
+ *
+ * @ORM\ManyToOne(targetEntity="Categorie")
+ * @ORM\JoinColumns({
+ *   @ORM\JoinColumn(name="idCat", referencedColumnName="idCat")
+ * })
+ * @Assert\NotNull(message="The category must not be null.")
+ */
+private $idcat;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idU", referencedColumnName="id")
-     * })
-     */
-    private $idu;
+
+   /**
+ * @var \User
+ *
+ * @ORM\ManyToOne(targetEntity="User")
+ * @ORM\JoinColumns({
+ *   @ORM\JoinColumn(name="idU", referencedColumnName="id")
+ * })
+ * @Assert\NotNull(message="The user must not be null.")
+ */
+private $idu;
+
 
     public function getIdest(): ?int
     {
@@ -74,10 +89,12 @@ class Espacetalent
 
     public function setUsername(string $username): self
     {
+       
         $this->username = $username;
-
+    
         return $this;
     }
+    
 
     public function getImage(): ?string
     {
@@ -86,10 +103,12 @@ class Espacetalent
 
     public function setImage(string $image): self
     {
+       
         $this->image = $image;
-
+    
         return $this;
     }
+    
 
     public function getNbvotes(): ?int
     {
@@ -97,11 +116,13 @@ class Espacetalent
     }
 
     public function setNbvotes(int $nbvotes): self
-    {
-        $this->nbvotes = $nbvotes;
+{
+    
 
-        return $this;
-    }
+    $this->nbvotes = $nbvotes;
+
+    return $this;
+}
 
     public function getIdcat(): ?Categorie
     {
@@ -110,10 +131,13 @@ class Espacetalent
 
     public function setIdcat(?Categorie $idcat): self
     {
+      
+    
         $this->idcat = $idcat;
-
+    
         return $this;
     }
+    
 
     public function getIdu(): ?User
     {
@@ -121,11 +145,19 @@ class Espacetalent
     }
 
     public function setIdu(?User $idu): self
-    {
-        $this->idu = $idu;
-
-        return $this;
+{
+    // Check that the user is not null
+    if (null === $idu) {
+        throw new \InvalidArgumentException('The user cannot be null.');
     }
 
+    $this->idu = $idu;
+
+    return $this;
+}
+    public function __toString(): string
+    {
+        return $this->username;
+    }
 
 }

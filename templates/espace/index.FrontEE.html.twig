@@ -1,0 +1,29 @@
+{% extends 'FrontE.html.twig' %}
+
+{% block title %}Espacetalent index{% endblock %}
+
+{% block body %}
+<div class="section-padding"></div>
+  <div class="container">
+    <div class="row">
+      {% for espacetalent in espacetalents %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <a href="../uploads/{{ espacetalent.image }}" data-lightbox="gallery">
+            <img class="card-img-top" src="../../../uploads/{{ espacetalent.image }}" alt="Image">
+          </a>
+          <div class="card-body">
+        <h3>  <p class="text-center" style="font-family: Arial, sans-serif;">   <class="card-title">{{ espacetalent.username }}</p></h3>
+                        <p class="text-center ">{{ espacetalent.nbvotes }} votes</p>
+                        <a href="{{ path('app_video_frontest', {'idest': espacetalent.idest}) }}" class="btn btn-primary">Voir Video</a>
+
+
+          </div>
+          
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

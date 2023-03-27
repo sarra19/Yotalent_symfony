@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Video
@@ -21,10 +23,17 @@ class Video
      */
     private $idvid;
 
-    /**
+     /**
      * @var string
      *
      * @ORM\Column(name="nomVid", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Le nom de la vidéo est obligatoire.")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "Le nom de la vidéo doit contenir au moins {{ limit }} caractères.",
+     *      maxMessage = "Le nom de la vidéo ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $nomvid;
 

@@ -1,0 +1,54 @@
+{% extends 'Front.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+
+<div class="gallery-hive section-padding before-after bg-white">
+<center><h2>Categorie</h2></center>
+  <div class="container">
+    <div class="row">
+      {% for categorie in categories %}
+      <div class="col-md-6">
+        <div class="gallery-item">
+          {% if categorie.nomcat == 'Danse' %}
+          <img class="img-fluid" src="../2.jpg" alt="Image">
+          
+          {% elseif categorie.nomcat == 'Theatre' %}
+            <img class="img-fluid" src="../1.jpg" alt="Image">
+          
+          {% elseif categorie.nomcat == 'Musique' %}
+          <img class="img-fluid" src="../4.jpg" alt="Image">
+           
+          {% elseif categorie.nomcat == 'Design' %}
+          <img class="img-fluid" src="../55.jpg" alt="Image">
+           
+          {% elseif categorie.nomcat == 'Peinture' %}
+          <img class="img-fluid" src="../6.jpg" alt="Image">
+           
+          {% elseif categorie.nomcat == 'Littéraire' %}
+          <img class="img-fluid" src="../7.jpg" alt="Image">
+         
+          {% else %}
+          <img class="img-fluid" src="../10.jpg" alt="Image">
+          {% endif %}
+          <div class="gallery-overlay"></div>
+          <div class="gallery-info">
+            <ul class="list-inline">
+              <center>
+                <li><i class="fa fa-star-o"></i><h2>{{ categorie.nomcat }}</h2></li>
+              </center>
+            </ul>                                      
+          </div>
+          <div class="gallery-button">
+<a href="{{ path('app_espace_frontcat', {'idcat': categorie.idcat}) }}" class="btn btn-primary">Voir Espaces Talent</a>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div><!-- row -->
+  </div><!-- container -->
+</div><!-- gallery hive -->  
+
+{% endblock %}

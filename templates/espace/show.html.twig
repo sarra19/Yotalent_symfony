@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'Back.html.twig' %}
 
 {% block title %}Espacetalent{% endblock %}
 
@@ -16,9 +16,10 @@
                 <td>{{ espacetalent.username }}</td>
             </tr>
             <tr>
-                <th>Image</th>
-                <td>{{ espacetalent.image }}</td>
-            </tr>
+    <th>Image</th>
+    <td><img src="{{ asset('uploads/' ~ espacetalent.image) }}" alt="{{ espacetalent.image }}" width="200"></td>
+</tr>
+
             <tr>
                 <th>Nbvotes</th>
                 <td>{{ espacetalent.nbvotes }}</td>

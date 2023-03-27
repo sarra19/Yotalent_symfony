@@ -25,6 +25,20 @@ class CategorieController extends AbstractController
         ]);
     }
 
+
+    #[Route('/front', name: 'app_categorie_indexfront', methods: ['GET'])]
+    public function front(EntityManagerInterface $entityManager): Response
+    {
+        $categories = $entityManager
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('categorie/indexFront.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+    
+
     #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -44,6 +58,7 @@ class CategorieController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{idcat}', name: 'app_categorie_show', methods: ['GET'])]
     public function show(Categorie $categorie): Response
@@ -83,15 +98,5 @@ class CategorieController extends AbstractController
     }
 
 
-    #[Route('/front', name: 'app_categorie_indexfront', methods: ['GET'])]
-    public function front(EntityManagerInterface $entityManager): Response
-    {
-        $categories = $entityManager
-            ->getRepository(Categorie::class)
-            ->findAll();
-
-        return $this->render('categorie/indexFront.html.twig', [
-            'categorie' => $categories,
-        ]);
-    }
+    
 }
