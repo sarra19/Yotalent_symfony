@@ -1,0 +1,45 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+    <h1>Evenement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idev</th>
+                <th>Nomev</th>
+                <th>Datedev</th>
+                <th>Datefev</th>
+                <th>Localisation</th>
+                <th>Imageev</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.idev }}</td>
+                <td>{{ evenement.nomev }}</td>
+                <td>{{ evenement.datedev}}</td>
+                <td>{{ evenement.datefev}}</td>
+                <td>{{ evenement.localisation }}</td>
+                <td><img src="{{ asset('uploads/' ~evenement.imageev) }}" style=" width:150px; height:150px; " alt=""/></td>
+                <td>
+                    <a href="{{ path('app_evenement_show', {'idev': evenement.idev}) }}"class="btn btn-info px-3 py-1">show</a>
+                    <a href="{{ path('app_evenement_edit', {'idev': evenement.idev}) }}"class="btn btn-primary px-3 py-1">edit</a>
+                 <a >{{ include('evenement/_delete_form.html.twig') }}</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_evenement_new') }}" class="btn btn-primary px-3 py-1">Create new</a>
+{% endblock %}

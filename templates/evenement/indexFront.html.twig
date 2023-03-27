@@ -1,0 +1,44 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+
+
+{#affichage #}
+<div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Evenements</h4>
+            </div>
+            <div class="row">
+           {% for evenement in evenements %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-item">
+{#affichage #}
+
+
+
+          <img src="{{ asset('uploads/' ~evenement.imageev)}}" style=" width:360px; height:250px; " alt="">
+          <center><h2>{{ evenement.nomev }}</h2></center>
+          <p><strong style="color:#696969">Date de début:</strong> {{ evenement.datedev}}</p>
+          <p><strong style="color:#696969">Date de fin:</strong> {{ evenement.datefev}}</p>
+          <p><strong style="color:#696969" >localisation:</strong> {{ evenement.localisation }}</p>
+
+
+<p><a href="{{ path('app_planning_front') }}" class="btn btn-primary px-3 py-1">planning </a></p>
+{#affichage #}
+        </div>
+      </div>
+      
+{#affichage #}
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

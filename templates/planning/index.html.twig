@@ -1,0 +1,41 @@
+{% extends 'back.html.twig' %}
+
+
+{% block title %}Planning index{% endblock %}
+
+{% block body %}
+    <h1>Planning index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idp</th>
+                <th>Hour</th>
+                <th>Nomactivite</th>
+                <th>Datepl</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planning in plannings %}
+            <tr>
+                <td>{{ planning.idp }}</td>
+                <td>{{ planning.hour }}</td>
+                <td>{{ planning.nomactivite }}</td>
+                <td>{{ planning.datepl }}</td>
+                <td>
+                    <a href="{{ path('app_planning_show', {'idp': planning.idp}) }}"class="btn btn-info px-3 py-1">show</a>
+                    <a href="{{ path('app_planning_edit', {'idp': planning.idp}) }}"class="btn btn-primary px-3 py-1">edit</a>
+                     <a >{{ include('planning/_delete_form.html.twig') }}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planning_new') }}" class="btn btn-primary px-3 py-1">Create new</a>
+{% endblock %}
