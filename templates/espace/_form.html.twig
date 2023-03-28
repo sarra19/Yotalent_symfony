@@ -1,44 +1,54 @@
-{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
-    <table>
-    <tr>
-   <td> {{ form_label(form.username, 'Nom de l espace talent :') }} </td>
-   <td> {{ form_widget(form.username) }} </td>
-   <td>{{ form_errors(form.username) }}  </td>
+<div class="d-flex justify-content-center">
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-   
-</tr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        {{ form_label(form.username, 'Nom de Espace talent :') }}
+        {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.username) }}
+      </div>
 
-  <tr>
-   <td> {{ form_label(form.image, 'l image de couverture:') }} </td>
-   <td> {{ form_widget(form.image) }} </td>
-   <td>{{ form_errors(form.image) }}  </td>
+      <hr>
 
-    
-</tr>
+      <div class="form-group">
+        {{ form_label(form.nbvotes, 'Nombre de votes :') }}
+        {{ form_widget(form.nbvotes, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.nbvotes) }}
+      </div>
 
-  <tr>
-   <td> {{ form_label(form.nbvotes, 'le nombre de votes :') }} </td>
-   <td> {{ form_widget(form.nbvotes) }} </td>
-   <td>{{ form_errors(form.nbvotes) }}  </td>
+      <hr>
 
-</tr>
-</tr>
+      <div class="form-group">
+        {{ form_label(form.idcat, 'Nom de categorie :') }}
+        {{ form_widget(form.idcat, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.idcat) }}
+      </div>
 
-  <tr>
-   <td> {{ form_label(form.idcat, 'le nom de categorie :') }} </td>
-   <td> {{ form_widget(form.idcat) }} </td>
-   <td>{{ form_errors(form.idcat) }}  </td>
+      <hr>
 
-</tr>
-</tr>
+      <div class="form-group">
+        {{ form_label(form.idu, 'Nom de user :') }}
+        {{ form_widget(form.idu, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.idu) }}
+      </div>
 
-  <tr>
-   <td> {{ form_label(form.idu, 'le nom de user :') }} </td>
-   <td> {{ form_widget(form.idu) }} </td>
-   <td>{{ form_errors(form.idu) }}  </td>
+      <hr>
 
-</tr>
-</table>
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    </div>
 
-{{ form_end(form) }}
+    <div class="col-md-6">
+
+      <div class="form-group">
+        {{ form_label(form.image, 'Image de couverture :') }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.image) }}
+      </div>
+
+    </div>
+  </div>
+
+  <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+  {{ form_end(form) }}
+</div>

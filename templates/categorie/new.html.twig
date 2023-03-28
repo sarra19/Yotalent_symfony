@@ -3,9 +3,21 @@
 {% block title %}New Categorie{% endblock %}
 
 {% block body %}
-    <h1>Create new Categorie</h1>
-
-    {{ include('categorie/_form.html.twig') }}
-
-    <a href="{{ path('app_categorie_index') }}">back to list</a>
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Create new Categorie</h1>
+                </div>
+                <div class="card-body">
+                    {{ include('categorie/_form.html.twig') }}
+                </div>
+            </div>
+            <div class="my-4">
+                <a href="{{ path('app_categorie_index') }}" class="btn btn-secondary">back to list</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

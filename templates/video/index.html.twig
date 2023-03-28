@@ -3,41 +3,49 @@
 {% block title %}Video index{% endblock %}
 
 {% block body %}
-    <h1>Video index</h1>
+        <div>
+            <h1 class="text-center">Video index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Idvid</th>
-                <th>Nomvid</th>
-                <th>Url</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for video in videos %}
-            <tr>
-                <td>{{ video.idvid }}</td>
-                <td>{{ video.nomvid }}</td>
-               <td>
-    <video width="150" height="150" controls>
-        <source src="{{ asset('uploads/' ~ video.url) }}" type="video/mp4">
-        <source src="{{ asset('uploads/' ~ video.url) }}" type="video/webm">
-        Your browser does not support the video tag.
-    </video>
-</td>
-                <td>
-                    <a href="{{ path('app_video_show', {'idvid': video.idvid}) }}">show</a>
-                    <a href="{{ path('app_video_edit', {'idvid': video.idvid}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="table-responsive mx-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Idvid</th>
+                            <th>Nomvid</th>
+                            <th>Url</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for video in videos %}
+                        <tr>
+                            <td>{{ video.idvid }}</td>
+                            <td>{{ video.nomvid }}</td>
+                            <td>
+                                <video width="150" height="150" controls>
+                                    <source src="{{ asset('uploads/' ~ video.url) }}" type="video/mp4">
+                                    <source src="{{ asset('uploads/' ~ video.url) }}" type="video/webm">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ path('app_video_show', {'idvid': video.idvid}) }}" class="btn btn-primary me-2">Show</a>
+                                    <a href="{{ path('app_video_edit', {'idvid': video.idvid}) }}" class="btn btn-success me-2">Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-    <a href="{{ path('app_video_new') }}">Create new</a>
+            <div class="text-center">
+                <a href="{{ path('app_video_new') }}" class="btn btn-primary">Create new</a>
+            </div>
+    </div>
 {% endblock %}

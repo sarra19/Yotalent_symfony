@@ -3,9 +3,17 @@
 {% block title %}New Video{% endblock %}
 
 {% block body %}
-    <h1>Create new Video</h1>
-
-    {{ include('video/_form.html.twig') }}
-
-    <a href="{{ path('app_video_index') }}">back to list</a>
+<div class="container my-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="text-center">Create new Video</h1>
+        </div>
+        <div class="card-body">
+            {{ include('video/_form.html.twig') }}
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{ path('app_video_index') }}" class="btn btn-secondary">back to list</a>
+    </div>
+</div>
 {% endblock %}
