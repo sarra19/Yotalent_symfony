@@ -1,0 +1,40 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Ticket index{% endblock %}
+
+{% block body %}
+    <h1>Ticket index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idt</th>
+                <th>Prixt</th>
+                <th>Nomev</th>
+                <th>Etat</th>
+                  <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.idt }}</td>
+                <td>{{ ticket.prixt }}</td>
+                <td>{{ ticket.idev }}</td>
+                <td>{{ ticket.etat ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_ticket_show', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">show</a>
+                    <a href="{{ path('app_ticket_edit', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">edit</a>
+                     
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ticket_new') }}"class="btn btn-info px-3 py-1">Create new</a>
+{% endblock %}

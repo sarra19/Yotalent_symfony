@@ -1,0 +1,48 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Remboursement index{% endblock %}
+
+{% block body %}
+    <h1>Remboursement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idrem</th>
+                <th>Dc</th>
+                <th>Idu</th>
+                <th>actions</th>
+                 <th>decision</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for remboursement in remboursements %}
+            <tr>
+                <td>{{ remboursement.idrem }}</td>
+                <td>{{ remboursement.dc }}</td>
+                <td>{{ remboursement.idu }}</td>
+                <td>
+                    <a href="{{ path('app_remboursement_show', {'idrem': remboursement.idrem}) }}"class="btn btn-info px-3 py-1">show</a>
+                    <a href="{{ path('app_remboursement_edit', {'idrem': remboursement.idrem}) }}"class="btn btn-info px-3 py-1">edit</a>
+                </td>
+                <td>
+             
+                     <a href="{{ path('app_remboursement_accepter', {'idrem': remboursement.idrem}) }}"><button  class="btn btn-info px-3 py-1">Accepter</button></a>
+
+                    <form method="post" action="{{ path('app_remboursement_delete', {'idrem': remboursement.idrem}) }}" onsubmit="return confirm('Are you sure you want to delete this refund?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ remboursement.idrem) }}">
+    <button class="btn btn-info px-3 py-1">refuser</button>
+</form>
+    
+                  </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_remboursement_new') }}"class="btn btn-info px-3 py-1">Create new</a>
+{% endblock %}

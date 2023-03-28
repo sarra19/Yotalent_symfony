@@ -1,0 +1,20 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}ticket index{% endblock %}
+
+{% block body %}
+
+
+      
+{#affichage #}
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
