@@ -13,7 +13,9 @@
                 <th>Hour</th>
                 <th>Nomactivite</th>
                 <th>Datepl</th>
+                 <th>NomEv</th>
                 <th>actions</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -23,6 +25,7 @@
                 <td>{{ planning.hour }}</td>
                 <td>{{ planning.nomactivite }}</td>
                 <td>{{ planning.datepl }}</td>
+                <td>{{ planning.idev }}</td>
                 <td>
                     <a href="{{ path('app_planning_show', {'idp': planning.idp}) }}"class="btn btn-info px-3 py-1">show</a>
                     <a href="{{ path('app_planning_edit', {'idp': planning.idp}) }}"class="btn btn-primary px-3 py-1">edit</a>

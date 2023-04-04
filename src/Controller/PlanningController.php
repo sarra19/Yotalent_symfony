@@ -38,7 +38,17 @@ class PlanningController extends AbstractController
             'plannings' => $plannings,
         ]);
     }
-    
+    #[Route('/planning/front/{idev}', name: 'app_planning_fronts', methods: ['GET'], requirements: ['idev' => '\d+'])]
+public function frontP(EntityManagerInterface $entityManager, $idev = null): Response
+{
+    $plannings = $entityManager
+        ->getRepository(Planning::class)
+        ->findBy(['idev' => $idev]);
+
+    return $this->render('planning/indexFrontP.html.twig', [
+        'plannings' => $plannings,
+    ]);
+}
 
     #[Route('/new', name: 'app_planning_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

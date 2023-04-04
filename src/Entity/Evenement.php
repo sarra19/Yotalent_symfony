@@ -39,7 +39,7 @@ class Evenement
      *
      * @ORM\Column(name="dateDEv", type="string", nullable=false)
      
-     * @Assert\NotBlank(message="La date de début de l'événement est obligatoire.")
+     * @Assert\NotBlank(message="La date de début de l'événement est obligatoire  format must be YYYY-MM-DD.")
      * @Assert\LessThanOrEqual(propertyPath="datefev", message="La date de début de l'événement doit être antérieure ou égale à la date de fin.")
       *  @Assert\Regex(
  *     pattern="/^\d{4}-\d{2}-\d{2}$/",
@@ -53,10 +53,10 @@ class Evenement
      *
      * @ORM\Column(name="dateFEv", type="string", nullable=false)
      * 
-     * @Assert\NotBlank(message="La date de fin de l'événement est obligatoire.")
+     * @Assert\NotBlank(message="La date de fin de l'événement est obligatoire format must be YYYY-MM-DD.")
      *  @Assert\Regex(
  *     pattern="/^\d{4}-\d{2}-\d{2}$/",
- *     message="The date format must be YYYY-MM-DD"
+ *    
  * )
      */
     private $datefev;
