@@ -14,8 +14,16 @@ class Evenement1Type extends AbstractType
     {
         $builder
             ->add('nomev')
-            ->add('datedev')
-            ->add('datefev')
+            ->add('datedev', null, [
+                'attr' => [
+                    'placeholder' => 'YYYY-MM-DD'
+                ]
+            ])
+            ->add('datefev', null, [
+                'attr' => [
+                    'placeholder' => 'YYYY-MM-DD'
+                ]
+            ])
             ->add('localisation')
             ->add('imageev',FileType::class, array('data_class' => null,'required' => false))
         ;

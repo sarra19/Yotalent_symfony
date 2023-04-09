@@ -14,9 +14,17 @@ class PlanningType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('hour')
+            ->add('hour', null, [
+                'attr' => [
+                    'placeholder' => 'HH:MM'
+                ]
+            ])
             ->add('nomactivite')
-            ->add('datepl')
+            ->add('datepl', null, [
+                'attr' => [
+                    'placeholder' => 'YYYY-MM-DD'
+                ]
+            ])
             ->add('idev',EntityType::class,['class'=> Evenement::class,
         'choice_label'=>'nomev',
         'choice_value'=>'nomev',
