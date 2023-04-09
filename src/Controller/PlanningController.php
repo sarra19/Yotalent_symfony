@@ -10,20 +10,83 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Evenement;
+use App\Repository\PlanningRepository;
+use Doctrine\Persistence\ManagerRegistry;
 #[Route('/planning')]
 class PlanningController extends AbstractController
 {
    
-    #[Route('/', name: 'app_planning_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/', name: 'app_planning_index', methods: ['GET','POST'])]
+    public function index(ManagerRegistry $doctrine,Request $request,PlanningRepository $PlanningRepository ,EntityManagerInterface $entityManager ): Response
     {
+
         $plannings = $entityManager
             ->getRepository(Planning::class)
             ->findAll();
+        $back = null;
+            
+            if($request->isMethod("POST")){
+                if ( $request->request->get('optionsRadios')){
+                    $SortKey = $request->request->get('optionsRadios');
+                    switch ($SortKey){
+                        case 'hour':
+                            $plannings = $PlanningRepository->SortByhour();
+                            break;
+    
+                        case 'nomactivite':
+                            $plannings = $PlanningRepository->SortBynomactivite();
+                            break;
+
+                        case 'datepl':
+                            $plannings = $PlanningRepository->SortBydatepl();
+                            break;
+                            
+        
+    
+                    }
+                }
+                else
+                {
+                    $type = $request->request->get('optionsearch');//nekhdhou type mte3 recherche soit par titre wela par date wela par description
+                    $value = $request->request->get('Search'); //nekhdhou lvaleur mte3 input (par ex ibtihel )
+                    switch ($type){
+                        case 'hour':
+                            $plannings = $PlanningRepository->findByhour($value);
+                            break;
+    
+                        case 'nomactivite':
+                            $plannings = $PlanningRepository->findBynomactivite($value);
+                            break;
+    
+                        case 'datepl':
+                            $plannings = $PlanningRepository->findBydatepl($value);
+                            break;
+    
+                        
+    
+    
+                    }
+                }
+
+                if ( $plannings ){
+                    $back = "success";
+                }
+                else{
+                    $back = "failure";
+                }
+            }
+        
+
+           
+            
+        
+        
 
         return $this->render('planning/index.html.twig', [
-            'plannings' => $plannings,
+            'plannings'=>$plannings,
+            'back' => $back,
         ]);
+       
     }
 
 

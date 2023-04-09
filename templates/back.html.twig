@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer"></i>Dashboard</a>
+                   
 <a href="{{path('app_evenement_index')}}"class="nav-item nav-link active"><i class='far fa-images'></i>Gestion Events</a>
 <a href="{{path('app_planning_index')}}" class="nav-item nav-link active"><i class="far fa-clock"></i>Gestion Planning</a>
                 </div>
@@ -70,12 +70,8 @@
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+               
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -206,8 +202,19 @@
     <script src="{{asset('assetsB/lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
     <script src="{{asset('assetsB/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
+<script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
+    <script src="{{asset('assetsB/js/main.js')}}"></script>
+    </body>
 
 </html>

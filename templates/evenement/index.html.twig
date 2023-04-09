@@ -3,7 +3,11 @@
 {% block title %}Evenement index{% endblock %}
 
 {% block body %}
+
+
+ 
 <div class="main-panel">
+
     <div class="content-wrapper">
         <div class="page-header">
             <nav aria-label="breadcrumb">
@@ -45,13 +49,43 @@
 
                     </div>
                     <br>
-                    
+                    <div class="col-lg-17">
+ <div class="card">
+ <div class="card-body">
+ <ul class="navbar-nav w-100" style="margin-top: 15px;">
+                <ul class="navbar-nav w-100" style="margin-top:3px;">
+                        <li class="nav-item w-100">
+                
+            <div class="row" style="display: flex;align-items: center;justify-content: center;margin-top :40px">
+ 
+                            <form name="Search-method" id="Search-method"method="post" class="forms-sample" style="display: flex">
+                                <div class="form-group col-md-5">
 
-    <h1>Evenement index</h1>
+                                    <select name="optionsearch" class="js-example-basic-single" style="width: 200px;height: 38px; color: white; background-color: #009CFF; border-radius: 4px;text-align: center;border: 2px solid #0090e7;margin-right: 15px;">
+                                        <option value="">Choisi un Critére</option>
+                                        <option value="nomev">nomev</option>
+                                        <option value="datedev">datedev</option>
+                                        <option value="datefev">datefev</option>
+                                        <option value="localisation">localisation</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <div class="input-group">
+                                        <input name="Search" type="text" class="form-control" placeholder="Recherche" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-sm btn-primary" type="Submit">Chercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+       
 
-    <table class="table">
+    <div class="table-responsive">
+        <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="table-secondary">
                 <th>Idev</th>
                 <th>Nomev</th>
                 <th>Datedev</th>
@@ -59,9 +93,18 @@
                 <th>Localisation</th>
                 <th>Imageev</th>
                 <th>actions</th>
-            </tr>
+                </tr>
         </thead>
-        <tbody>
+
+        <br>
+        <div class="input-group custom-search-form">
+        <div class="search-box">
+    <button class="btn-search"><i class="fas fa-search"></i></button>
+    <input type="text" name="search" id="search" class="input-search" placeholder="Type to Search...">
+    
+  </div>    
+</div>
+ 
         {% for evenement in evenements %}
             <tr>
                 <td>{{ evenement.idev }}</td>
@@ -71,19 +114,22 @@
                 <td>{{ evenement.localisation }}</td>
                 <td><img src="{{ asset('uploads/' ~evenement.imageev) }}" style=" width:150px; height:150px; " alt=""/></td>
                 <td>
-                    <a href="{{ path('app_evenement_show', {'idev': evenement.idev}) }}"class="btn btn-info px-3 py-1">show</a>
+                <div class="d-flex justify-content-center">
+                     <a href="{{ path('app_evenement_show', {'idev': evenement.idev}) }}"class="btn btn-info px-3 py-1">show</a>
                     <a href="{{ path('app_evenement_edit', {'idev': evenement.idev}) }}"class="btn btn-primary px-3 py-1">edit</a>
-                 <a >{{ include('evenement/_delete_form.html.twig') }}</a>
-
+                    <a >{{ include('evenement/_delete_form.html.twig') }}</a>
+                  </div>
                 </td>
             </tr>
-        {% else %}
+            {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
-    <a href="{{ path('app_evenement_new') }}" class="btn btn-primary px-3 py-1">Create new</a>
+    <a href="{{ path('app_evenement_new') }}" class="btn btn-primary px-3 py-1" style="width:160px;">Create new</a>
 {% endblock %}
+

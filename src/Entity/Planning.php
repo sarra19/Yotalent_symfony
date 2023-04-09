@@ -10,6 +10,7 @@ use App\Validator\Constraints as CustomAssert;
  *
  * @ORM\Table(name="planning", indexes={@ORM\Index(name="idEv", columns={"idEv"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PlanningRepository")
  */
 class Planning
 {
