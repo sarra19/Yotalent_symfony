@@ -184,7 +184,7 @@ class TicketController extends AbstractController
 
 
         
-        $ticket->setEtat('1') ; // Set dc property to true
+        $ticket->setEtat('1') ; // Set etat property to yes
        
       
             $entityManager->flush();

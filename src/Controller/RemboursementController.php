@@ -36,7 +36,7 @@ class RemboursementController extends AbstractController
             $entityManager->persist($remboursement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('front', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_remboursement_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('remboursement/new.html.twig', [
