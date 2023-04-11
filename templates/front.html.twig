@@ -272,28 +272,110 @@
         <div class="breadcrumb bg-image">
             <div class="overlay"></div>
             <div class="page-title">
-                <h1>Meet Artists</h1>
-                <h2>talent space category</h2>
+              
+                <h2>Ticket Space</h2>
             </div>
-        </div><!-- breadcrumb -->         
 
-        {% block body %}
-        {% endblock %}
-               
-        </div><!-- promotion -->               
 
-        <div class="footer before-after bg-white">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="copyright">
-                     <p>Copyright 2018 &copy; <a href="index-2.html">Playbit</a></p>
-                    </div>  
-                    <div class="footer-memu">
-                       
-                    </div>
-                </div>                        
-            </div><!-- container -->
-        </div><!-- footer -->
+
+
+        </div><!-- breadcrumb -->   <br>
+
+     <center> 
+
+
+
+
+     
+       
+<table >
+
+<tr>
+<td>
+
+              <div>
+             <img src="{{ asset('image1.jpg') }}" alt="Example Image" width="500" height="320">
+             <div>
+              <center><h3> 	Movanpic</h3></center>
+</td>
+<td>
+
+ <h1>Choisissez  nombre des ticket</h1>
+
+    <form  class="btn" action="{{ path('front') }}" method="post">
+        <select name="number">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         
+        </select>
+        <button type="submit" class="btn btn-primary">PRIX</button>
+     
+    </form>
+
+
+
+
+     {% if result is not null %}
+
+
+
+
+        <h2>PRIX TOTAL</h2>
+        <p>Nombre Ticket: {{ result / 20 }}</p>
+        <p>prix TOTAL  : {{ result }}</p>
+        
+         
+
+
+
+        </select>
+
+
+
+    </form>
+
+ 
+       <a href="{{ path('payer', {'idt': 78}) }}" class="btn btn-primary">payer</a>
+
+ 
+    {% endif %}
+
+
+
+
+
+
+</td>
+
+
+
+
+
+</tr>
+
+
+
+</center>
+
+
+          
+      </table>
+ 
+
+
+<br> <br><br>
+
+    <a href="{{ path('app_remboursement_new') }}"class="btn btn-primary">Remboursement</a>
+
+
+
+
+
+
+       
 
 
         <!-- JS -->
@@ -328,3 +410,8 @@
 
 <!-- Mirrored from demo.themeregion.com/playbit/event-performer.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Feb 2020 09:39:27 GMT -->
 </html>
+
+
+
+
+

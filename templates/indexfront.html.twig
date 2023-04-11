@@ -3,7 +3,16 @@
 {% block title %}ticket index{% endblock %}
 
 {% block body %}
+{{ form_start(form) }}
+{{ form_row(form.nombre) }}
+{{ form_row(form.save) }}
+{{ form_end(form) }}
 
+
+
+{% if prixTotal is defined %}
+    <p>Prix total : {{ prixTotal }} euros</p>
+{% endif %}
 
       
 {#affichage #}
@@ -16,5 +25,18 @@
         </tbody>
     </table>
 
+
+
+
+  
+
+
+
+
+
+
+
 {% endblock %}
+
+
 

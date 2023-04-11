@@ -15,8 +15,8 @@ class TicketType extends AbstractType
     {
         $builder
         ->add('prixt')
-          
-        ->add('etat')
+        
+        // ->add('etat')
         ->add('idev',EntityType::class,['class'=> Evenement::class,
         'choice_label'=>'nomev',
         'choice_value'=>'nomev',

@@ -36,7 +36,7 @@ class RemboursementController extends AbstractController
             $entityManager->persist($remboursement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_remboursement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('front', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('remboursement/new.html.twig', [
@@ -52,6 +52,7 @@ class RemboursementController extends AbstractController
             'remboursement' => $remboursement,
         ]);
     }
+    
 
     #[Route('/{idrem}/edit', name: 'app_remboursement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Remboursement $remboursement, EntityManagerInterface $entityManager): Response
@@ -90,15 +91,16 @@ class RemboursementController extends AbstractController
        $remboursement->setDc('true') ; // Set dc property to true
       
      
-     
-          
-          
            $entityManager->flush();
            return $this->redirectToRoute('app_remboursement_index', [], Response::HTTP_SEE_OTHER);
+           
        
    
       
    }
+
+
+   
 
 
 

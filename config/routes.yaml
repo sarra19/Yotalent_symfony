@@ -3,3 +3,7 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+ticket_change_status:
+  path: /ticket/{id}/change-status
+  controller: App\Controller\TicketController::changeStatus
+  methods: POST

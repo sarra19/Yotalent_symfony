@@ -12,8 +12,8 @@ class RemboursementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dc')
-            ->add('idu')
+            //  ->add('dc')
+            // ->add('idu')
             ->add('idt')
         ;
     }

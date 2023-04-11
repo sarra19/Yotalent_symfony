@@ -21,11 +21,24 @@
                 <td>{{ ticket.idt }}</td>
                 <td>{{ ticket.prixt }}</td>
                 <td>{{ ticket.idev }}</td>
-                <td>{{ ticket.etat ? 'Yes' : 'No' }}</td>
+                <td>{{ ticket.etat ? '1' : '0' }}</td>
                 <td>
                     <a href="{{ path('app_ticket_show', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">show</a>
                     <a href="{{ path('app_ticket_edit', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">edit</a>
-                     
+
+ 
+           
+  
+                    
+                </td>
+
+
+
+                
+                <td> 
+                
+                
+                
                 </td>
             </tr>
         {% else %}
