@@ -16,79 +16,37 @@ use Doctrine\Persistence\ManagerRegistry;
 #[Route('/evenement')]
 class EvenementController extends AbstractController
 {
-    #[Route('/', name: 'app_evenement_index', methods: ['GET','POST'])]
-    public function index(ManagerRegistry $doctrine,Request $request,EvenementRepository $EvenementRepository ,EntityManagerInterface $entityManager ): Response
+    #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
+    public function index(Request $request, EntityManagerInterface $entityManager ): Response
     {
 
-        $evenements = $entityManager
-            ->getRepository(Evenement::class)
-            ->findAll();
-        $back = null;
-            
-            if($request->isMethod("POST")){
-                if ( $request->request->get('optionsRadios')){
-                    $SortKey = $request->request->get('optionsRadios');
-                    switch ($SortKey){
-                        case 'nomev':
-                            $evenements = $EvenementRepository->SortBynomev();
-                            break;
-    
-                        case 'datedev':
-                            $evenements = $EvenementRepository->SortBydatedev();
-                            break;
+        $queryBuilder = $entityManager->createQueryBuilder()
+            ->select('e')
+            ->from(Evenement::class, 'e');
 
-                        case 'datefev':
-                            $evenements = $EvenementRepository->SortBydatefev();
-                            break;
-                            case 'localisation':
-                                $evenements = $EvenementRepository->SortBylocalisation();
-                                break;
-        
-    
-                    }
-                }
-                else
-                {
-                    $type = $request->request->get('optionsearch');//nekhdhou type mte3 recherche soit par titre wela par date wela par description
-                    $value = $request->request->get('Search'); //nekhdhou lvaleur mte3 input (par ex ibtihel )
-                    switch ($type){
-                        case 'nomev':
-                            $evenements = $EvenementRepository->findBynomev($value);
-                            break;
-    
-                        case 'datedev':
-                            $evenements = $EvenementRepository->findBydatedev($value);
-                            break;
-    
-                        case 'datefev':
-                            $evenements = $EvenementRepository->findBydatefev($value);
-                            break;
-    
-                        case 'localisation':
-                            $evenements = $EvenementRepository->findBylocalisation($value);
-                            break;
-    
-    
-                    }
-                }
+        // Basic search by username or nbvotes
+        $searchQuery = $request->query->get('search');
+        if ($searchQuery) {
+            $queryBuilder->andWhere($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('e.nomev', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.datedev', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.localisation', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.idev', ':searchQuery'),
 
-                if ( $evenements ){
-                    $back = "success";
-                }
-                else{
-                    $back = "failure";
-                }
-            }
-        
+            ))
+            ->setParameter('searchQuery', $searchQuery);
+        }
 
-           
-            
-        
-        
+        // Sorting
+        $sort = $request->query->get('sort');
+        if ($sort) {
+            $queryBuilder->orderBy('e.' . $sort, 'ASC');
+        }
+
+        $evenements = $queryBuilder->getQuery()->getResult();
 
         return $this->render('evenement/index.html.twig', [
-            'evenements'=>$evenements,
-            'back' => $back,
+            'evenements' => $evenements,
         ]);
        
     }

@@ -63,80 +63,79 @@ class EvenementRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-public function SortBynomev(){
-    return $this->createQueryBuilder('e')//alias bch t3awedh kelmet Evenement 
-        ->orderBy('e.nomev','ASC')
-        ->getQuery()
-        ->getResult()
-        ;
-}
-
-public function SortBydatedev()
-{
+// trier par nom d'utilisateur
+public function sortBynomev() {
     return $this->createQueryBuilder('e')
-        ->orderBy('e.datedev','ASC')
+        ->orderBy('e.nomev', 'ASC')
         ->getQuery()
-        ->getResult()
-        ;
+        ->getResult();
 }
 
-
-
-public function SortByDatefev()
-{
+// trier par nombre de votes
+public function sortBydatedev() {
     return $this->createQueryBuilder('e')
-        ->orderBy('e.datefev','ASC')
+        ->orderBy('e.datedev', 'DESC')
         ->getQuery()
-        ->getResult()
-        ;
+        ->getResult();
 }
-public function SortBylocalisation()
-{
+public function sortBylocalisation() {
     return $this->createQueryBuilder('e')
-        ->orderBy('e.localisation','ASC')
+        ->orderBy('e.localisation', 'DESC')
         ->getQuery()
-        ->getResult()
-        ;
+        ->getResult();
 }
 
 
 
-
-
-
-
-
-public function findBynomev( $nomev)
-{
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.nomev LIKE :nomev')
-        ->setParameter('nomev','%' .$nomev. '%')
+// rechercher par nom d'utilisateur
+public function findBynomev($nomev) {
+    return $this->createQueryBuilder('e')
+        ->where('e.nomev LIKE :nomev')
+        ->setParameter('nomev', '%'.$nomev.'%')
         ->getQuery()
-        ->execute();
+        ->getResult();
 }
-public function findBydatedev( $datedev)
-{
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.datedev LIKE :datedev')
-        ->setParameter('datedev','%' .$datedev. '%')
+
+// rechercher par nombre de votes
+public function findBydatedev($datedev) {
+    return $this->createQueryBuilder('e')
+        ->where('e.datedev = :datedev')
+        ->setParameter('datedev', $datedev)
         ->getQuery()
-        ->execute();
+        ->getResult();
 }
-public function findByDatefev( $datefev)
-{
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.datefev LIKE :datefev')
-        ->setParameter('datefev','%' .$datefev. '%')
+
+public function findBylocalisation($localisation) {
+    return $this->createQueryBuilder('e')
+        ->where('e.localisation = :localisation')
+        ->setParameter('localisation', $localisation)
         ->getQuery()
-        ->execute();
+        ->getResult();
 }
-public function findBylocalisation( $localisation)
+public function advancedSearch($nomev, $datedev,$localisation,$idev)
 {
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.localisation LIKE :localisation')
-        ->setParameter('localisation','%' .$localisation. '%')
-        ->getQuery()
-        ->execute();
+    $qb = $this->createQueryBuilder('e');
+
+    if ($nomev) {
+        $qb->andWhere('e.nomev LIKE :nomev')
+            ->setParameter('nomev', '%'.$nomev.'%');
+    }
+
+    if ($datedev) {
+        $qb->andWhere('e.datedev = :datedev')
+            ->setParameter('datedev', $datedev);
+    }
+    if ($localisation) {
+        $qb->andWhere('e.localisation = :localisation')
+            ->setParameter('localisation', $localisation);
+    }
+    if ($idev) {
+        $qb->andWhere('e.idev = :idev')
+            ->setParameter('idev', $idev);
+    }
+
+
+    return $qb->getQuery()->getResult();
 }
 
 

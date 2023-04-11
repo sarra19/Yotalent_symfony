@@ -53,13 +53,13 @@ private $hour;
      * @var string
      *
      * @ORM\Column(name="datepl", type="string", nullable=false)
-     * @Assert\NotBlank( message="The date of the planning must be after 2023-04-04.")
+     * @Assert\NotBlank( message="The date of the planning must be after 2023-04-11.")
      * @Assert\NotBlank( message="The date format must be YYYY-MM-DD.")
      * @Assert\Regex(
  *     pattern="/^\d{4}-\d{2}-\d{2}$/",
  *     message="The date format must be YYYY-MM-DD"
  * )
-     * @Assert\GreaterThan("2023-04-04", message="The date of the planning must be after 2023-04-04.")
+     * @Assert\GreaterThan("2023-04-11", message="The date of the planning must be after 2023-04-11.")
      */
   
     private $datepl;

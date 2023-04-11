@@ -64,68 +64,81 @@ class PlanningRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-
-
-public function SortByhour(){
-    return $this->createQueryBuilder('e')//alias bch t3awedh kelmet Evenement 
-        ->orderBy('e.hour','ASC')
-        ->getQuery()
-        ->getResult()
-        ;
-}
-
-public function SortBynomactivite()
-{
+// trier par nom d'utilisateur
+public function sortByhour() {
     return $this->createQueryBuilder('e')
-        ->orderBy('e.nomactivite','ASC')
+        ->orderBy('e.hour', 'ASC')
         ->getQuery()
-        ->getResult()
-        ;
+        ->getResult();
 }
 
-
-
-public function SortBydatepl()
-{
+// trier par nombre de votes
+public function sortBynomactivite() {
     return $this->createQueryBuilder('e')
-        ->orderBy('e.datepl','ASC')
+        ->orderBy('e.nomactivite', 'DESC')
         ->getQuery()
-        ->getResult()
-        ;
+        ->getResult();
+}
+public function sortBydatepl() {
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.datepl', 'DESC')
+        ->getQuery()
+        ->getResult();
 }
 
 
 
+// rechercher par nom d'utilisateur
+public function findByhour($hour) {
+    return $this->createQueryBuilder('e')
+        ->where('e.hour LIKE :hour')
+        ->setParameter('hour', '%'.$hour.'%')
+        ->getQuery()
+        ->getResult();
+}
 
+// rechercher par nombre de votes
+public function findBynomactivite($nomactivite) {
+    return $this->createQueryBuilder('e')
+        ->where('e.nomactivite = :nomactivite')
+        ->setParameter('nomactivite', $nomactivite)
+        ->getQuery()
+        ->getResult();
+}
 
-
-
-
-
-public function findByhour( $hour)
+public function findBydatepl($datepl) {
+    return $this->createQueryBuilder('e')
+        ->where('e.datepl = :datepl')
+        ->setParameter('datepl', $datepl)
+        ->getQuery()
+        ->getResult();
+}
+public function advancedSearch($hour, $nomactivite,$datepl,$idp)
 {
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.hour LIKE :hour')
-        ->setParameter('hour','%' .$hour. '%')
-        ->getQuery()
-        ->execute();
+    $qb = $this->createQueryBuilder('e');
+
+    if ($hour) {
+        $qb->andWhere('e.hour LIKE :hour')
+            ->setParameter('hour', '%'.$hour.'%');
+    }
+
+    if ($nomactivite) {
+        $qb->andWhere('e.nomactivite = :nomactivite')
+            ->setParameter('nomactivite', $nomactivite);
+    }
+    if ($datepl) {
+        $qb->andWhere('e.datepl = :datepl')
+            ->setParameter('datepl', $datepl);
+    }
+    if ($idp) {
+        $qb->andWhere('e.idp = :idp')
+            ->setParameter('idp', $idp);
+    }
+
+
+    return $qb->getQuery()->getResult();
 }
-public function findBynomactivite( $nomactivite)
-{
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.nomactivite LIKE :nomactivite')
-        ->setParameter('nomactivite','%' .$nomactivite. '%')
-        ->getQuery()
-        ->execute();
-}
-public function findBydatepl( $datepl)
-{
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.datepl LIKE :datepl')
-        ->setParameter('datepl','%' .$datepl. '%')
-        ->getQuery()
-        ->execute();
-}
+
 }
 
 

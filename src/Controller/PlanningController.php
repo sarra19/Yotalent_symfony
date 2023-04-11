@@ -16,75 +16,37 @@ use Doctrine\Persistence\ManagerRegistry;
 class PlanningController extends AbstractController
 {
    
-    #[Route('/', name: 'app_planning_index', methods: ['GET','POST'])]
-    public function index(ManagerRegistry $doctrine,Request $request,PlanningRepository $PlanningRepository ,EntityManagerInterface $entityManager ): Response
+    #[Route('/', name: 'app_planning_index', methods: ['GET'])]
+    public function index(Request $request, EntityManagerInterface $entityManager ): Response
     {
 
-        $plannings = $entityManager
-            ->getRepository(Planning::class)
-            ->findAll();
-        $back = null;
-            
-            if($request->isMethod("POST")){
-                if ( $request->request->get('optionsRadios')){
-                    $SortKey = $request->request->get('optionsRadios');
-                    switch ($SortKey){
-                        case 'hour':
-                            $plannings = $PlanningRepository->SortByhour();
-                            break;
-    
-                        case 'nomactivite':
-                            $plannings = $PlanningRepository->SortBynomactivite();
-                            break;
+        $queryBuilder = $entityManager->createQueryBuilder()
+            ->select('e')
+            ->from(Planning::class, 'e');
 
-                        case 'datepl':
-                            $plannings = $PlanningRepository->SortBydatepl();
-                            break;
-                            
-        
-    
-                    }
-                }
-                else
-                {
-                    $type = $request->request->get('optionsearch');//nekhdhou type mte3 recherche soit par titre wela par date wela par description
-                    $value = $request->request->get('Search'); //nekhdhou lvaleur mte3 input (par ex ibtihel )
-                    switch ($type){
-                        case 'hour':
-                            $plannings = $PlanningRepository->findByhour($value);
-                            break;
-    
-                        case 'nomactivite':
-                            $plannings = $PlanningRepository->findBynomactivite($value);
-                            break;
-    
-                        case 'datepl':
-                            $plannings = $PlanningRepository->findBydatepl($value);
-                            break;
-    
-                        
-    
-    
-                    }
-                }
+        // Basic search by username or nbvotes
+        $searchQuery = $request->query->get('search');
+        if ($searchQuery) {
+            $queryBuilder->andWhere($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('e.hour', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.nomactivite', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.datepl', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.idp', ':searchQuery'),
 
-                if ( $plannings ){
-                    $back = "success";
-                }
-                else{
-                    $back = "failure";
-                }
-            }
-        
+            ))
+            ->setParameter('searchQuery', $searchQuery);
+        }
 
-           
-            
-        
-        
+        // Sorting
+        $sort = $request->query->get('sort');
+        if ($sort) {
+            $queryBuilder->orderBy('e.' . $sort, 'ASC');
+        }
+
+        $plannings = $queryBuilder->getQuery()->getResult();
 
         return $this->render('planning/index.html.twig', [
-            'plannings'=>$plannings,
-            'back' => $back,
+            'plannings' => $plannings,
         ]);
        
     }
