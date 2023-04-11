@@ -6,6 +6,7 @@ use App\Entity\Remboursement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RemboursementType extends AbstractType
 {
@@ -14,7 +15,13 @@ class RemboursementType extends AbstractType
         $builder
             //  ->add('dc')
             // ->add('idu')
-            ->add('idt')
+            ->add('idt', null, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'The "idt" field cannot be empty.',
+                    ]),
+                ],
+            ])
         ;
     }
 

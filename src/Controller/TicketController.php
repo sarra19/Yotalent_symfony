@@ -44,6 +44,7 @@ class TicketController extends AbstractController
             $selectedNumber = $request->request->get('number');
             if ($selectedNumber !== null && $selectedNumber >= 1 && $selectedNumber <= 5) {
                 $result = $selectedNumber * 20;
+                
             }
         }
         
