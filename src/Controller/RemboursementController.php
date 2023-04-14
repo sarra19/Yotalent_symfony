@@ -9,24 +9,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 
 #[Route('/remboursement')]
 class RemboursementController extends AbstractController
 {
     #[Route('/', name: 'app_remboursement_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $remboursements = $entityManager
-            ->getRepository(Remboursement::class)
-            ->findAll();
+        $queryBuilder = $entityManager->createQueryBuilder()
+        ->select('e')
+        ->from(Remboursement::class, 'e');
 
+    // Basic search by username or nbvotes
+    $searchQuery = $request->query->get('search');
+    if ($searchQuery) {
+        $queryBuilder->andWhere($queryBuilder->expr()->orX(
+            $queryBuilder->expr()->like('e.dc', ':searchQuery'),
+            $queryBuilder->expr()->eq('e.idu', ':searchQuery'),
+            $queryBuilder->expr()->eq('e.idt', ':searchQuery'),
+            $queryBuilder->expr()->eq('e.idrem', ':searchQuery'),
+            
+        ))
+        ->setParameter('searchQuery', $searchQuery);
+    }
+
+    // Sorting
+    $sort = $request->query->get('sort');
+    if ($sort) {
+        $queryBuilder->orderBy('e.' . $sort, 'ASC');
+    }
+
+    $remboursements = $queryBuilder->getQuery()->getResult();
         return $this->render('remboursement/index.html.twig', [
             'remboursements' => $remboursements,
         ]);
     }
 
     #[Route('/new', name: 'app_remboursement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request,MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
         $remboursement = new Remboursement();
         $form = $this->createForm(RemboursementType::class, $remboursement);
@@ -36,13 +59,32 @@ class RemboursementController extends AbstractController
             $entityManager->persist($remboursement);
             $entityManager->flush();
 
+            $email = (new Email())
+            ->from('hadir.elayeb@esprit.tn')
+            ->To('hadir.elayeb@esprit.tn')
+            ->subject('Rembourssement ticket')
+                    ->text("your refund is sent with success");
+            // ->text('<p> Bonjour</p> unde demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant :".$url,
+            // "text/html');
+            try {
+             $mailer->send($email);
+             $this->addFlash('message','E-mail  de rembourssement envoyé :');
+         } catch (TransportExceptionInterface $e) {
+             // Gérer les erreurs d'envoi de courriel
+         }
+
             return $this->redirectToRoute('app_remboursement_new', [], Response::HTTP_SEE_OTHER);
         }
+     
+
+
+       
 
         return $this->renderForm('remboursement/new.html.twig', [
             'remboursement' => $remboursement,
             'form' => $form,
         ]);
+  
     }
 
     #[Route('/{idrem}', name: 'app_remboursement_show', methods: ['GET'])]
@@ -73,23 +115,54 @@ class RemboursementController extends AbstractController
     }
 
     #[Route('/{idrem}', name: 'app_remboursement_delete', methods: ['POST'])]
-    public function delete(Request $request, Remboursement $remboursement, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request,MailerInterface $mailer, Remboursement $remboursement, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$remboursement->getIdrem(), $request->request->get('_token'))) {
             $entityManager->remove($remboursement);
+
+
+            $email = (new Email())
+            ->from('hadir.elayeb@esprit.tn')
+            ->To('hadir.elayeb@esprit.tn')
+            ->subject('Rembourssement ticket')
+                    ->text("your refund is refused");
+            // ->text('<p> Bonjour</p> unde demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant :".$url,
+            // "text/html');
+            try {
+             $mailer->send($email);
+             $this->addFlash('message','E-mail  de rembourssement envoyé :');
+         } catch (TransportExceptionInterface $e) {
+             // Gérer les erreurs d'envoi de courriel
+         }
+
+
+
             $entityManager->flush();
         }
+
 
         return $this->redirectToRoute('app_remboursement_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
    #[Route('/{idrem}/accepter',name: 'app_remboursement_accepter', methods: ['GET', 'POST'])]
-   public function accepter(Request $request, Remboursement $remboursement, EntityManagerInterface $entityManager): Response
+   public function accepter(Request $request,MailerInterface $mailer, Remboursement $remboursement, EntityManagerInterface $entityManager): Response
    {
    
        $remboursement->setDc('true') ; // Set dc property to true
-      
+       $email = (new Email())
+       ->from('hadir.elayeb@esprit.tn')
+       ->To('hadir.elayeb@esprit.tn')
+       ->subject('Rembourssement ticket')
+               ->text("your refund is accepted");
+       // ->text('<p> Bonjour</p> unde demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant :".$url,
+       // "text/html');
+       try {
+        $mailer->send($email);
+        $this->addFlash('message','E-mail  de rembourssement envoyé :');
+    } catch (TransportExceptionInterface $e) {
+        // Gérer les erreurs d'envoi de courriel
+    }
      
            $entityManager->flush();
            return $this->redirectToRoute('app_remboursement_index', [], Response::HTTP_SEE_OTHER);

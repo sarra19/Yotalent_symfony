@@ -3,8 +3,27 @@
 {% block title %}Ticket index{% endblock %}
 
 {% block body %}
-    <h1></h1>
+   <div class="row">
+    <div class="col-md-12">
 
+      <div class="d-flex justify-content-end mb-3">
+        <form class="input-group" method="get">
+          <input type="text" class="form-control me-2" name="search" placeholder="Rechercher par id ticket ou prix ticket  ou etat ">
+          <button type="submit" class="btn btn-outline-primary">Rechercher</button>
+        </form>
+
+  <div class="ms-3">
+          <a href="{{ path('app_ticket_index', {'sort': 'idt'}) }}" class="btn btn-outline-primary">Trier par id ticket</a>
+        </div>
+        <div class="ms-3">
+          <a href="{{ path('app_ticket_index', {'sort': 'prixt'}) }}" class="btn btn-outline-primary">Trier par prix ticket</a>
+        </div>
+ <div class="ms-3">
+          <a href="{{ path('app_ticket_index', {'sort': 'etat'}) }}" class="btn btn-outline-primary">Trier par etat</a>
+        </div>
+       
+       
+      </div>
     {# <table class="table"> #}
       <div class="table-responsive">
         <table class="table table-striped">

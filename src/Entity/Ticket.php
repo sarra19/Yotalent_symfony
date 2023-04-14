@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  *
  * @ORM\Table(name="ticket", indexes={@ORM\Index(name="idEv", columns={"idEv"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
  */
 class Ticket
 {

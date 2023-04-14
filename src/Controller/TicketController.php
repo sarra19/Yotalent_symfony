@@ -15,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 use App\Repository\TicketRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,18 +25,39 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class TicketController extends AbstractController
 {
     #[Route('/', name: 'app_ticket_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $tickets = $entityManager
-            ->getRepository(Ticket::class)
-            ->findAll();
+        $queryBuilder = $entityManager->createQueryBuilder()
+        ->select('e')
+        ->from(Ticket::class, 'e');
 
+    // Basic search by username or nbvotes
+    $searchQuery = $request->query->get('search');
+    if ($searchQuery) {
+        $queryBuilder->andWhere($queryBuilder->expr()->orX(
+            $queryBuilder->expr()->like('e.prixt', ':searchQuery'),
+            $queryBuilder->expr()->eq('e.nomev', ':searchQuery'),
+            $queryBuilder->expr()->eq('e.etat', ':searchQuery'),
+            $queryBuilder->expr()->eq('e.idt', ':searchQuery'),
+            
+        ))
+        ->setParameter('searchQuery', $searchQuery);
+    }
+
+    // Sorting
+    $sort = $request->query->get('sort');
+    if ($sort) {
+        $queryBuilder->orderBy('e.' . $sort, 'ASC');
+    }
+
+    $tickets = $queryBuilder->getQuery()->getResult();
         return $this->render('ticket/index.html.twig', [
             'tickets' => $tickets,
         ]);
     }
+
     #[Route('/front', name: 'front', methods: ['GET','POST'])]
-    public function front(Request $request,EntityManagerInterface $entityManager): Response
+    public function front(Request $request,EntityManagerInterface $entityManager ): Response
     {
         
 
@@ -46,6 +69,7 @@ class TicketController extends AbstractController
                 $result = $selectedNumber * 20;
                 
             }
+        
         }
         
 
@@ -53,6 +77,7 @@ class TicketController extends AbstractController
             'result' => $result,
         ]);
         
+
          
             return $this->render('ticket/indexfrontT.html.twig');
         }

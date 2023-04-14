@@ -4,11 +4,30 @@
 
 {% block body %}
 
- <br> <br>
-  <center>  <h1></h1></center>
+  <div class="row">
+    <div class="col-md-12">
 
-
-    <br> <br> <br> <br>
+      <div class="d-flex justify-content-end mb-3">
+        <form class="input-group" method="get">
+          <input type="text" class="form-control me-2" name="search" placeholder="Rechercher par id remboursement ou id ticket  ">
+          <button type="submit" class="btn btn-outline-primary">Rechercher</button>
+        </form>
+ <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'idrem'}) }}" class="btn btn-outline-primary">Trier par id remboursement</a>
+        </div>
+         <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'idt'}) }}" class="btn btn-outline-primary">Trier par id ticket</a>
+        </div>
+         <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'idu'}) }}" class="btn btn-outline-primary">Trier par id user</a>
+        </div>
+        <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'dc'}) }}" class="btn btn-outline-primary">Trier par Decision</a>
+        </div>
+  
+       
+        
+      </div>
 
     {# <table class="table"> #}
    <div class="table-responsive">
