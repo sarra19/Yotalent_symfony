@@ -12,7 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Planning;
 use App\Repository\EvenementRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 #[Route('/evenement')]
 class EvenementController extends AbstractController
 {
@@ -67,12 +68,12 @@ class EvenementController extends AbstractController
    
 
     #[Route('/new', name: 'app_evenement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, NotifierInterface $notifier): Response
     {
         $evenement = new Evenement();
         $form = $this->createForm(Evenement1Type::class, $evenement);
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
             /////code image
             $file = $evenement->getImageev();
@@ -80,17 +81,32 @@ class EvenementController extends AbstractController
             $file->move($this->getParameter('uploads'),$filename);
             $evenement->setImageev($filename);
             /////
+          
             $entityManager->persist($evenement);
+            $nomev = $form->get('nomev')->getData();
+            $evenements = $entityManager
+            ->getRepository(Evenement::class)
+            ->findBy(['nomev'=>$nomev]);
+            if (empty($evenements)) 
+           {
             $entityManager->flush();
+            $notifier->send(new Notification('Evenement avec ajouter succées ', ['browser']));
 
             return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
         }
+        else{
+            $notifier->send(new Notification('Evenement exist déja  ', ['browser']));
+            return $this->redirectToRoute('app_evenement_new', [], Response::HTTP_SEE_OTHER);
 
+        }
+    }
         return $this->renderForm('evenement/new.html.twig', [
             'evenement' => $evenement,
             'form' => $form,
         ]);
     }
+
+
 
     #[Route('/{idev}', name: 'app_evenement_show', methods: ['GET'])]
     public function show(Evenement $evenement): Response

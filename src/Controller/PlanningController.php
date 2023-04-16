@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Evenement;
 use App\Repository\PlanningRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 #[Route('/planning')]
 class PlanningController extends AbstractController
 {
@@ -76,7 +78,7 @@ public function frontP(EntityManagerInterface $entityManager, $idev = null): Res
 }
 
     #[Route('/new', name: 'app_planning_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,NotifierInterface $notifier): Response
     {
 
         $planning = new Planning();
@@ -90,11 +92,26 @@ public function frontP(EntityManagerInterface $entityManager, $idev = null): Res
             ->getRepository(Evenement::class)
             ->find($planning->getIdev());
             $entityManager->persist($planning);
+            $nomactivite = $form->get('nomactivite')->getData();
+            $plannings = $entityManager
+            ->getRepository(Planning::class)
+            ->findBy(['nomactivite'=>$nomactivite]);
+            if (empty($plannings)) 
+           {
             $entityManager->flush();
+            $notifier->send(new Notification('Planning avec ajouter succées ', ['browser']));
 
             return $this->redirectToRoute('app_planning_index', [], Response::HTTP_SEE_OTHER);
         }
+        else{
+            $notifier->send(new Notification('Planning exist déja  ', ['browser']));
+            return $this->redirectToRoute('app_planning_new', [], Response::HTTP_SEE_OTHER);
 
+        }
+    
+            return $this->redirectToRoute('app_planning_index', [], Response::HTTP_SEE_OTHER);
+        }
+    
         return $this->renderForm('planning/new.html.twig', [
             'planning' => $planning,
             'form' => $form,
