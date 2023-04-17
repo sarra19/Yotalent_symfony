@@ -48,7 +48,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"><i class="fa fa-align-justify"></i></span>
                     </button>
-                    <a class="navbar-brand" href="index-2.html"><img class="img-fluid" src="../logo1.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="index-2.html"><img class="img-fluid" src="../../../logo1.png" alt="Logo"></a>
                     
                     <nav id="mainmenu" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
@@ -126,7 +126,7 @@
                                 </a>
                             </li>
                             <li  class="active">
-                                <a href="gallery.html">
+                                <a href="{{ path('app_categorie_indexfront') }}">
                                     Gallery
                                     <div class="equalizer">
                                         <span class="bar bar-1"></span>
@@ -142,9 +142,9 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="contact.html">
-                                    Contact
+                            <li class="active">
+                                <a href="{{ path('app_espace_frontu')}}">
+                                    My Space
                                     <div class="equalizer">
                                         <span class="bar bar-1"></span>
                                         <span class="bar bar-2"></span>
@@ -233,7 +233,7 @@
 }
 .breadcrumb {
     z-index: 1;
-    background-image: url(../9.jpg);
+    background-image: url(../../../9.jpg);
     background-color: transparent;
     position: relative;
     margin-bottom: 0;

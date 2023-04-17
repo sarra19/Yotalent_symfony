@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotNull;
+
 
 class EspacetalentType extends AbstractType
 {
@@ -32,15 +34,41 @@ class EspacetalentType extends AbstractType
                 ],
             ])
             ->add('nbvotes')
-            ->add('idcat')
-            ->add('idu')
+           
+         
+           
+           
+            ->add('idcat', null, [
+                'data' => $options['current_idcat'],
+                'disabled' => false,
+                'constraints' => [
+                    new NotNull([
+                        'message' => 'Please select an option',
+                    ]),
+                ],
+            ])
+            ->add('idu', null, [
+                'data' => $options['current_idu'],
+                'disabled' => false,
+                'constraints' => [
+                    new NotNull([
+                        'message' => 'Please select an option',
+                    ]),
+                ],
+            ])
         ;
+
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Espacetalent::class,
+          'current_idcat' => null,
+            'current_idu' => null,
         ]);
     }
+
+    
 }

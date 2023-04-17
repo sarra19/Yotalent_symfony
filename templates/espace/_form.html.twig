@@ -5,7 +5,7 @@
     <div class="col-md-6">
       <div class="form-group">
         {{ form_label(form.username, 'Nom de Espace talent :') }}
-        {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.username, {'attr': {'class': 'form-control border-primary'}}) }}
         {{ form_errors(form.username) }}
       </div>
 
@@ -13,7 +13,7 @@
 
       <div class="form-group">
         {{ form_label(form.nbvotes, 'Nombre de votes :') }}
-        {{ form_widget(form.nbvotes, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.nbvotes, {'attr': {'class': 'form-control border-primary'}}) }}
         {{ form_errors(form.nbvotes) }}
       </div>
 
@@ -21,29 +21,31 @@
 
       <div class="form-group">
         {{ form_label(form.idcat, 'Nom de categorie :') }}
-        {{ form_widget(form.idcat, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.idcat, {'attr': {'class': 'form-control border-primary'}}) }}
         {{ form_errors(form.idcat) }}
       </div>
 
       <hr>
+     <div class="form-group">
+  {{ form_label(form.idu, 'Nom de user :') }}
+  {{ form_widget(form.idu, {'attr': {'class': 'form-control border-primary'}, 'type': 'text'}) }}
+  {{ form_errors(form.idu) }}
+</div>
 
-      <div class="form-group">
-        {{ form_label(form.idu, 'Nom de user :') }}
-        {{ form_widget(form.idu, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.idu) }}
-      </div>
 
       <hr>
+          <p>Current User: {{ form.vars.value.idu }}</p>
+
 
     </div>
 
     <div class="col-md-6">
 
       <div class="form-group">
-        {{ form_label(form.image, 'Image de couverture :') }}
-        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.image) }}
-      </div>
+  {{ form_label(form.image, 'Image de couverture :') }}
+  {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+  {{ form_errors(form.image) }}
+</div>
 
     </div>
   </div>

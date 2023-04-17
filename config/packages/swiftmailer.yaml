@@ -1,0 +1,9 @@
+# Swiftmailer Configuration
+swiftmailer:
+    transport: smtp
+    host: 'smtp.gmail.com'
+    port: 587
+    encryption: tls
+    auth_mode: login
+    username: 'benhamidasarra8@gmail.com'
+    password: 'Sarra2020'

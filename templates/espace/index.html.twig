@@ -5,7 +5,6 @@
 {% block body %}
   <div class="row">
     <div class="col-md-12">
-      <h1 class="text-center mb-4">Espacetalent List</h1>
 
       <div class="table-responsive">
         <table class="table table-striped">
@@ -30,7 +29,7 @@
                 <div class="d-flex justify-content-center">
                   <a href="{{ path('app_espace_show', {'idest': espacetalent.idest}) }}" class="btn btn-primary me-2">Show</a>
                   <a href="{{ path('app_espace_edit', {'idest': espacetalent.idest}) }}" class="btn btn-success me-2">Edit</a>
-                  {{ include('espace/_delete_form.html.twig') }}
+                  {{ include('espace/_delete.html.twig') }}
                 </div>
               </td>
             </tr>
@@ -45,6 +44,9 @@
 
       <div class="d-flex justify-content-center">
         <a href="{{ path('app_espace_new') }}" class="btn btn-primary">Create new</a>
+        <a href="{{ path('api_generate_pdf') }}" class="btn btn-warning">Generate PDF</a>
+
+
       </div>
   </div>
 </div>

@@ -33,7 +33,7 @@ class VideoController extends AbstractController
             ->getRepository(Video::class)
             ->findAll();
 
-        return $this->render('video/index.FrontV.html.twig', [
+        return $this->render('video/index.FrontVV.html.twig', [
             'videos' => $videos,
         ]);
     }
@@ -80,6 +80,57 @@ class VideoController extends AbstractController
         ]);
     }
 
+    #[Route('/newV/{idest}', name: 'app_video_newV', methods: ['GET', 'POST'])]
+    public function newV(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Get the current Espacetalent entity based on the idest value in the URL
+        $idest = $request->attributes->get('idest');
+        $espacetalent = $entityManager->getRepository(Espacetalent::class)->find($idest);
+    
+        if (!$espacetalent) {
+            throw $this->createNotFoundException('The Espacetalent entity does not exist');
+        }
+    
+        // Create a new Video entity and set the Espacetalent entity as its parent
+        $video = new Video();
+        $video->setIdest($espacetalent);
+    
+        $form = $this->createForm(VideoType::class, $video);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Handle video upload
+            $file = $form['url']->getData();
+            if ($file) {
+                $fileName = uniqid().'.'.$file->guessExtension();
+    
+                try {
+                    $file->move(
+                        $this->getParameter('uploads'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // handle exception if something happens during file upload
+                }
+    
+                // Update entity with file name
+                $video->setUrl($fileName);
+    
+            }
+    
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($video);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('app_video_frontest', ['idest' => $idest], Response::HTTP_SEE_OTHER);
+        }
+    
+        return $this->renderForm('video/newV.html.twig', [
+            'video' => $video,
+            'form' => $form,
+        ]);
+    }
+    
     #[Route('/{idvid}', name: 'app_video_show', methods: ['GET'])]
     public function show(Video $video): Response
     {
@@ -148,5 +199,15 @@ class VideoController extends AbstractController
         }
 
         return $this->redirectToRoute('app_video_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/video/{idvid}', name: 'app_video_deleteV', methods: ['POST'])]
+    public function deleteV(Request $request, Video $video, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$video->getIdvid(), $request->request->get('_token'))) {
+            $entityManager->remove($video);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_espace_frontu', [], Response::HTTP_SEE_OTHER);
     }
 }

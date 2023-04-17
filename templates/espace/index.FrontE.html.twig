@@ -10,18 +10,32 @@
       <div class="col-md-4 mb-4">
         <div class="card">
           <a href="../uploads/{{ espacetalent.image }}" data-lightbox="gallery">
-            <img class="card-img-top" src="../uploads/{{ espacetalent.image }}" alt="Image">
+            <img class="card-img-top" src="../../../uploads/{{ espacetalent.image }}" alt="Image">
           </a>
           <div class="card-body">
-        <h3>  <p class="text-center" style="font-family: Arial, sans-serif;">   <class="card-title">{{ espacetalent.username }}</p></h3>
-                        <p class="text-center ">{{ espacetalent.nbvotes }} votes</p>
+            <h3><p class="text-center" style="font-family: Arial, sans-serif;">{{ espacetalent.username }}</p></h3>
+            <p class="text-center">{{ espacetalent.nbvotes }} votes</p>
+                          <div class="text-center">
+  <a href="{{ path('app_espace_editE', {'idest': espacetalent.idest}) }}" class="btn btn-primary">Edit</a>
 
-          </div>
-          
+                                            {{ include('espace/_delete_form.html.twig') }}
+</div>
+            <hr>
+            <div class="text-center">
+
+     <a href="{{ path('app_video_newV', {'idest': espacetalent.idest}) }}" class="btn btn-info">add Video</a>
+                 <a href="{{ path('app_video_frontest', {'idest': espacetalent.idest}) }}" class="btn btn-success">Voir Video</a>
+
+</div>  
+                                
+          </div>      
         </div>
       </div>
       {% endfor %}
     </div>
+    <div class="text-center">
+<a href="{{ path('app_espace_newE', {'idu': idu}) }}" class="btn btn-primary">Add Space Talent</a>
+      
+    </div>
   </div>
-
 {% endblock %}

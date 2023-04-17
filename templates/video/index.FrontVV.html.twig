@@ -1,32 +1,36 @@
-{% extends 'FrontE.html.twig' %}
-
+{% extends 'Front.html.twig' %}
 {% block title %}Video index{% endblock %}
-
 {% block body %}
-
-
 <div class="section-padding"></div>
   <div class="container">
-      {% for video in videos %}
-<div class="col-md-4 mb-4 mx-auto">
+    {% for video in videos %}
+      <div class="col-md-4 mb-4 mx-auto">
         <div class="card video-card">
-              <center>
+          <center>
+            <video class="card-img-top" controls data-src="../{{ video.url }}">
+              <source src="../../../uploads/{{ video.url }}" type="video/mp4">
+            </video>
+            <div class="card-body">
+              <h3>
+                <p class="text-center" style="font-family: Arial, sans-serif;">
+                  {{ video.nomvid }}
+                </p>
+              </h3>
+                                                          {{ include('video/_delete.html.twig') }}
 
-          <video class="card-img-top" controls data-src="../{{ video.url }}">
-            <source src="../../../uploads/{{ video.url }}" type="video/mp4">
-          </video>
-          <div class="card-body">
-            <h3>
-              <p class="text-center" style="font-family: Arial, sans-serif;">
-                {{ video.nomvid }}
-              </p>
-            </h3>
-          </div>
+            </div>
+          </center>
         </div>
       </div>
-      {% endfor %}
+    {% endfor %}
+
+    <div class="col-md-4 mb-4 mx-auto">
+      <div class="card video-card">
+                        
+
+      </div>
+    </div>
+      
   </div>
-
-
-
+  
 {% endblock %}
