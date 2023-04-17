@@ -37,7 +37,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for ticket in tickets %}
+        {% for ticket in pagination %}
             <tr>
                 <td>{{ ticket.idt }}</td>
                 <td>{{ ticket.prixt }}</td>
@@ -69,6 +69,13 @@
         {% endfor %}
         </tbody>
     </table>
+
+
+    <div class="pagination">
+    {{ knp_pagination_render(pagination) }}
+</div>
+
+
 
     <a href="{{ path('app_ticket_new') }}"class="btn btn-info px-3 py-1">Create new</a>
 {% endblock %}

@@ -12,12 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/remboursement')]
 class RemboursementController extends AbstractController
 {
     #[Route('/', name: 'app_remboursement_index', methods: ['GET'])]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
     {
         $queryBuilder = $entityManager->createQueryBuilder()
         ->select('e')
@@ -43,8 +44,14 @@ class RemboursementController extends AbstractController
     }
 
     $remboursements = $queryBuilder->getQuery()->getResult();
+    //pagination
+    $pagination = $paginator->paginate(
+        $remboursements,
+        $request->query->getInt('page', 1), 7
+    );
+
         return $this->render('remboursement/index.html.twig', [
-            'remboursements' => $remboursements,
+            'pagination' => $pagination,
         ]);
     }
 

@@ -20,12 +20,13 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use App\Repository\TicketRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/ticket')]
 class TicketController extends AbstractController
 {
     #[Route('/', name: 'app_ticket_index', methods: ['GET'])]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager ,PaginatorInterface $paginator): Response
     {
         $queryBuilder = $entityManager->createQueryBuilder()
         ->select('e')
@@ -49,10 +50,19 @@ class TicketController extends AbstractController
     if ($sort) {
         $queryBuilder->orderBy('e.' . $sort, 'ASC');
     }
+   
 
     $tickets = $queryBuilder->getQuery()->getResult();
+
+    //Pagination
+    $pagination = $paginator->paginate(
+        $tickets,
+        $request->query->getInt('page', 1), 7
+    );
+
+
         return $this->render('ticket/index.html.twig', [
-            'tickets' => $tickets,
+            'pagination' => $pagination,
         ]);
     }
 

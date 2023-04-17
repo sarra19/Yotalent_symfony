@@ -1,0 +1,9 @@
+<div class="pagination">
+    <ul>
+        {% for page in pagination.paginationData.pagesInRange %}
+            <li{% if page == pagination.currentPageNumber %} class="current"{% endif %}>
+                <a href="{{ path('app_ticket_index', {page: page}) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
