@@ -54,12 +54,13 @@
                 <td>{{ evenement.datedev}}</td>
                 <td>{{ evenement.datefev}}</td>
                 <td>{{ evenement.localisation }}</td>
-                <td><img src="{{ asset('uploads/' ~evenement.imageev) }}" style=" width:150px; height:150px; " alt=""/></td>
+                <td><img src="{{ asset('uploads/' ~evenement.imageev) }}" style=" width:150px; height:150px;border-radius:5px; " alt=""/></td>
                 <td>
                 <div class="d-flex justify-content-center">
                      <a href="{{ path('app_evenement_show', {'idev': evenement.idev}) }}"class="btn btn-primary px-3 py-1"><i class="fas fa-eye"></i> show</a>
                     <a href="{{ path('app_evenement_edit', {'idev': evenement.idev}) }}"class="btn btn-success px-3 py-1"><i class="fas fa-edit"></i> edit</a>
                     <a >{{ include('evenement/_delete_form.html.twig') }}</a>
+                    <a href="{{ path('app_evenement_map', {'idev': evenement.idev}) }}" class="btn btn-info rounded-pill m-2" ><i class="fas fa-location-arrow"></i></a>
                   </div>
                 </td>
             </tr>
@@ -73,6 +74,7 @@
     </div>
 <div class="d-flex justify-content-center">
     <a href="{{ path('app_evenement_new') }}" class="btn btn-primary px-3 py-1"> <i class="fas fa-plus"></i>Create new</a>
+     <a href="{{ path('generator_service') }}" class="btn btn-primary px-3 py-1"> <i class="fas fa-plus"></i>PDF</a>
     </div>
     </div>
   </div>

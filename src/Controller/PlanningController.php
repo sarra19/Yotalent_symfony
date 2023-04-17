@@ -14,6 +14,8 @@ use App\Repository\PlanningRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
+use App\Entity\PdfGeneratorService;
+use Knp\Component\Pager\PaginatorInterface;
 #[Route('/planning')]
 class PlanningController extends AbstractController
 {
@@ -66,11 +68,18 @@ class PlanningController extends AbstractController
         ]);
     }
     #[Route('/planning/front/{idev}', name: 'app_planning_fronts', methods: ['GET'], requirements: ['idev' => '\d+'])]
-public function frontP(EntityManagerInterface $entityManager, $idev = null): Response
+public function frontP(Request $request,EntityManagerInterface $entityManager, $idev = null,PaginatorInterface $paginator): Response
 {
     $plannings = $entityManager
         ->getRepository(Planning::class)
         ->findBy(['idev' => $idev]);
+        
+        $plannings = $paginator->paginate(
+            $plannings, /* query NOT result */
+            $request->query->getInt('page', 1),
+            3
+        );
+
 
     return $this->render('planning/indexFrontP.html.twig', [
         'plannings' => $plannings,
@@ -87,7 +96,8 @@ public function frontP(EntityManagerInterface $entityManager, $idev = null): Res
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-           
+            
+            
             $event=$entityManager
             ->getRepository(Evenement::class)
             ->find($planning->getIdev());
@@ -156,4 +166,22 @@ public function frontP(EntityManagerInterface $entityManager, $idev = null): Res
 
         return $this->redirectToRoute('app_planning_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/pdf/planning', name: 'generator_service')]
+    public function pdfPlanning(): Response
+    { 
+        $planning= $this->getDoctrine()
+        ->getRepository(Planning::class)
+        ->findAll();
+
+   
+
+        $html =$this->renderView('pdf/indexP.html.twig', ['planning' => $planning]);
+        $pdfGeneratorService=new PdfGeneratorService();
+        $pdf = $pdfGeneratorService->generatePdf($html);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"',
+        ]);
+}
 }

@@ -19,7 +19,7 @@
 
 
 
-          <img src="{{ asset('uploads/' ~evenement.imageev)}}" style=" width:360px; height:250px; " alt="">
+          <img src="{{ asset('uploads/' ~evenement.imageev)}}" style=" width:360px; height:250px;border-radius:16px;box-shadow: 0 10px 16px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5); " alt="">
           <center><h2>{{ evenement.nomev }}</h2></center>
           <p><strong style="color:#696969">Date de début:</strong> {{ evenement.datedev}}</p>
           <p><strong style="color:#696969">Date de fin:</strong> {{ evenement.datefev}}</p>
@@ -27,6 +27,9 @@
 
 
 <p><a href="{{ path('app_planning_fronts', {'idev': evenement.idev}) }}" class="btn btn-primary px-3 py-1">planning </a></p>
+{# -------------------------- Share ------------------------------------  #}
+         <div class="sharethis-inline-share-buttons"></div>
+         {# -------------------------- Share ------------------------------------  #}
 
 {#affichage #}
         </div>
@@ -41,5 +44,7 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+    <center><div class="btn px-10 py-10" {{knp_pagination_render(evenements) }} </div></center>
 
 {% endblock %}

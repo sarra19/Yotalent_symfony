@@ -14,9 +14,27 @@ use App\Repository\EvenementRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
+use App\Entity\PdfGeneratorService;
+use Knp\Component\Pager\PaginatorInterface;
+
+
 #[Route('/evenement')]
 class EvenementController extends AbstractController
 {
+
+    #[Route('/show_in_map/{idev}', name: 'app_evenement_map', methods: ['GET'])]
+    public function Map( Evenement $idev,EntityManagerInterface $entityManager ): Response
+    {
+
+        $idev = $entityManager
+            ->getRepository(Evenement::class)->findBy( 
+                ['idev'=>$idev ]
+            );
+        return $this->render('evenement/api_arcgis.html.twig', [
+            'evenements' => $idev,
+        ]);
+    }
+
     #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
     public function index(Request $request, EntityManagerInterface $entityManager ): Response
     {
@@ -53,12 +71,18 @@ class EvenementController extends AbstractController
     }
 
     #[Route('/front', name: 'app_evenement_indexfront', methods: ['GET'])]
-    public function front(EntityManagerInterface $entityManager): Response
+    public function front(Request $request,EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
     {
         $evenements = $entityManager
         
             ->getRepository(Evenement::class)
             ->findAll();
+
+            $evenements = $paginator->paginate(
+                $evenements, /* query NOT result */
+                $request->query->getInt('page', 1),
+                6
+            );
 
         return $this->render('evenement/indexFront.html.twig', [
             'evenements' => $evenements,
@@ -150,4 +174,27 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/pdf/evenement', name: 'generator_service')]
+    public function pdfEvenement(): Response
+    { 
+        $evenement= $this->getDoctrine()
+        ->getRepository(Evenement::class)
+        ->findAll();
+
+   
+
+        $html =$this->renderView('pdf/index.html.twig', ['evenement' => $evenement]);
+        $pdfGeneratorService=new PdfGeneratorService();
+        $pdf = $pdfGeneratorService->generatePdf($html);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"',
+        ]);
+       
+    }
+
+
+
+
 }
