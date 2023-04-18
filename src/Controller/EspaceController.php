@@ -21,21 +21,46 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 
+
 #[Route('/espace')]
 class EspaceController extends AbstractController
 {
+  
+   
     #[Route('/', name: 'app_espace_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $espacetalents = $entityManager
-            ->getRepository(Espacetalent::class)
-            ->findAll();
+        $queryBuilder = $entityManager->createQueryBuilder()
+            ->select('e')
+            ->from(Espacetalent::class, 'e');
+
+        // Basic search by username or nbvotes
+        $searchQuery = $request->query->get('search');
+        if ($searchQuery) {
+            $queryBuilder->andWhere($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('e.username', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.nbvotes', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.idest', ':searchQuery'),
+
+            ))
+            ->setParameter('searchQuery', $searchQuery);
+        }
+
+        // Sorting
+        $sort = $request->query->get('sort');
+        if ($sort) {
+            $queryBuilder->orderBy('e.' . $sort, 'ASC');
+        }
+
+        $espacetalents = $queryBuilder->getQuery()->getResult();
 
         return $this->render('espace/index.html.twig', [
             'espacetalents' => $espacetalents,
         ]);
     }
 
+    
+    
     #[Route('/app', name: 'app')]
     public function envoyerEmail(Request $request, MailerInterface $mailer)
     {

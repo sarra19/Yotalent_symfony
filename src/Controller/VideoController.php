@@ -15,16 +15,37 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class VideoController extends AbstractController
 {
     #[Route('/', name: 'app_video_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $videos = $entityManager
-            ->getRepository(Video::class)
-            ->findAll();
+        $queryBuilder = $entityManager->createQueryBuilder()
+            ->select('e')
+            ->from(Video::class, 'e');
+
+        // Basic search by username or nbvotes
+        $searchQuery = $request->query->get('search');
+        if ($searchQuery) {
+            $queryBuilder->andWhere($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('e.idvid', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.nomvid', ':searchQuery'),
+                $queryBuilder->expr()->eq('e.url', ':searchQuery'),
+
+            ))
+            ->setParameter('searchQuery', $searchQuery);
+        }
+
+        // Sorting
+        $sort = $request->query->get('sort');
+        if ($sort) {
+            $queryBuilder->orderBy('e.' . $sort, 'ASC');
+        }
+
+        $videos = $queryBuilder->getQuery()->getResult();
 
         return $this->render('video/index.html.twig', [
             'videos' => $videos,
         ]);
     }
+
 
     #[Route('/front', name: 'app_video_indexfront', methods: ['GET'])]
     public function front(EntityManagerInterface $entityManager): Response
