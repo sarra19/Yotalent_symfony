@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
@@ -34,6 +36,28 @@ class EspaceController extends AbstractController
         ]);
     }
 
+    #[Route('/app', name: 'app')]
+    public function envoyerEmail(Request $request, MailerInterface $mailer)
+    {
+        if ($request->isMethod('POST')) {
+            $expediteur = $request->request->get('expediteur');
+            $destinataire = 'sarra.benhamida@esprit.tn';
+            $sujet = $request->request->get('sujet');
+            $message = $request->request->get('message');
+
+            $email = (new Email())
+                ->from($expediteur)
+                ->to($destinataire)
+                ->subject($sujet)
+                ->text($message);
+
+            $mailer->send($email);
+
+            return new Response('E-mail envoyé !');
+        }
+
+        return $this->render('email/index.html.twig');
+    }
   
  #[Route('/espace/front/{idcat}', name: 'app_espace_frontcat', methods: ['GET'], requirements: ['idcat' => '\d+'])]
 public function frontcat(EntityManagerInterface $entityManager, $idcat = null): Response
@@ -94,7 +118,7 @@ public function generatePdf(EntityManagerInterface $entityManager): Response
 
 
     #[Route('/new', name: 'app_espace_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, NotifierInterface $notifier): Response
+    public function new(Request $request,MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
         $espacetalent = new Espacetalent();
         $form = $this->createForm(EspacetalentType::class, $espacetalent);
@@ -125,7 +149,22 @@ public function generatePdf(EntityManagerInterface $entityManager): Response
      
             $entityManager->persist($espacetalent);
             $entityManager->flush();
-            $notifier->send(new Notification('EspaceTalent  ajouter avec succées ', ['browser']));
+
+            
+            $email = (new Email())
+            ->from('sarra.benhamida@esprit.tn')
+            ->To('sarra.benhamida@esprit.tn')
+            ->subject('nouveau ajout')
+                    ->text("espace talent ajouté");
+           
+            try {
+             $mailer->send($email);
+             $this->addFlash('message','E-mail envoyé :');
+         } catch (TransportExceptionInterface $e) {
+             // Gérer les erreurs d'envoi de courriel
+         }
+
+         //   $notifier->send(new Notification('EspaceTalent  ajouter avec succées ', ['browser']));
             return $this->redirectToRoute('app_espace_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -134,6 +173,7 @@ public function generatePdf(EntityManagerInterface $entityManager): Response
             'form' => $form,
         ]);
     }
+      
       
  #[Route('/front/{idu}', name: 'app_espace_frontu', methods: ['GET'], requirements: ['idu' => '\d+'])]
  public function frontu(EntityManagerInterface $entityManager, $idu = null): Response
