@@ -24,7 +24,7 @@
        
        
       </div>
-    {# <table class="table"> #}
+
       <div class="table-responsive">
         <table class="table table-striped">
         <thead>
@@ -46,20 +46,6 @@
                 <td>
                     <a href="{{ path('app_ticket_show', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">show</a>
                     <a href="{{ path('app_ticket_edit', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">edit</a>
-
- 
-           
-  
-                    
-                </td>
-
-
-
-                
-                <td> 
-                
-                
-                
                 </td>
             </tr>
         {% else %}
@@ -70,12 +56,9 @@
         </tbody>
     </table>
 
-
     <div class="pagination">
-    {{ knp_pagination_render(pagination) }}
-</div>
-
-
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
     <a href="{{ path('app_ticket_new') }}"class="btn btn-info px-3 py-1">Create new</a>
 {% endblock %}
