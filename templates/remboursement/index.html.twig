@@ -28,6 +28,14 @@
        
         
       </div>
+      
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{# Le reste de votre code Twig ici #}
 
     {# <table class="table"> #}
    <div class="table-responsive">
@@ -47,6 +55,7 @@
         </thead>
         <tbody>
         {% for remboursement in pagination %}
+        
             <tr>
 
          <td>{{ remboursement.idrem }}</td>

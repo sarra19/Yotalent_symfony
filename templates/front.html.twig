@@ -341,9 +341,8 @@
 
  
        <a href="{{ path('payer', {'idt': 78}) }}" class="btn btn-primary">pay</a>
-       
-<button   class="btn btn-primary" id="showPdfButton">See your Ticket</button>
-
+       <button   class="btn btn-primary" id="showPdfButton">See your Ticket</button>
+ </form>
 <script>
     document.getElementById('showPdfButton').addEventListener('click', function () {
         window.open("{{ path('api_generate_pdf') }}", "_blank");

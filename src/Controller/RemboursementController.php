@@ -79,13 +79,11 @@ class RemboursementController extends AbstractController
          } catch (TransportExceptionInterface $e) {
              // Gérer les erreurs d'envoi de courriel
          }
+         $this->addFlash('success', 'refund is add');
 
             return $this->redirectToRoute('app_remboursement_new', [], Response::HTTP_SEE_OTHER);
         }
      
-
-
-       
 
         return $this->renderForm('remboursement/new.html.twig', [
             'remboursement' => $remboursement,

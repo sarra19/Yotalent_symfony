@@ -21,6 +21,9 @@ use Symfony\Component\Mime\Address;
 use App\Repository\TicketRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Snappy\Pdf as SnappyPdf;
+
+
 
 #[Route('/ticket')]
 class TicketController extends AbstractController
@@ -211,34 +214,41 @@ class TicketController extends AbstractController
     // }  
     
     
-
-    #[Route('/{idt}/payer',name: 'payer', methods: ['GET', 'POST'])]
-    public function payer(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response
+    #[Route('/{idt}/payer', name: 'payer', methods: ['GET', 'POST'])]
+    public function payer(Request $request, MailerInterface $mailer, SnappyPdf $snappy, Ticket $ticket, EntityManagerInterface $entityManager): Response
     {
+        $ticket->setEtat('1'); // Set etat property to yes
     
-
-
-
-        
-        $ticket->setEtat('1') ; // Set etat property to yes
-       
-      
-            $entityManager->flush();
-            return $this->redirectToRoute('front', [
-                
-                
-                'ticket' => $ticket,
-
-
-            ], Response::HTTP_SEE_OTHER);
-            
-        
+        // Générer le contenu HTML de la facture en utilisant le template Twig
+        $html = $this->renderView('invoices/ticket_invoice.html.twig', [
+            'ticket' => $ticket,
+        ]);
     
-       
+        // Générer le PDF et enregistrer le fichier dans un dossier temporaire
+        $pdfFilePath = tempnam(sys_get_temp_dir(), 'facture_') . '.pdf';
+        $snappy->generateFromHtml($html, $pdfFilePath);
+    
+        // Créer l'e-mail et joindre la facture PDF en pièce jointe
+        $email = (new Email())
+            ->from('hadir.elayeb@esprit.tn')
+            ->to('hadir.elayeb@esprit.tn')
+            ->subject('Paiement du ticket')
+            ->html('<p>Voici la facture de votre achat :</p>')
+            ->attachFromPath($pdfFilePath, 'facture.pdf', 'application/pdf');
+    
+        // Envoyer l'e-mail
+        try {
+            $mailer->send($email);
+            $this->addFlash('message', 'E-mail de paiement envoyé !');
+        } catch (TransportExceptionInterface $e) {
+            // Gérer les erreurs d'envoi de courriel
+            $this->addFlash('error', 'Une erreur s\'est produite lors de l\'envoi de l\'e-mail : ' . $e->getMessage());
+        }
+    
+        // Enregistrer l'état du ticket dans la base de données et rediriger vers la page d'accueil
+        $entityManager->flush();
+        return $this->redirectToRoute('front');
     }
-
-
-
 
 
     
