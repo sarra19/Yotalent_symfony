@@ -28,14 +28,16 @@ use Knp\Snappy\Pdf as SnappyPdf;
 #[Route('/ticket')]
 class TicketController extends AbstractController
 {
-    #[Route('/', name: 'app_ticket_index', methods: ['GET'])]
-    public function index(Request $request, EntityManagerInterface $entityManager ,PaginatorInterface $paginator): Response
+   /**
+     * @Route("/", name="app_ticket_index", methods={"GET"})
+     */
+    public function index(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
         $queryBuilder = $entityManager->createQueryBuilder()
         ->select('e')
         ->from(Ticket::class, 'e');
 
-    // Basic search by username or nbvotes
+    // Recherche basique par prixt, nomev, etat, ou idt
     $searchQuery = $request->query->get('search');
     if ($searchQuery) {
         $queryBuilder->andWhere($queryBuilder->expr()->orX(
@@ -43,30 +45,43 @@ class TicketController extends AbstractController
             $queryBuilder->expr()->eq('e.nomev', ':searchQuery'),
             $queryBuilder->expr()->eq('e.etat', ':searchQuery'),
             $queryBuilder->expr()->eq('e.idt', ':searchQuery'),
-            
         ))
         ->setParameter('searchQuery', $searchQuery);
     }
 
-    // Sorting
+    // Tri
     $sort = $request->query->get('sort');
     if ($sort) {
         $queryBuilder->orderBy('e.' . $sort, 'ASC');
     }
-   
 
-    $tickets = $queryBuilder->getQuery()->getResult();
+    // Pagination
+    $page = $request->query->getInt('page', 1); // numéro de la page en cours, 1 par défaut
+    $itemsPerPage = 5; // nombre d'éléments par page
 
-    //Pagination
     $pagination = $paginator->paginate(
-        $tickets,
-        $request->query->getInt('page', 1), 7
+        $queryBuilder->getQuery(), // passez la requête au paginateur
+        $page,
+        $itemsPerPage,
+        [
+            'template' => 'pagination/pagination_custom.twig', // chemin vers votre fichier Twig personnalisé
+            'distance' => 3
+        ]
+  
     );
+ 
 
+    return $this->render('ticket/index.html.twig', [
+        'items' => $pagination->getItems(),
+        'currentPage' => $pagination->getCurrentPageNumber(),
+        'totalPages' => $pagination->getPageCount(),
+        'pagination' => $pagination,
+    ]);
 
-        return $this->render('ticket/index.html.twig', [
-            'pagination' => $pagination,
-        ]);
+  
+    
+        
+        
     }
 
     #[Route('/front', name: 'front', methods: ['GET','POST'])]

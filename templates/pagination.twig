@@ -1,4 +1,4 @@
-<div class="pagination">
+{# <div class="pagination">
     <ul>
         {% for page in pagination.paginationData.pagesInRange %}
             <li{% if page == pagination.currentPageNumber %} class="current"{% endif %}>
@@ -6,4 +6,40 @@
             </li>
         {% endfor %}
     </ul>
+</div> #}
+
+
+
+{# templates/pagination/custom_pagination.html.twig #}
+
+<div class="pagination">
+    <ul class="pagination">
+        {% if pagination.currentPage > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): 1})) }}">&laquo;&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): pagination.currentPage - 1})) }}">&laquo;</a>
+            </li>
+        {% endif %}
+        
+        {% for page in 1..pagination.pageCount %}
+            <li class="page-item {{ page == pagination.currentPage ? 'active' : '' }}">
+                <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): page})) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+        
+        {% if pagination.currentPage < pagination.pageCount %}
+            <li class="page-item">
+                <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): pagination.currentPage + 1})) }}">&raquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): pagination.pageCount})) }}">&raquo;&raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
 </div>
+
+
+
+
