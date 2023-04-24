@@ -1,0 +1,4 @@
+framework:
+    mailer:
+        dsn: 'gmail+smtp://asma.glenza@esprit.tn:qymklufxxasluqkg@default'
+        message_bus:  false
