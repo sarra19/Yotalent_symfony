@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\EspaceRepository;
 
 use App\Entity\Categorie;
 use App\Entity\Espacetalent;
@@ -112,7 +113,7 @@ public function frontcatt(EntityManagerInterface $entityManager, $idcat = 1111):
 }
  
    
-#[Route('/pdf', name: 'api_generate_pdf', methods: ['GET'])]
+#[Route('/pdfs', name: 'api_generate_pdf', methods: ['GET'])]
 public function generatePdf(EntityManagerInterface $entityManager): Response
 {
     $espacetalents = $entityManager
@@ -122,7 +123,7 @@ public function generatePdf(EntityManagerInterface $entityManager): Response
     $options->set('defaultFont', 'Arial');
     $dompdf = new Dompdf($options);
 
-    $html = $this->renderView('pdf/pdf.html.twig', ['espacetalents' => $espacetalents]);
+    $html = $this->renderView('Stat/pdfs.html.twig', ['espacetalents' => $espacetalents]);
 
 
     $dompdf->loadHtml($html);
@@ -153,7 +154,27 @@ public function generatePdf(EntityManagerInterface $entityManager): Response
         ]);
     }
 
-  
+  /**
+     * @Route("/espace/stat", name="app_stat_index")
+     */
+    public function stat(EspaceRepository $repository, EntityManagerInterface $entityManager): Response
+    {
+        $espacetalents = $entityManager
+    ->getRepository(Espacetalent::class)
+    ->findAll();
+        $counts = $repository->countByVoteIntervals([0, 10, 20, 50]);
+        $total = array_sum($counts);
+        $percentages = [];
+        foreach ($counts as $count) {
+            $percentages[] = round($count / $total * 100, 2);
+        }
+        return $this->render('Stat/Stat.html.twig', [
+            'counts' => $counts,
+            'percentages' => $percentages,
+            'total' => $total,
+            'espacetalents' => $espacetalents,
+        ]);
+    }
 
 
     #[Route('/new', name: 'app_espace_new', methods: ['GET', 'POST'])]
