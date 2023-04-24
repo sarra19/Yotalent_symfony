@@ -19,17 +19,19 @@ class MailerService
         $this->mailer=$mailer;
      }
     
-    public function sendEmail(    $to ): void
+    public function sendEmail(    $to,$subject,$html ): void
     {
         
         $email = (new Email())
-            ->from('razisniha@gmail.com')
+            ->from('yo.yotalent7@gmail.com')
             ->to($to)
-            ->subject('Ton rendez-vous et bien enrigistre')
-            ->text('See Twig integration for better HTML integration!');
+            ->subject($subject)
+            ->html($html);
+            
              
             $this->mailer->send($email);
       
         // ...
     }
 }
+?>

@@ -11,25 +11,35 @@
             <div class="section-header text-center">
                 <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Evenements</h4>
             </div>
+            
             <div class="row">
            {% for evenement in evenements %}
         <div class="col-lg-4 col-md-6 mb-4">
         <div class="service-item">
 {#affichage #}
 
+<body>
 
-
-          <img src="{{ asset('uploads/' ~evenement.imageev)}}" style=" width:360px; height:250px;border-radius:16px;box-shadow: 0 10px 16px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5); " alt="">
-          <center><h2>{{ evenement.nomev }}</h2></center>
-          <p><strong style="color:#696969">Date de début:</strong> {{ evenement.datedev}}</p>
+<div class="card">
+   <img src="{{ asset('uploads/' ~evenement.imageev)}}" style=" width:360px; height:250px;border-radius:16px;box-shadow: 0 10px 16px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5); " alt="">
+   <center><h1>{{ evenement.nomev }}</h1></center>
+  <p><strong style="color:#696969">Date de début:</strong> {{ evenement.datedev}}</p>
           <p><strong style="color:#696969">Date de fin:</strong> {{ evenement.datefev}}</p>
-          <p><strong style="color:#696969" >localisation:</strong> {{ evenement.localisation }}</p>
-
-
-<p><a href="{{ path('app_planning_fronts', {'idev': evenement.idev}) }}" class="btn btn-primary px-3 py-1">planning </a></p>
+          <p><strong style="color:#696969" >localisation:</strong> {{ evenement.localisation }}  <a href="{{ path('app_evenement_map', {'idev': evenement.idev}) }}" class="btn btn-info rounded-pill m-2" ><i class="fa fa-map-marker "></i></a></p>
+  <p> <center><a href="{{ path('app_planning_fronts', {'idev': evenement.idev}) }}" class="btn btn-primary px-3 py-1">planning </a><center></p>    
+ </div>
 {# -------------------------- Share ------------------------------------  #}
          <div class="sharethis-inline-share-buttons"></div>
          {# -------------------------- Share ------------------------------------  #}
+
+
+
+</body>
+
+
+
+
+ 
 
 {#affichage #}
         </div>

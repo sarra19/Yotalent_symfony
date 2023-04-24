@@ -109,6 +109,7 @@ public function frontP(Request $request,EntityManagerInterface $entityManager, $
             if (empty($plannings)) 
            {
             $entityManager->flush();
+            
             $notifier->send(new Notification('Planning avec ajouter succées ', ['browser']));
 
             return $this->redirectToRoute('app_planning_index', [], Response::HTTP_SEE_OTHER);
@@ -166,7 +167,7 @@ public function frontP(Request $request,EntityManagerInterface $entityManager, $
 
         return $this->redirectToRoute('app_planning_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/pdf/planning', name: 'generator_service')]
+    #[Route('/pdf/planning', name: 'generator_services')]
     public function pdfPlanning(): Response
     { 
         $planning= $this->getDoctrine()

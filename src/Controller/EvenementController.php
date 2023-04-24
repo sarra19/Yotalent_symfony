@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\User;
 use App\Form\Evenement1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,8 @@ use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use App\Entity\PdfGeneratorService;
 use Knp\Component\Pager\PaginatorInterface;
-
+use App\Service\MailerService; 
+use Symfony\Component\Mime\Email;
 
 #[Route('/evenement')]
 class EvenementController extends AbstractController
@@ -92,7 +94,7 @@ class EvenementController extends AbstractController
    
 
     #[Route('/new', name: 'app_evenement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, NotifierInterface $notifier): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, NotifierInterface $notifier,MailerService $mailer): Response
     {
         $evenement = new Evenement();
         $form = $this->createForm(Evenement1Type::class, $evenement);
@@ -114,7 +116,18 @@ class EvenementController extends AbstractController
             if (empty($evenements)) 
            {
             $entityManager->flush();
+            $clients=$entityManager->getRepository(User::class)->findBy(['role'=>'participant']);
+     foreach($clients as $client)
+     {
+        $to=$client->getEmail();
+        $subject="Nouvel Evenement";
+        $twig = $this->container->get('twig');
+              $html=$twig->render('email/email.html.twig',['evenement'=>$evenement]);
+          
+          $mailer->sendEmail($to,$subject,$html);
+     }
             $notifier->send(new Notification('Evenement avec ajouter succées ', ['browser']));
+
 
             return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
         }
