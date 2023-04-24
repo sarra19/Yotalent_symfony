@@ -14,16 +14,36 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategorieController extends AbstractController
 {
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $categories = $entityManager
-            ->getRepository(Categorie::class)
-            ->findAll();
+        $queryBuilder = $entityManager->createQueryBuilder()
+            ->select('e')
+            ->from(Categorie::class, 'e');
+
+       // Advanced search
+    $searchQuery = $request->query->get('searchQuery');
+    if ($searchQuery) {
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('e.idcat', ':searchQuery'),
+                $queryBuilder->expr()->like('e.nomcat', ':searchQuery'),
+            )
+        )->setParameter('searchQuery', '%'.$searchQuery.'%');
+    }
+
+        // Sorting
+        $sort = $request->query->get('sort');
+        if ($sort) {
+            $queryBuilder->orderBy('e.' . $sort, 'ASC');
+        }
+
+        $categories = $queryBuilder->getQuery()->getResult();
 
         return $this->render('categorie/index.html.twig', [
             'categories' => $categories,
         ]);
     }
+
 
 
     #[Route('/front', name: 'app_categorie_indexfront', methods: ['GET'])]

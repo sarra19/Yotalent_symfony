@@ -122,15 +122,7 @@ class User
     }
     public function __toString()
     {
-       // return sprintf("User (id: %d, nom: %s, email: %s, motpass: %s, role: %s, image: %s)",
-          //  $this->id,
-          return $this->nom;
-          /* $this->email,
-            $this->motpass,
-            $this->role,
-            $this->image
-        );*/
+        return $this->nom;
     }
-    
 
 }

@@ -13,6 +13,8 @@ uploads:
 espace_frontcat:
     path: /espace/front/{idcat}
     controller: App\Controller\EspaceController::front
+
+    
     
 video_frontest:
     path: /video/front/{idest}

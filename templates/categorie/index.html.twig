@@ -1,47 +1,66 @@
 {% extends 'Back.html.twig' %}
 
-{% block title %}Categorie index{% endblock %}
 
 {% block body %}
+
   <div class="row">
     <div class="col-md-12">
-      <h1 class="text-center mb-4">Categorie List</h1>
 
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Idcat</th>
-              <th scope="col">Nomcat</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for categorie in categories %}
-            <tr>
-              <td>{{ categorie.idcat }}</td>
-              <td>{{ categorie.nomcat }}</td>
-
-              <td>
-                <div class="d-flex justify-content-center">
-                  <a href="{{ path('app_categorie_show', {'idcat': categorie.idcat}) }}" class="btn btn-primary me-2">Show</a>
-                  <a href="{{ path('app_categorie_edit', {'idcat': categorie.idcat}) }}" class="btn btn-success me-2">Edit</a>
-                  {{ include('categorie/_delete_form.html.twig') }}
-                </div>
-              </td>
-            </tr>
-            {% else %}
-            <tr>
-              <td colspan="3">No records found</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="d-flex justify-content-center">
-        <a href="{{ path('app_categorie_new') }}" class="btn btn-primary">Create new</a>
+       <div class="d-flex justify-content-end mb-3">
+          <form action="{{ path('app_categorie_index') }}" method="get">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Rechercher par idcat, nomcat" name="searchQuery" value="{{ app.request.query.get('searchQuery') }}">
+        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
       </div>
     </div>
+  </div>
+</form>
+
+        <div class="ms-3">
+          <a href="{{ path('app_categorie_index', {'sort': 'idcat'}) }}" class="btn btn-outline-primary">Trier par idcat</a>
+        </div>
+
+        <div class="ms-3">
+          <a href="{{ path('app_categorie_index', {'sort': 'nomcat'}) }}" class="btn btn-outline-primary">Trier par nomcat</a>
+        </div>
+      </div>
+        <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-secondary">
+          <th scope="col">ID</th>
+          <th scope="col">Nom de la catégorie</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for categorie in categories %}
+        <tr>
+          <td>{{ categorie.idcat }}</td>
+          <td>{{ categorie.nomcat }}</td>
+
+          <td>
+            <div class="d-flex justify-content-center">
+              <a href="{{ path('app_categorie_show', {'idcat': categorie.idcat}) }}" class="btn btn-primary me-2"><i class="fas fa-eye"></i> Voir</a>
+              <a href="{{ path('app_categorie_edit', {'idcat': categorie.idcat}) }}" class="btn btn-success me-2"><i class="fas fa-edit"></i> Modifier</a>
+              {{ include('categorie/_delete_form.html.twig') }}
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="3">Aucun enregistrement trouvé</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <a href="{{ path('app_categorie_new') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une catégorie</a>
+  </div>
+</div>
 </div>
 {% endblock %}

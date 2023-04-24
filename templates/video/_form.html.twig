@@ -5,7 +5,7 @@
       
       <div class="form-group">
         {{ form_label(form.nomvid, 'Nom de la vidéo :') }}
-        {{ form_widget(form.nomvid, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.nomvid, {'attr': {'class': 'form-control border-primary'}})}}
         {{ form_errors(form.nomvid, {'attr': {'class': 'text-danger'}}) }}
         <hr>
       </div>
@@ -16,14 +16,9 @@
         {{ form_errors(form.url, {'attr': {'class': 'text-danger'}}) }}
         <hr>
       </div>
+          <p>Current esapace talent: {{ form.vars.value.idest }}</p>
 
-      <div class="form-group">
-        {{ form_label(form.idest, 'Espace Talent :') }}
-        {{ form_widget(form.idest, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.idest, {'attr': {'class': 'text-danger'}}) }}
-        <hr>
-      </div>
-
+   
       <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 
       {{ form_end(form) }}
