@@ -133,7 +133,15 @@ public function advancedSearch($dc, $idu,$idt,$idrem)
 
 
 
+public function countdarrive(): array
+{
+    $qb = $this->createQueryBuilder('d')
+        ->select('d.dc as dc, COUNT(d.dc) as count')
+        ->groupBy('d.dc')
+        ->getQuery();
 
+    return $qb->getResult();
+}
 
 
 }

@@ -247,8 +247,8 @@ class TicketController extends AbstractController
         $email = (new Email())
             ->from('hadir.elayeb@esprit.tn')
             ->to('hadir.elayeb@esprit.tn')
-            ->subject('Paiement du ticket')
-            ->html('<p>Voici la facture de votre achat :</p>')
+            ->subject('YOTALENT')
+            ->html('<p>Here is the invoice for your Event Tickets :</p>')
             ->attachFromPath($pdfFilePath, 'facture.pdf', 'application/pdf');
     
         // Envoyer l'e-mail

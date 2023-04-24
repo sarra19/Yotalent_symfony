@@ -25,9 +25,13 @@ class Remboursement
     /**
      * @var string
      *
-     * @ORM\Column(name="dc", type="string", length=255, nullable=false)
+     * @ORM\Column(name="dc", type="string", length=255, nullable=false,)
      */
     private $dc;
+    public function __construct()
+{
+    $this->dc = 'false'; // valeur par défaut
+}
 
     /**
      * @var int

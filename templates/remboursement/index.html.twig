@@ -9,9 +9,19 @@
 
       <div class="d-flex justify-content-end mb-3">
         <form class="input-group" method="get">
-          <input type="text" class="form-control me-2" name="search" placeholder="Rechercher par id remboursement ou id ticket  ">
-          <button type="submit" class="btn btn-outline-primary">Rechercher</button>
-        </form>
+         <input type="search" id="myInput" class="form-control pl-6" placeholder="Search "/>
+					
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+					<script>
+						$(document).ready(function () {
+                        $("#myInput").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#rs tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                         })
+                        });
+					</script>
  <div class="ms-3">
           <a href="{{ path('app_remboursement_index', {'sort': 'idrem'}) }}" class="btn btn-outline-primary">Trier par id remboursement</a>
         </div>
@@ -39,7 +49,7 @@
 
     {# <table class="table"> #}
    <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped" id='rs'>
         <thead>
              <tr class="table-secondary">
            
@@ -69,6 +79,7 @@
 <a href="{{ path('app_remboursement_accepter', {'idrem': remboursement.idrem}) }}"><button  class="btn btn-primary">Accepter</button></a>  
  <br> <br></td> <form method="post" action="{{ path('app_remboursement_delete', {'idrem': remboursement.idrem}) }}" onsubmit="return confirm('Are you sure you want to delete this refund?');">
    <td> <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ remboursement.idrem) }}"> 
+   
     <button class="btn btn-primary">refuser</button>
 </form>
 
