@@ -38,7 +38,7 @@
        
         
       </div>
-      
+  {# //NOTIF     #}
 {% for message in app.flashes('success') %}
     <div class="alert alert-success">
         {{ message }}
@@ -98,6 +98,11 @@
       <div class="pagination">
     {{ knp_pagination_render(pagination) }}
 </div>
-
+     <button   class="btn btn-primary" id="showPdfButton">See your Refunds</button>
+    <script>
+    document.getElementById('showPdfButton').addEventListener('click', function () {
+        window.open("{{ path('api_generate_pdf') }}", "_blank");
+    });
+</script>
     {# <a href="{{ path('app_remboursement_new') }}"class="btn btn-info px-3 py-1">Create new</a> #}
 {% endblock %}

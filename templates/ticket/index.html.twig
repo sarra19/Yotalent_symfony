@@ -94,4 +94,10 @@
 
 
     <a href="{{ path('app_ticket_new') }}"class="btn btn-info px-3 py-1">Create new</a>
+        <button   class="btn btn-primary" id="showPdfButton">See your Tickets</button>
+    <script>
+    document.getElementById('showPdfButton').addEventListener('click', function () {
+        window.open("{{ path('api_generate_pdf') }}", "_blank");
+    });
+</script>
 {% endblock %}
