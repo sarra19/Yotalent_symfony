@@ -9,14 +9,14 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\EspacetalentType;
 use App\Form\EspaceType;
-
+use App\Entity\PdfGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-
+use Knp\Component\Pager\PaginatorInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Component\Mailer\MailerInterface;
@@ -32,7 +32,7 @@ class EspaceController extends AbstractController
   
    
     #[Route('/', name: 'app_espace_index', methods: ['GET'])]
-public function index(Request $request, EntityManagerInterface $entityManager): Response
+public function index(Request $request, EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
 {
     $queryBuilder = $entityManager->createQueryBuilder()
         ->select('e')
@@ -58,9 +58,18 @@ public function index(Request $request, EntityManagerInterface $entityManager): 
 
     $espacetalents = $queryBuilder->getQuery()->getResult();
 
-    return $this->render('espace/index.html.twig', [
-        'espacetalents' => $espacetalents,
-    ]);
+    //pagination
+    $pagination = $paginator->paginate(
+        $espacetalents,
+        $request->query->getInt('page', 1), 7
+    );
+
+        return $this->render('espace/index.html.twig', [
+            'pagination' => $pagination,
+        ]);
+    // return $this->render('espace/index.html.twig', [
+    //     'espacetalents' => $espacetalents,
+    // ]);
 }
 
     
@@ -140,6 +149,25 @@ public function generatePdf(EntityManagerInterface $entityManager): Response
 
  
 
+#[Route('/pdf', name: 'generator_service')]
+    public function pdfEvenement(): Response
+    { 
+        $espacetalents= $this->getDoctrine()
+        ->getRepository(Espacetalent::class)
+        ->findAll();
+
+   
+
+        $html =$this->renderView('pdf/index.html.twig', ['espacetalents' => $espacetalents]);
+        $pdfGeneratorService=new PdfGeneratorService();
+        $pdf = $pdfGeneratorService->generatePdf($html);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"',
+        ]);
+       
+    }
     
     
     #[Route('/frontE', name: 'app_espace_front', methods: ['GET'])]

@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Voyage
@@ -23,23 +23,28 @@ class Voyage
     private $idvoy;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateDVoy", type="date", nullable=false)
+     * @ORM\Column(name="dateDVoy", type="string", length=255, nullable=false)
+     * @Assert\Date
      */
     private $datedvoy;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateRVoy", type="date", nullable=false)
+     * @ORM\Column(name="dateRVoy", type="string", length=255, nullable=false)
+     * @Assert\Date
+     * @Assert\Expression(
+     *     "this.getDatedvoy() < this.getDatervoy()",
+     *     message="La date de fin doit être après la date de début"
+     * )
      */
     private $datervoy;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="destination", type="string", length=255, nullable=false)
+     * @Assert\Length(min=5)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z]+$/",
+     *     message="Le destination ne doit contenir que des lettres"
+     * )
      */
     private $destination;
 
@@ -58,24 +63,24 @@ class Voyage
         return $this->idvoy;
     }
 
-    public function getDatedvoy(): ?\DateTimeInterface
+    public function getDatedvoy(): ?string
     {
         return $this->datedvoy;
     }
 
-    public function setDatedvoy(\DateTimeInterface $datedvoy): self
+    public function setDatedvoy(string $datedvoy): self
     {
         $this->datedvoy = $datedvoy;
 
         return $this;
     }
 
-    public function getDatervoy(): ?\DateTimeInterface
+    public function getDatervoy(): ?string
     {
         return $this->datervoy;
     }
 
-    public function setDatervoy(\DateTimeInterface $datervoy): self
+    public function setDatervoy(string $datervoy): self
     {
         $this->datervoy = $datervoy;
 
@@ -87,7 +92,7 @@ class Voyage
         return $this->destination;
     }
 
-    public function setDestination(string $destination): self
+    public function setDestination(?string $destination): self
     {
         $this->destination = $destination;
 
@@ -104,6 +109,10 @@ class Voyage
         $this->idc = $idc;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->destination;
     }
 
 
