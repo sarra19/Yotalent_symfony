@@ -5,6 +5,18 @@
 {% block body %}
     <h1>User index</h1>
 
+    <div class="row">
+        <div class="col-md-6">
+            <form method="get" action="{{ path('app_user_index') }}">
+                <div class="form-group">
+                    <label for="search">Search by ID or Email</label>
+                    <input type="text" class="form-control" id="search" name="search" value="{{ app.request.query.get('search') }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
