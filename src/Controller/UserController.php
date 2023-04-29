@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Writer;
 
 
 #[Route('/user')]
@@ -77,15 +79,18 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    public function search(Request $request, UserRepository $userRepository)
+    public function generate_qr_code(User $user)
     {
-        $query = $request->query->get('q');
+        $renderer = new Png();
+        $renderer->setHeight(256);
+        $renderer->setWidth(256);
 
-        $users = $userRepository->search($query);
+        $writer = new Writer($renderer);
+        $qrCode = $writer->writeString('User ID: ' . $user->getId() . ', Email: ' . $user->getEmail());
 
-        return $this->render('user/index.html.twig', [
-            'users' => $users,
-        ]);
+        return 'data:image/png;base64,' . base64_encode($qrCode);
     }
+
+
     
 }
