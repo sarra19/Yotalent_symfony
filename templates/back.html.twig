@@ -200,16 +200,6 @@
     <script src="{{asset('assetsB/lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
     <script src="{{asset('assetsB/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
-<script>
-$(document).ready(function(){
-  $("#search").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
 
 
     <!-- Template Javascript -->

@@ -29,6 +29,20 @@ class RegistrationController extends AbstractController
 
             // encode the plain password
 
+            $file = $form->get('image')->getData();
+            if($file)
+            {
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e){
+
+                }
+                $user->setImage($fileName);
+            }
 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

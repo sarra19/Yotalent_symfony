@@ -15,10 +15,11 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 class RegistrationFormType extends AbstractType
 {
-    private $fileUploader;
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -30,9 +31,31 @@ class RegistrationFormType extends AbstractType
             ],
         ])
         ->add('image', FileType::class, [
-            'label' => 'Profile Picture (JPEG, PNG, JPG)',
+            'label' => 'Profile picture (JPEG, PNG or GIF file)',
             'mapped' => false,
             'required' => false,
+            'constraints' => [
+                new File([
+                    'maxSize' => '1024k',
+                    'mimeTypes' => [
+                        'image/jpeg',
+                        'image/png',
+                        'image/gif',
+                    ],
+                    'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG or GIF).',
+                ]),
+                new Image([
+                    'maxSize' => '1024k',
+                    'maxSizeMessage' => 'The file is too large ({{ size }} {{ suffix }}). Maximum allowed size is {{ limit }} {{ suffix }}.',
+                    'mimeTypes' => [
+                        'image/jpeg',
+                        'image/png',
+                        'image/gif',
+                    ],
+                    'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG or GIF).',
+                    'disallowEmptyMessage' => 'Please upload a valid image file (JPEG, PNG or GIF).',
+                ]),
+            ],
         ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

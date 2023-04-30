@@ -81,6 +81,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //        ;
 //    }
 
-
+public function findUser($Value, $order)
+{
+    $em = $this->getEntityManager();
+    if ($order == 'DESC') {
+        $query = $em->createQuery(
+            'SELECT r FROM App\Entity\User r   where r.Name like :suj OR r.email like :suj  order by r.id DESC '
+        );
+        $query->setParameter('suj', $Value . '%');
+    } else {
+        $query = $em->createQuery(
+            'SELECT r FROM App\Entity\User r   where r.Name like :suj OR r.email like :suj  order by r.id ASC '
+        );
+        $query->setParameter('suj', $Value . '%');
+    }
+    return $query->getResult();
+}
 
 }

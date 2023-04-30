@@ -5,38 +5,36 @@
 {% block body %}
     <h1>User index</h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <form method="get" action="{{ path('app_user_index') }}" id="search-form">
-                <div class="form-group">
-                    <label for="search">Search by ID or Email</label>
-                    <input type="text" class="form-control" id="search" name="search" value="{{ app.request.query.get('search') }}">
-                </div>
-                <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-        </div>
-    </div>
 
-    <table class="table">
+        <div id="divs">
+            <input class="form-control" type="text" id="search" placeholder="🔍">
+            <a style="color:#FF0000;" class="tg-btn" href="" id="idup">UP ⬆️</a>
+            <a style="color:#25DD28;" class="tg-btn" href="" id="iddown">DOWN ⬇️</a>
+        </div>
+
+
+    <table class="table" id="t">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
+                <th>Image</th>
                 <th>actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="all">
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <img width="100" height="100" src="{{ asset('uploads/images/') }}{{ user.image }}" >
+                </td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -44,10 +42,173 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
-        
+        </tbody>
+        <tbody id="search">
+
         
         </tbody>
     </table>
 
     <a href="{{ path('app_user_new') }}">Create new</a>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script>
+        $( document ).ready(function() {
+
+            /*begin rechercher avancee multicritéres selon sujet et staus*/
+            $("#divs").keyup(function(e){
+                /* La variable value va prendre la valeur insérer dans le champ de texte afin d’effectuer la recherche */
+                var value = $("#search").val();
+                if(value.length >= 2 || value.length == 0  )
+                {
+                    //    alert(value);
+                    /* Ajax est lancé lors du remplissage du champ texte dont l’id est « search » pour faire la recherche */
+                    $.ajax({
+                        /* l’url est une chaine de caractères contenant l’adresse où la requête est envoyée */
+                        url : "{{ path('search_user') }}",
+                        /* La méthode utilisée pour transférer les données est GET */
+                        type : 'GET',
+                        /*Ici search value va prendre la chaine entrée par un utilisateur dans la zone de recherche et sera placée après l’url */
+                        data: {
+                            'searchValue' : value,
+                        },
+                        /*Cette fonction permet de vider le contenu du tableau pour recevoir le nouveau contenu*/
+                        success : function(retour){
+                            if(retour){
+                                $('#t tbody#search').empty();
+                                $.each(JSON.parse(retour), function(i, obj) {
+                                    $('#t tbody#all').hide();
+                                    $('#t tbody#search').append(
+                                    '<tr>' +
+                                    '<td> '+obj.id +'  </td>' +
+                                    '<td>    '+obj.email+'  </td>' +
+                                    '<td>'+obj.roles+' </td>' +
+                                    '<td><img width="100" height="100" src="{{ asset('uploads/images/') }}'+obj.image+'" > </td>' +
+                                    '<td>' +
+                                    '<a href="/user/'+obj.id+'" class="btn btn-info">show</a>' +
+                                    '<a href="/user/'+obj.id+'/edit" class="btn btn-warning">Edit</a>' +
+                                    '</td>' +
+                                    '</tr>');
+                                });
+                            }
+                            else
+                            {
+
+                                $('#t tbody#all').show();
+                                $('#t tbody#search').empty();
+                                $('#t tbody#search').fadeIn('fast');
+
+                            }
+                        },
+                    });
+                    return false;
+                }
+            });
+            /*end rechercher avancee multicritéres selon sujet et staus*/
+
+
+            /*begin trie up selon id*/
+            $("#idup").click(function(e){
+                /* La variable value va prendre la valeur insérer dans le champ de texte afin d’effectuer la recherche */
+                var value = $("#search").val();
+                var value3 ="ASC";
+
+                //    alert(value);
+                /* Ajax est lancé lors du remplissage du champ texte dont l’id est « search » pour faire la recherche */
+                $.ajax({
+                    /* l’url est une chaine de caractères contenant l’adresse où la requête est envoyée */
+                    url : "{{ path('search_user') }}",
+                    /* La méthode utilisée pour transférer les données est GET */
+                    type : 'GET',
+                    /*Ici search value va prendre la chaine entrée par un utilisateur dans la zone de recherche et sera placée après l’url */
+                    data: {
+                        'searchValue' : value,
+                        'orderid': value3
+                    },
+                    /*Cette fonction permet de vider le contenu du tableau pour recevoir le nouveau contenu*/
+                    success : function(retour){
+                        if(retour){
+                            $('#t tbody#search').empty();
+                            $.each(JSON.parse(retour), function(i, obj) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append(
+                                    '<tr>' +
+                                    '<td> '+obj.id +'  </td>' +
+                                    '<td>    '+obj.email+'  </td>' +
+                                    '<td>'+obj.roles+' </td>' +
+                                    '<td><img width="100" height="100" src="{{ asset('uploads/images/') }}'+obj.image+'" > </td>' +
+                                    '<td>' +
+                                    '<a href="/user/'+obj.id+'" class="btn btn-info">show</a>' +
+                                    '<a href="/user/'+obj.id+'/edit" class="btn btn-warning">Edit</a>' +
+                                    '</td>' +
+                                    '</tr>');
+                            });
+                        }
+                        else
+                        {
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+                        }
+                    },
+                });
+                return false;
+
+            });
+            /*end trie up selon id*/
+
+            /*begin trie down selon id*/
+            $("#iddown").click(function(e){
+                /* La variable value va prendre la valeur insérer dans le champ de texte afin d’effectuer la recherche */
+                var value = $("#search").val();
+                var value3 ="DESC";
+
+                //    alert(value);
+                /* Ajax est lancé lors du remplissage du champ texte dont l’id est « search » pour faire la recherche */
+                $.ajax({
+                    /* l’url est une chaine de caractères contenant l’adresse où la requête est envoyée */
+                    url : "{{ path('search_user') }}",
+                    /* La méthode utilisée pour transférer les données est GET */
+                    type : 'GET',
+                    /*Ici search value va prendre la chaine entrée par un utilisateur dans la zone de recherche et sera placée après l’url */
+                    data: {
+                        'searchValue' : value,
+                        'orderid': value3
+                    },
+                    /*Cette fonction permet de vider le contenu du tableau pour recevoir le nouveau contenu*/
+                    success : function(retour){
+                        if(retour){
+                            $('#t tbody#search').empty();
+                            $.each(JSON.parse(retour), function(i, obj) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append(                                  
+                                    '<tr>' +
+                                    '<td> '+obj.id +'  </td>' +
+                                    '<td>    '+obj.email+'  </td>' +
+                                    '<td>'+obj.roles+' </td>' +
+                                    '<td><img width="100" height="100" src="{{ asset('uploads/images/') }}'+obj.image+'" > </td>' +
+                                    '<td>' +
+                                    '<a href="/user/'+obj.id+'" class="btn btn-info">show</a>' +
+                                    '<a href="/user/'+obj.id+'/edit" class="btn btn-warning">Edit</a>' +
+                                    '</td>' +
+                                    '</tr>');
+                            });
+                        }
+                        else
+                        {
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+                        }
+                    },
+                });
+                return false;
+
+            });
+            /*end trie down selon id*/
+        });
+    </script>
+
 {% endblock %}
+

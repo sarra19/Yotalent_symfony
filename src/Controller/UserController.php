@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use BaconQrCode\Renderer\Image\Png;
 use BaconQrCode\Writer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 
 #[Route('/user')]
@@ -19,6 +20,8 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+//        $user = $this->getUser();
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -91,6 +94,22 @@ class UserController extends AbstractController
         return 'data:image/png;base64,' . base64_encode($qrCode);
     }
 
+    
+    #[Route('/r/search_user', name: 'search_user', methods: ['GET'])]
+    public function search_user(Request $request, NormalizerInterface $Normalizer, UserRepository $userRepository): Response
+    {
 
+        $requestString = $request->get('searchValue');
+        $requestString3 = $request->get('orderid');
+
+        $user = $userRepository->findUser($requestString, $requestString3);
+        $jsoncontentc = $Normalizer->normalize($user, 'json', ['users' => 'posts:read']);
+        $jsonc = json_encode($jsoncontentc);
+        if ($jsonc == "[]") {
+            return new Response(null);
+        } else {
+            return new Response($jsonc);
+        }
+    }
     
 }

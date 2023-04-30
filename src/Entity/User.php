@@ -16,24 +16,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user', 'posts:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user', 'posts:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user', 'posts:read'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['user', 'posts:read'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user', 'posts:read'])]
     private ?string $Name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user', 'posts:read'])]
     private ?string $image = null;
 
 

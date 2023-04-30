@@ -32,8 +32,10 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class, [
                 'attr' => ['class' => 'form-control mb-3'],
             ])
-            ->add('image', null, [
-                'attr' => ['class' => 'form-control mb-3'],
+            ->add('image',FileType::class, [
+                'label'=>false,
+                'mapped'=>false,
+                'required'=>false
             ]);
     }
 
