@@ -23,6 +23,14 @@
                 'placeholder': 'Password'
             }
         }) }}
+
+                {{ form_row(registrationForm.image, {
+            'label': 'Image',
+            'attr': {
+                'class': 'form-control mb-3',
+                'placeholder': 'Image'
+            }
+        }) }}
         <div class="form-check mb-3">
           {{ form_widget(registrationForm.agreeTerms, {
               'attr': {
