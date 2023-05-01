@@ -1,0 +1,59 @@
+{% extends 'FrontS.html.twig' %}
+
+{% block title %}Espacetalent index{% endblock %}
+
+{% block body %}
+<div class="section-padding"></div>
+  <div class="container">
+    <div class="row">
+      {% for espacetalent in espacetalents %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <a href="../uploads/{{ espacetalent.image }}" data-lightbox="gallery">
+            <img class="card-img-top" src="../../../uploads/{{ espacetalent.image }}" alt="Image">
+          </a>
+          <div class="card-body">
+            <div class="text-center">
+              <h3>
+                <p class="text-center" style="font-family: Arial, sans-serif;"><class="card-title">{{ espacetalent.username }}</p>
+              </h3>
+              <form method="post" action="{{ path('app_espacetalent_like') }}">
+                <input type="hidden" name="idest" value="{{ espacetalent.idest }}">
+                <button type="submit" class="btn btn-link like-button">
+                  <i class="fa fa-heart heart-icon" aria-hidden="true"></i>
+                  <span class="like-text">{{ espacetalent.nbvotes }}</span>
+                </button>
+              </form>
+              <a href="{{ path('app_contrat_newE') }}" class="btn btn-primary">Add Contrat</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+       <div class="text-center mt-4">
+        {% for flash_message in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">{{ flash_message }}</div>
+        {% endfor %}
+    </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+.like-button {
+  position: relative;
+  font-size: 3rem;
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+.like-button:hover .heart-icon {
+  color: red;
+}
+.like-text {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+</style>
+{% endblock %}

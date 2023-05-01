@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+      
+      <div class="form-group">
+        {{ form_label(form.nomvid, 'Nom de la vidéo :') }}
+        {{ form_widget(form.nomvid, {'attr': {'class': 'form-control border-primary'}})}}
+        {{ form_errors(form.nomvid, {'attr': {'class': 'text-danger'}}) }}
+        <hr>
+      </div>
+
+      <div class="form-group">
+        {{ form_label(form.url, 'Url :') }}
+        {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.url, {'attr': {'class': 'text-danger'}}) }}
+        <hr>
+      </div>
+          <p>Current esapace talent: {{ form.vars.value.idest }}</p>
+
+   
+      <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+      {{ form_end(form) }}
+    </div>
+  </div>
+</div>

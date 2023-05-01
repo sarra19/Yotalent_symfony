@@ -1,0 +1,28 @@
+{% block title %} <style=" width:10px; height:100px;"><h1>LISTE DES Plannings</h1>{% endblock %}
+      <div class="slider-item" style="background-image: url('{{asset('logo.png')}}');"></div>
+<table  border="1">
+        <thead >
+            <tr>
+                <th  style="color:#009CFF;">Idp</th>
+                <th  style="color:#009CFF;">Hour</th>
+                <th style="color:#009CFF;">Nomactivite</th>
+                <th  style="color:#009CFF;">Datepl</th>
+                <th  style="color:#009CFF;">NomEv</th>      
+         </tr>  
+        </thead>
+            <tbody>
+                        {% for p in planning %}
+            <tr>
+                <td style="color:#009CFF; margin-right:50px">{{ p.idp }}</td>
+                 <td>{{ p.idp }}</td>
+                    <td>{{ p.hour}}</td>
+                       <td>{{ p.nomactivite}}</td>
+                          <td>{{ p.datepl }}</td> 
+                           <td>{{ p.idev }}</td>      
+               
+             </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+           

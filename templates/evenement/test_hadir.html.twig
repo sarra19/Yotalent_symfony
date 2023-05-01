@@ -1,0 +1,91 @@
+{% extends 'frontS.html.twig' %}
+
+{% block title %}test affichage{% endblock %}
+
+{% block body %}
+<center>
+    <table >
+        <thead>
+            <tr>
+        
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% if evenement %}
+                        <div class="card">
+                            <center>
+                                <img src="{{ asset('uploads/' ~evenement.imageev)}}" style="width:360px; height:250px;border-radius:16px;box-shadow: 0 10px 16px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5);" alt="">
+                            </center>
+                            <center><h1>{{ evenement.nomev }}</h1></center>
+                            <p><strong style="color:#696969">Date de début:</strong> {{ evenement.datedev}}</p>
+                          <p>20 TND</p>
+                                <a href="{{ path('app_evenement_mapf', {'idev': evenement.idev}) }}" class="btn btn-info rounded-pill m-2"><i class="fa fa-map-marker"></i></a>
+                            </p>
+                        </div>
+                    {% else %}
+                        <p>Aucun événement trouvé avec l'ID {{ idev }}.</p>
+                    {% endif %}
+                </td>
+                <td>
+                    <h1>Choose number of tickets</h1>
+                <form action="{{ path('evenement_calculate_price') }}" method="post">
+                    {# Ajoutez ce champ caché dans le formulaire #}
+<input type="hidden" name="idev" value="{{ evenement.idev }}">
+                        <select name="number">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        
+<form action="{{ path('evenement_calculate_price') }}" method="post">
+
+                        <button type="submit" class="btn btn-primary">Price</button>
+                
+
+                    </form>
+                    {% if app.request.method == 'POST' %}
+    <div>
+
+
+    
+        <h2 style="font-size: 20px;">Number of tickets: {{ number }}</h2>
+                 <h2 style="font-size: 20px;">Total Price: {{ total_price }} TND</h2>
+
+
+                  
+    </div>
+
+{% set should_break = false %}
+{% for i in 0..2 %}
+    {% if not should_break %}
+        <a href="{{ path('payer', {'idt': 73 + i}) }}" class="btn btn-primary">Pay</a><br>
+        {% set should_break = true %}
+    {% endif %}
+{% endfor %}
+
+
+
+
+  
+
+
+
+      
+{% endif %}
+ 
+                </td>
+              
+                
+            </tr>
+  
+        </tbody>
+    </table>
+  
+               
+             
+</center>
+{% endblock %}

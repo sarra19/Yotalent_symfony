@@ -1,0 +1,21 @@
+{% extends 'FrontS.html.twig' %}
+
+{% block title %}New Video{% endblock %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="text-center">Create new Video</h1>
+        </div>
+        <div class="card-body">
+            {{ include('video/_form.html.twig') }}
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        {% for flash_message in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">{{ flash_message }}</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

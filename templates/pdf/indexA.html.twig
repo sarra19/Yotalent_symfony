@@ -1,0 +1,25 @@
+{% block title %} <style=" width:10px; height:100px;"><h1>LISTE DES Events</h1>{% endblock %}
+      <div class="slider-item" style="background-image: url('{{asset('logo.png')}}');"></div>
+<table  border="1">
+        <thead >
+            <tr>
+                <th  style="color:#009CFF;">Idc</th>
+                <th  style="color:#009CFF;">Nomc</th>
+                <th style="color:#009CFF;">Datedc</th>
+                <th  style="color:#009CFF;">DateFc</th>
+                 
+         </tr>  
+        </thead>
+            <tbody>
+                        {% for contrat in contrat %}
+            <tr>
+                <td style="color:#009CFF; margin-right:50px">{{ contrat.idc }}</td>
+                   <td>{{ contrat.nomc }}</td>
+                <td>{{ contrat.DateDC }}</td>
+                <td>{{ contrat.DateFC}}</td>
+                           
+                <td><img src="{{ asset('77.jpg') }}" style=" width:89px; height:75px; " alt=""/></td>       
+             </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>

@@ -1,0 +1,29 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+uploads:
+    path: /uploads/{filename}
+    controller: Symfony\Component\HttpFoundation\File\FileController::showAction
+    requirements:
+        filename: .+
+        
+
+espace_frontcat:
+    path: /espace/front/{idcat}
+    controller: App\Controller\EspaceController::front
+
+    
+    
+video_frontest:
+    path: /video/front/{idest}
+    controller: App\Controller\VideoController::front
+
+
+
+# config/routes.yaml
+evenement_show:
+    path: /evenement/{idev}
+    controller: App\Controller\EvenementController::show
+    methods: GET
+
+    

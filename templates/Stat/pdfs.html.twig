@@ -1,0 +1,64 @@
+
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-12">
+
+      <h1>Statistiques des votes</h1>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Intervalle</th>
+            <th>Nombre de votes</th>
+            <th>Pourcentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set nb_total_votes = 0 %}
+          {% set nb_votes_interval_1 = 0 %}
+          {% set nb_votes_interval_2 = 0 %}
+          {% set nb_votes_interval_3 = 0 %}
+
+          {% for espacetalent in espacetalents %}
+            {% set nb_total_votes = nb_total_votes + espacetalent.nbvotes %}
+            {% if espacetalent.nbvotes <= 10 %}
+              {% set nb_votes_interval_1 = nb_votes_interval_1 + espacetalent.nbvotes %}
+            {% elseif espacetalent.nbvotes <= 20 %}
+              {% set nb_votes_interval_2 = nb_votes_interval_2 + espacetalent.nbvotes %}
+            {% else %}
+              {% set nb_votes_interval_3 = nb_votes_interval_3 + espacetalent.nbvotes %}
+            {% endif %}
+          {% endfor %}
+
+          {% if nb_total_votes > 0 %}
+            {% set pct_votes_interval_1 = (nb_votes_interval_1 / nb_total_votes) * 100 %}
+            {% set pct_votes_interval_2 = (nb_votes_interval_2 / nb_total_votes) * 100 %}
+            {% set pct_votes_interval_3 = (nb_votes_interval_3 / nb_total_votes) * 100 %}
+          {% else %}
+            {% set pct_votes_interval_1 = 0 %}
+            {% set pct_votes_interval_2 = 0 %}
+            {% set pct_votes_interval_3 = 0 %}
+          {% endif %}
+
+          <tr>
+            <td>[0 - 10]</td>
+            <td>{{ nb_votes_interval_1 }}</td>
+            <td>{{ pct_votes_interval_1|number_format(2) }}%</td>
+          </tr>
+          <tr>
+            <td>[10 - 20]</td>
+            <td>{{ nb_votes_interval_2 }}</td>
+            <td>{{ pct_votes_interval_2|number_format(2) }}%</td>
+          </tr>
+          <tr>
+            <td>[20 - 50]</td>
+            <td>{{ nb_votes_interval_3 }}</td>
+            <td>{{ pct_votes_interval_3|number_format(2) }}%</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}

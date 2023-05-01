@@ -1,0 +1,349 @@
+{% extends 'Back.html.twig' %}
+
+
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="d-flex justify-content-end mb-3">
+      <form action="{{ path('app_espace_index') }}" method="get">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Rechercher par username, nbVotes ou ID" name="searchQuery" value="{{ app.request.query.get('searchQuery') }}">
+        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+</form>
+
+        <div class="ms-3">
+          <a href="{{ path('app_espace_index', {'sort': 'username'}) }}" class="btn btn-outline-primary">Trier par username</a>
+        </div>
+
+        <div class="ms-3">
+          <a href="{{ path('app_espace_index', {'sort': 'nbvotes'}) }}" class="btn btn-outline-primary">Trier par nbVotes</a>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr class="table-secondary">
+              <th scope="col">ID</th>
+              <th scope="col">Username</th>
+              <th scope="col">Image</th>
+              <th scope="col">NbVotes</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for espacetalent in pagination %}
+            <tr>
+              <td>{{ espacetalent.idest }}</td>
+              <td>{{ espacetalent.username }}</td>
+              <td><img src="{{ asset('uploads/' ~espacetalent.image) }}" style="width: 150px; height: 150px;" alt="" /></td>
+              <td>{{ espacetalent.nbvotes }}</td>
+
+              <td>
+                <div class="d-flex justify-content-center">
+                  <a href="{{ path('app_espace_show', {'idest': espacetalent.idest}) }}" class="btn btn-primary me-2"><i class="fas fa-eye"></i> Voir</a>
+                  <a href="{{ path('app_espace_edit', {'idest': espacetalent.idest}) }}" class="btn btn-success me-2"><i class="fas fa-edit"></i> Modifier</a>
+                  {{ include('espace/_delete.html.twig') }}
+                </div>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5">Aucun enregistrement trouvé</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+<div  style="margin-left: 526px;" >
+        <style>
+ .pagination {
+    height: 40px;
+    margin: 20px 10px;
+}
+
+.pagination ul {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    margin-left: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    *zoom: 1;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 0px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a,
+.pagination span {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+}
+
+.pagination a:hover,
+.pagination .active a,
+.pagination .active span {
+    background-color: #f5f5f5;
+}
+
+.pagination .active a,
+.pagination .active span {
+    color: #999999;
+    cursor: default;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+    color: #999999;
+    cursor: default;
+    background-color: transparent;
+}
+
+.pagination li:first-child a,
+.pagination li:first-child span {
+    border-left-width: 1px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+
+.pagination li:last-child a,
+.pagination li:last-child span {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination-right {
+    text-align: right;
+}
+ </style>
+                                 {{ knp_pagination_render(pagination) }} 
+                    
+      <div class="d-flex justify-content-center">
+  <a href="{{ path('app_espace_new') }}" class="btn btn-primary mx-2">
+  <i class="fas fa-plus"></i> Add espace talent
+</a>
+<a href="{{ path('generator_servicet') }}" class="btn btn-secondary mx-2">
+  <i class="fas fa-file-pdf"></i> PDF
+</a>
+<a href="#" class="btn btn-warning text-white mx-2" onclick="showStats()">
+  <i class="fas fa-chart-bar"></i> Statistics
+</a>
+
+
+
+<script>
+function showStats() {
+  // Get the statistics circle element
+  var statsCircle = document.getElementById("stats-circle");
+
+  // Remove the "d-none" CSS class to show the element
+  statsCircle.classList.remove("d-none");
+}
+
+function loadStat() {
+  // Créez une instance d'objet XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+
+  // Définissez l'URL de la page de statistiques
+  var url = "{{ path('app_stat_index') }}";
+
+  // Définissez la fonction de rappel à exécuter lorsque la requête est terminée
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Mettez le contenu de la page de statistiques dans le div "stat-container"
+      document.getElementById("stat-container").innerHTML = xhr.responseText;
+    }
+  };
+
+  // Ouvrez la requête AJAX avec la méthode GET et l'URL de la page de statistiques
+  xhr.open("GET", url, true);
+
+  // Envoyez la requête AJAX
+  xhr.send();
+}
+</script>
+
+
+
+      </div>
+
+    </div>
+  </div>
+<div id="stat-container"></div>
+
+
+<div id="stats-container">
+  <div class="row">
+    <div class="col-md-12">
+<div id="stats-circle" class="d-none">
+
+      <h1 class="text-center">Statistiques des votes</h1>
+      <br>
+      <div class="slider-item" style="background-image: url('{{asset('../../logo.png')}}');"></div>
+
+      {% set nb_total_votes = 0 %}
+      {% set nb_votes_interval_1 = 0 %}
+      {% set nb_votes_interval_2 = 0 %}
+      {% set nb_votes_interval_3 = 0 %}
+
+      {% for espacetalent in espacetalents %}
+        {% set nb_total_votes = nb_total_votes + espacetalent.nbvotes %}
+        {% if espacetalent.nbvotes <= 10 %}
+          {% set nb_votes_interval_1 = nb_votes_interval_1 + espacetalent.nbvotes %}
+        {% elseif espacetalent.nbvotes <= 20 %}
+          {% set nb_votes_interval_2 = nb_votes_interval_2 + espacetalent.nbvotes %}
+        {% else %}
+          {% set nb_votes_interval_3 = nb_votes_interval_3 + espacetalent.nbvotes %}
+        {% endif %}
+      {% endfor %}
+
+      {% if nb_total_votes > 0 %}
+        {% set pct_votes_interval_1 = (nb_votes_interval_1 / nb_total_votes * 100) %}
+        {% set pct_votes_interval_2 = (nb_votes_interval_2 / nb_total_votes * 100) %}
+        {% set pct_votes_interval_3 = (nb_votes_interval_3 / nb_total_votes * 100) %}
+      {% else %}
+        {% set pct_votes_interval_1 = 0 %}
+        {% set pct_votes_interval_2 = 0 %}
+        {% set pct_votes_interval_3 = 0 %}
+      {% endif %}
+
+      <canvas id="myChart"></canvas>
+      <br>
+
+      <div class="text-center">
+        <h5>Total des votes : {{ nb_total_votes }}</h5>
+     
+
+
+   <table class="table">
+        <thead>
+          <tr>
+            <th>Intervalle</th>
+            <th>Nombre de votes</th>
+            <th>Pourcentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set nb_total_votes = 0 %}
+          {% set nb_votes_interval_1 = 0 %}
+          {% set nb_votes_interval_2 = 0 %}
+          {% set nb_votes_interval_3 = 0 %}
+
+          {% for espacetalent in espacetalents %}
+            {% set nb_total_votes = nb_total_votes + espacetalent.nbvotes %}
+            {% if espacetalent.nbvotes <= 10 %}
+              {% set nb_votes_interval_1 = nb_votes_interval_1 + espacetalent.nbvotes %}
+            {% elseif espacetalent.nbvotes <= 20 %}
+              {% set nb_votes_interval_2 = nb_votes_interval_2 + espacetalent.nbvotes %}
+            {% else %}
+              {% set nb_votes_interval_3 = nb_votes_interval_3 + espacetalent.nbvotes %}
+            {% endif %}
+          {% endfor %}
+
+          {% if nb_total_votes > 0 %}
+            {% set pct_votes_interval_1 = (nb_votes_interval_1 / nb_total_votes) * 100 %}
+            {% set pct_votes_interval_2 = (nb_votes_interval_2 / nb_total_votes) * 100 %}
+            {% set pct_votes_interval_3 = (nb_votes_interval_3 / nb_total_votes) * 100 %}
+          {% else %}
+            {% set pct_votes_interval_1 = 0 %}
+            {% set pct_votes_interval_2 = 0 %}
+            {% set pct_votes_interval_3 = 0 %}
+          {% endif %}
+
+          <tr>
+            <td>[0 - 10]</td>
+            <td>{{ nb_votes_interval_1 }}</td>
+            <td>{{ pct_votes_interval_1|number_format(2) }}%</td>
+          </tr>
+          <tr>
+            <td>[10 - 20]</td>
+            <td>{{ nb_votes_interval_2 }}</td>
+            <td>{{ pct_votes_interval_2|number_format(2) }}%</td>
+          </tr>
+          <tr>
+            <td>[20 - 50]</td>
+            <td>{{ nb_votes_interval_3 }}</td>
+            <td>{{ pct_votes_interval_3|number_format(2) }}%</td>
+          </tr>
+        </tbody>
+      </table>
+ </div>
+</div>
+    </div>
+  </div>
+
+       </div>
+       </div>
+        <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['[0 - 10]', '[10 - 20]', '[20 - +]'],
+        datasets: [{
+          label: 'Votes',
+          data: [{{ nb_votes_interval_1 }}, {{ nb_votes_interval_2 }}, {{ nb_votes_interval_3 }}],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            position: 'right',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                var label = context.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.parsed) {
+                  label += context.parsed + '%';
+                }
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+{% endblock %}

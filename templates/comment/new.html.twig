@@ -1,0 +1,12 @@
+{% extends 'Back.html.twig' %}
+
+{% block body %}
+    <h1>Nouveau commentaire</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.comment) }}
+    <button type="submit" class="btn btn-primary">Valider</button>
+    {{ form_end(form) }}
+{% endblock %}

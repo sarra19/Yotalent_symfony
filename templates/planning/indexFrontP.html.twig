@@ -1,0 +1,49 @@
+{% extends 'FrontS.html.twig' %}
+
+{% block title %}Planning index{% endblock %}
+
+{% block body %}
+{#affichage #}
+
+<div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Plannings</h4>
+            </div>
+            <div class="row">
+           {% for planning in plannings %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-item">
+{#affichage #}
+
+
+
+        
+          <p><strong style="color:#696969">Hour:</strong> {{ planning.hour}}</p>
+          <p><strong style="color:#696969">nom activite:</strong> {{ planning.nomactivite}}</p>
+          <p><strong style="color:#696969">DatePlanning:</strong> {{ planning.datepl}}</p>
+          <p><strong style="color:#696969" >NomEvent:</strong> {{ planning.idev }}</p>
+
+          <a href="{{ path('front')}}" class="btn btn-primary">Get ticket</a>
+
+
+{#affichage #}
+        </div>
+      </div>
+      
+{#affichage #}
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+        <center><div class="btn px-10 py-10" {{knp_pagination_render(plannings) }} </div></center>
+
+
+
+
+{% endblock %}

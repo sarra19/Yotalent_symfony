@@ -1,0 +1,43 @@
+{% extends 'Front.html.twig' %}
+
+{% block title %}voyage index{% endblock %}
+
+{% block body %}
+
+
+{#affichage #}
+<div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des voyage</h4>
+            </div>
+            <div class="row">
+           {% for voyage in voyages %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-item">
+{#affichage #}
+
+
+<img class="img-fluid" src="../../../4.jpg" alt="Image">
+          <center><h3>Date debut :{{voyage.datedvoy }}</h3></center>
+          <center><h3>Date fin :{{voyage.datervoy }}</h3></center>
+          <center><h3>Destinaton :{{voyage.destination }}</h3></center>
+        
+
+
+
+{#affichage #}
+        </div>
+      </div>
+      
+{#affichage #}
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

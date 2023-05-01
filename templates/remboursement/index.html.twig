@@ -1,0 +1,200 @@
+{% extends 'Back.html.twig' %}
+
+{% block title %}Remboursement index{% endblock %}
+
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="d-flex justify-content-end mb-3">
+        <form class="input-group" method="get">
+         <input type="search" id="myInput" class="form-control pl-6" placeholder="Search "/>
+					
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+					<script>
+						$(document).ready(function () {
+                        $("#myInput").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#rs tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                         })
+                        });
+					</script>
+ <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'idrem'}) }}" class="btn btn-outline-primary">Trier par id remboursement</a>
+        </div>
+         <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'idt'}) }}" class="btn btn-outline-primary">Trier par id ticket</a>
+        </div>
+         <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'idu'}) }}" class="btn btn-outline-primary">Trier par id user</a>
+        </div>
+        <div class="ms-3">
+          <a href="{{ path('app_remboursement_index', {'sort': 'dc'}) }}" class="btn btn-outline-primary">Trier par Decision</a>
+        </div>
+  
+       
+        
+      </div>
+  {# //NOTIF     #}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{# Le reste de votre code Twig ici #}
+
+    {# <table class="table"> #}
+   <div class="table-responsive">
+        <table class="table table-striped" id='rs'>
+        <thead>
+             <tr class="table-secondary">
+           
+                 <th>Id Remboursement</th>
+                 <th>Id  Ticket</th>
+                  <th>Id  user</th>
+
+
+             {# <th>actions</th> #}
+             <th>Decision</th>
+                 {# <th>Decision</th> #}
+            </tr>
+        </thead>
+        <tbody>
+        {% for remboursement in pagination %}
+        
+            <tr>
+
+         <td>{{ remboursement.idrem }}</td>
+         <td>{{ remboursement.idt }}</td>
+        <td>{{ remboursement.idu? '45' : '45' }}</td>
+        <td>{{ remboursement.dc ? remboursement.dc : 'false' }}</td>
+                
+              
+                
+                <td>
+            <a href="{{ path('app_remboursement_accepter', {'idrem': remboursement.idrem}) }}"><button  class="btn btn-primary">Accepter</button></a>  
+                 <br> <br></td> <form method="post" action="{{ path('app_remboursement_delete', {'idrem': remboursement.idrem}) }}" onsubmit="return confirm('Are you sure you want to delete this refund?');">
+       <td> <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ remboursement.idrem) }}"> 
+   
+    <button class="btn btn-primary">refuser</button>
+</form>
+
+
+                   
+    
+                  </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   
+   
+
+<div  style="margin-left: 526px;" >
+        <style>
+ .pagination {
+    height: 40px;
+    margin: 20px 10px;
+}
+
+.pagination ul {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    margin-left: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    *zoom: 1;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 0px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a,
+.pagination span {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+}
+
+.pagination a:hover,
+.pagination .active a,
+.pagination .active span {
+    background-color: #f5f5f5;
+}
+
+.pagination .active a,
+.pagination .active span {
+    color: #999999;
+    cursor: default;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+    color: #999999;
+    cursor: default;
+    background-color: transparent;
+}
+
+.pagination li:first-child a,
+.pagination li:first-child span {
+    border-left-width: 1px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+
+.pagination li:last-child a,
+.pagination li:last-child span {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination-right {
+    text-align: right;
+}
+ </style>
+                                 {{ knp_pagination_render(pagination) }} 
+                    
+                                     </div>
+                        </div>
+
+</div>
+
+
+    
+     
+ 
+
+   
+    <script>
+    document.getElementById('showPdfButton').addEventListener('click', function () {
+        window.open("{{ path('api_generate_pdf') }}", "_blank");
+    });
+</script>
+    {# <a href="{{ path('app_remboursement_new') }}"class="btn btn-info px-3 py-1">Create new</a> #}
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'Back.html.twig' %}
+
+{% block body %}
+<div id="stats-container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h1 class="text-center">Statistiques des votes</h1>
+      <br>
+      <div class="slider-item" style="background-image: url('{{asset('../../logo.png')}}');"></div>
+
+      {% set nb_total_votes = 0 %}
+      {% set nb_votes_interval_1 = 0 %}
+      {% set nb_votes_interval_2 = 0 %}
+      {% set nb_votes_interval_3 = 0 %}
+
+      {% for espacetalent in espacetalents %}
+        {% set nb_total_votes = nb_total_votes + espacetalent.nbvotes %}
+        {% if espacetalent.nbvotes <= 10 %}
+          {% set nb_votes_interval_1 = nb_votes_interval_1 + espacetalent.nbvotes %}
+        {% elseif espacetalent.nbvotes <= 20 %}
+          {% set nb_votes_interval_2 = nb_votes_interval_2 + espacetalent.nbvotes %}
+        {% else %}
+          {% set nb_votes_interval_3 = nb_votes_interval_3 + espacetalent.nbvotes %}
+        {% endif %}
+      {% endfor %}
+
+      {% if nb_total_votes > 0 %}
+        {% set pct_votes_interval_1 = (nb_votes_interval_1 / nb_total_votes * 100) %}
+        {% set pct_votes_interval_2 = (nb_votes_interval_2 / nb_total_votes * 100) %}
+        {% set pct_votes_interval_3 = (nb_votes_interval_3 / nb_total_votes * 100) %}
+      {% else %}
+        {% set pct_votes_interval_1 = 0 %}
+        {% set pct_votes_interval_2 = 0 %}
+        {% set pct_votes_interval_3 = 0 %}
+      {% endif %}
+
+      <canvas id="myChart"></canvas>
+      <br>
+
+      <div class="text-center">
+        <h5>Total des votes : {{ nb_total_votes }}</h5>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['[0 - 10]', '[10 - 20]', '[20 - +]'],
+        datasets: [{
+          label: 'Votes',
+          data: [{{ nb_votes_interval_1 }}, {{ nb_votes_interval_2 }}, {{ nb_votes_interval_3 }}],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            position: 'right',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                var label = context.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.parsed) {
+                  label += context.parsed + '%';
+                }
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+   <table class="table">
+        <thead>
+          <tr>
+            <th>Intervalle</th>
+            <th>Nombre de votes</th>
+            <th>Pourcentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set nb_total_votes = 0 %}
+          {% set nb_votes_interval_1 = 0 %}
+          {% set nb_votes_interval_2 = 0 %}
+          {% set nb_votes_interval_3 = 0 %}
+
+          {% for espacetalent in espacetalents %}
+            {% set nb_total_votes = nb_total_votes + espacetalent.nbvotes %}
+            {% if espacetalent.nbvotes <= 10 %}
+              {% set nb_votes_interval_1 = nb_votes_interval_1 + espacetalent.nbvotes %}
+            {% elseif espacetalent.nbvotes <= 20 %}
+              {% set nb_votes_interval_2 = nb_votes_interval_2 + espacetalent.nbvotes %}
+            {% else %}
+              {% set nb_votes_interval_3 = nb_votes_interval_3 + espacetalent.nbvotes %}
+            {% endif %}
+          {% endfor %}
+
+          {% if nb_total_votes > 0 %}
+            {% set pct_votes_interval_1 = (nb_votes_interval_1 / nb_total_votes) * 100 %}
+            {% set pct_votes_interval_2 = (nb_votes_interval_2 / nb_total_votes) * 100 %}
+            {% set pct_votes_interval_3 = (nb_votes_interval_3 / nb_total_votes) * 100 %}
+          {% else %}
+            {% set pct_votes_interval_1 = 0 %}
+            {% set pct_votes_interval_2 = 0 %}
+            {% set pct_votes_interval_3 = 0 %}
+          {% endif %}
+
+          <tr>
+            <td>[0 - 10]</td>
+            <td>{{ nb_votes_interval_1 }}</td>
+            <td>{{ pct_votes_interval_1|number_format(2) }}%</td>
+          </tr>
+          <tr>
+            <td>[10 - 20]</td>
+            <td>{{ nb_votes_interval_2 }}</td>
+            <td>{{ pct_votes_interval_2|number_format(2) }}%</td>
+          </tr>
+          <tr>
+            <td>[20 - 50]</td>
+            <td>{{ nb_votes_interval_3 }}</td>
+            <td>{{ pct_votes_interval_3|number_format(2) }}%</td>
+          </tr>
+        </tbody>
+      </table>
+
+       </div>
+{% endblock %}
