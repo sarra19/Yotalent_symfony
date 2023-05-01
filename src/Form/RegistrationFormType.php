@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $roles = ['ROLE_USER' => 'User', 'ROLE_ADMIN' => 'Admin', 'ROLE_ORG' => 'Organization' ];
+        $roles = ['ROLE_USER' => 'User', 'ROLE_ORG' => 'Organization' ];
         $builder
         ->add('email', null, [
             'constraints' => [

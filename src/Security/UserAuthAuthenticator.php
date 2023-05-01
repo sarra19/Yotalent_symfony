@@ -72,7 +72,7 @@ public function authenticate(Request $request): Passport
         switch($userRole) {
             case 'Admin':
                 
-                return new RedirectResponse($this->urlGenerator->generate('PUT PATH'));
+                return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
             case 'User':
                 return new RedirectResponse($this->urlGenerator->generate('PUT PATH'));
 
