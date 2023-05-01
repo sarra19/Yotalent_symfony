@@ -16,12 +16,16 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+
 
 class RegistrationFormType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $roles = ['ROLE_USER' => 'User', 'ROLE_ADMIN' => 'Admin', 'ROLE_ORG' => 'Organization' ];
         $builder
         ->add('email', null, [
             'constraints' => [
@@ -29,6 +33,13 @@ class RegistrationFormType extends AbstractType
                     'message' => 'The email "{{ value }}" is not a valid email address.',
                 ]),
             ],
+        ])
+        ->add('roles', ChoiceType::class, [
+            'choices' => $roles,
+            'placeholder' => 'Choose a role',
+            'required' => true,
+            'multiple' => true,
+            'attr' => ['class' => 'form-control mb-3'],
         ])
         ->add('image', FileType::class, [
             'label' => 'Profile picture (JPEG, PNG or GIF file)',
