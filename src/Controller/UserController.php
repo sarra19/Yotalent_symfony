@@ -21,4 +21,12 @@ public function index(Request $request, EntityManagerInterface $entityManager): 
     return $this->render('user/login.html.twig');
 }
 
+
+#[Route('/', name: 'accueila', methods: ['GET'])]
+public function indexaa(Request $request, EntityManagerInterface $entityManager): Response
+{
+    return $this->render('Front.html.twig');
+}
+
+
 }
