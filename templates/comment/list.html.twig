@@ -1,7 +1,7 @@
 {% extends 'Back.html.twig' %}
 
 {% block body %}
-    <h1>Liste des commentaires</h1>
+    <h1>Liste of comments</h1>
 
     {% if comments|length > 0 %}
         <table class="table">
@@ -40,6 +40,6 @@
             </tbody>
         </table>
     {% else %}
-        <p>Aucun commentaire pour le moment.</p>
+        <p>No comments yet.</p>
     {% endif %}
 {% endblock %}

@@ -4,7 +4,7 @@
       {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
       
       <div class="form-group">
-        {{ form_label(form.nomvid, 'Nom de la vidéo :') }}
+        {{ form_label(form.nomvid, 'Name of video :') }}
         {{ form_widget(form.nomvid, {'attr': {'class': 'form-control border-primary'}})}}
         {{ form_errors(form.nomvid, {'attr': {'class': 'text-danger'}}) }}
         <hr>

@@ -1,0 +1,68 @@
+
+{% extends 'FrontLog.html.twig' %}
+
+{% block title %}Espacetalent index{% endblock %}
+
+{% block body %}
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <form id="login-form">
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+            <label class="form-label" for="form1Example13">Email address</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" id="form1Example23" class="form-control form-control-lg" />
+            <label class="form-label" for="form1Example23">Password</label>
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="user-type">Role :</label>
+            <select class="form-select form-select-lg" id="user-type" style="background-color: #f7f7f7; border-color: #ced4da;">
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+              <option value="company">Company</option>
+            </select>
+          </div>
+
+          <!-- Submit button -->
+
+          <div class="divider d-flex align-items-center my-4">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998">
+            <i class="fab fa-facebook-f me-2"></i>Login
+          </button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Handle form submission
+  const loginForm = document.getElementById("login-form");
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const userType = document.getElementById("user-type").value;
+    if (userType === "admin") {
+      window.location.href = "{{path('admin')}}";
+    } else if (userType === "user") {
+      window.location.href = "{{path('accueil')}}";
+    } else if (userType === "company") {
+      window.location.href = "{{path('app_contrat_indexfront')}}";
+    }
+  });
+</script>
+
+{% endblock %}

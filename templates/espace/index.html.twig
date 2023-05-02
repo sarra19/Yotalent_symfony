@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Rechercher par username, nbVotes ou ID" name="searchQuery" value="{{ app.request.query.get('searchQuery') }}">
+        <input type="text" class="form-control" placeholder="Find By username, nbVotes ou ID" name="searchQuery" value="{{ app.request.query.get('searchQuery') }}">
         <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
       </div>
     </div>
@@ -19,11 +19,11 @@
 </form>
 
         <div class="ms-3">
-          <a href="{{ path('app_espace_index', {'sort': 'username'}) }}" class="btn btn-outline-primary">Trier par username</a>
+          <a href="{{ path('app_espace_index', {'sort': 'username'}) }}" class="btn btn-outline-primary">Sort By username</a>
         </div>
 
         <div class="ms-3">
-          <a href="{{ path('app_espace_index', {'sort': 'nbvotes'}) }}" class="btn btn-outline-primary">Trier par nbVotes</a>
+          <a href="{{ path('app_espace_index', {'sort': 'nbvotes'}) }}" class="btn btn-outline-primary">Sort By nbVotes</a>
         </div>
       </div>
 
@@ -48,15 +48,15 @@
 
               <td>
                 <div class="d-flex justify-content-center">
-                  <a href="{{ path('app_espace_show', {'idest': espacetalent.idest}) }}" class="btn btn-primary me-2"><i class="fas fa-eye"></i> Voir</a>
-                  <a href="{{ path('app_espace_edit', {'idest': espacetalent.idest}) }}" class="btn btn-success me-2"><i class="fas fa-edit"></i> Modifier</a>
+                  <a href="{{ path('app_espace_show', {'idest': espacetalent.idest}) }}" class="btn btn-primary me-2"><i class="fas fa-eye"></i> Show</a>
+                  <a href="{{ path('app_espace_edit', {'idest': espacetalent.idest}) }}" class="btn btn-success me-2"><i class="fas fa-edit"></i> Edit</a>
                   {{ include('espace/_delete.html.twig') }}
                 </div>
               </td>
             </tr>
             {% else %}
             <tr>
-              <td colspan="5">Aucun enregistrement trouvé</td>
+              <td colspan="5">No records found</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -204,7 +204,7 @@ function loadStat() {
     <div class="col-md-12">
 <div id="stats-circle" class="d-none">
 
-      <h1 class="text-center">Statistiques des votes</h1>
+      <h1 class="text-center">Statistic of votes</h1>
       <br>
       <div class="slider-item" style="background-image: url('{{asset('../../logo.png')}}');"></div>
 
@@ -245,8 +245,8 @@ function loadStat() {
    <table class="table">
         <thead>
           <tr>
-            <th>Intervalle</th>
-            <th>Nombre de votes</th>
+            <th>Interval</th>
+            <th>Total votes</th>
             <th>Pourcentage</th>
           </tr>
         </thead>

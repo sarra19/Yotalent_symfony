@@ -1,6 +1,5 @@
 {% extends 'BackS.html.twig' %}
 
-{% block title %}Video{% endblock %}
 
 {% block body %}
 <div class="container my-4">
@@ -24,7 +23,7 @@
             <div class="embed-responsive embed-responsive-16by9 mt-4">
                 <video controls class="embed-responsive-item">
                     <source src="{{ asset('uploads/' ~ video.url) }}" type="video/mp4">
-                    Votre navigateur ne supporte pas la balise <code>video</code>.
+                   Your browser does not support the tag <code>video</code>.
                 </video>
             </div>
 

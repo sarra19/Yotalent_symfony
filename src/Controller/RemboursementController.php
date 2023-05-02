@@ -47,7 +47,7 @@ class RemboursementController extends AbstractController
     //pagination
     $pagination = $paginator->paginate(
         $remboursements,
-        $request->query->getInt('page', 1), 7
+        $request->query->getInt('page', 1), 4
     );
 
         return $this->render('remboursement/index.html.twig', [

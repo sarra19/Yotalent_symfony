@@ -1,6 +1,5 @@
 {% extends 'FrontS.html.twig' %}
 
-{% block title %}Video index{% endblock %}
 
 {% block body %}
 <div class="container mt-5 mb-5">
@@ -23,7 +22,7 @@
 </div>
 
 <div class="container mt-5 mb-5">
-  <h1 class="mb-4">Liste des commentaires</h1>
+  <h1 class="mb-4">Liste comments</h1>
   <div class="row">
     <div class="col-md-8">
       {% if comments|length > 0 %}
@@ -36,23 +35,23 @@
           <tr>
             <td></td>
             {# Commentaire en bleu #}
-            <td class="name-comment"><span>{{ comment.name }} a commenté : <span style="color:blue" class="comment">{{ comment.comment }}</span></span></td>
+            <td class="name-comment"><span>{{ comment.name }} commented : <span style="color:blue" class="comment">{{ comment.comment }}</span></span></td>
           </tr>
           
           {% endfor %}
         </tbody>
       </table>
       {% else %}
-      <p>Aucun commentaire pour le moment.</p>
+      <p>No comments yet.</p>
       {% endif %}
     </div>
     <div class="col-md-4">
-      <h1 class="mb-4">Nouveau commentaire</h1>
+      <h1 class="mb-4">New comment</h1>
       {{ form_start(form) }}
       {{ form_row(form.name, { 'label': 'Nom', 'attr': {'class': 'form-control'} }) }}
       {{ form_row(form.email, { 'label': 'Email', 'attr': {'class': 'form-control'} }) }}
       {{ form_row(form.comment, { 'label': 'Commentaire', 'attr': {'class': 'form-control'} }) }}
-      <button type="submit" class="btn btn-primary mt-3">Valider</button>
+      <button type="submit" class="btn btn-primary mt-3">Validate</button>
       {{ form_end(form) }}
     </div>
   </div>

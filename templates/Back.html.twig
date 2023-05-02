@@ -38,69 +38,80 @@
     <div class="container-xxl position-relative bg-white d-flex p-0">
 <!-- Sidebar Start -->
 <div class="sidebar pe-4 pb-3">
-    <nav class="navbar bg-light navbar-light">
-        <a href="index.html" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>YOTALENT</h3>
-        </a>
-        <div class="d-flex align-items-center ms-4 mb-4">
-            <div class="position-relative">
-                <img class="rounded-circle" src="/assetsB/logo1.png" alt="" style="width: 40px; height: 40px;">
-                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-            </div>
-            <div class="ms-3">
-                <h6 class="mb-0">Yotalent</h6>
-                <span>Admin</span>
-            </div>
-        </div>
-        <div class="navbar-nav w-100">
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="contratDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class='fas fa-file-contract me-2'></i>Contrat et Voyage
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="contratDropdown">
-                    <li><a class="dropdown-item" href="{{path('app_contrat_index')}}" ><i class='fas fa-file-contract me-2'></i>Contrat</a></li>
-                    <li><a class="dropdown-item" href="{{path('app_voyage_index')}}"><i class="fa fa-plane me-2"></i>Voyage</a></li>
-                </ul>
-            </div>
-<div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="eventDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class='far fa-images me-2'></i>Event and Planning
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="eventDropdown">
-                    <li><a class="dropdown-item" href="{{path('app_evenement_index')}}"><i class='far fa-images me-2'></i>Gestion Events</a></li>
-                    <li><a class="dropdown-item" href="{{path('app_planning_index')}}"><i class="far fa-clock me-2"></i>Gestion Planning</a></li>
-                </ul>
-    </div>
-    <div class="nav-item dropdown">
-         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Ticket and Refund
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              
-                        <li><a class="dropdown-item" href="{{path('app_ticket_index')}}" class="nav-item nav-link active"><i class="fa fa-star-o"></i>ticket</a></li>
-                        <li><a class="dropdown-item" href="{{path('app_remboursement_index')}}" class="nav-item nav-link active"><i class="fa fa-th-list"></i>refund</a></li>
-                        <li><a class="dropdown-item" href="{{path('app_statique')}}" class="nav-item nav-link active"><i class="btn btn-info rounded-pill m-2">  <i class="fas fa-chart-bar"></i></i>Statistic of refund</a></li>
-                       
-        </ul>
-    </div>
-    <div class="nav-item dropdown">
-         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Espacetalent
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              
-                      
-                        <li><a class="dropdown-item" href="{{path('app_video_index')}}" class="nav-item nav-link active"><i class="fa fa-video-camera"></i>Video</a></li>
-                        <li><a class="dropdown-item" href="{{path('app_espace_index')}}" class="nav-item nav-link active"><i class="fa fa-star-o"></i>Espace Talent</a></li>
-                        <li><a class="dropdown-item" href="{{path('app_categorie_index')}}" class="nav-item nav-link active"><i class="fa fa-th-list"></i>Categorie</a></li>
 
-        </ul>
-    </div>
-  
-  
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a href="index.html" class="navbar-brand mb-3">
+            <div class="d-flex align-items-center ms-4">
+            
+<div class="position-relative">
+<img class="rounded-circle" src="/assetsB/logo1.png" alt="" style="width: 40px; height: 40px;">
+<div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+<div class="ms-3">
+<h6 class="mb-0">Yotalent</h6>
+<span>Admin</span>
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-nav" aria-controls="sidebar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="sidebar-nav">
+                <ul class="navbar-nav flex-column w-100">
+                    <li class="nav-item">
+                        <div class="nav-link d-flex justify-content-between align-items-center" id="contratDropdown" role="button" data-bs-toggle="collapse" data-bs-target="#contratCollapse" aria-expanded="false" aria-controls="contratCollapse">
+                            <div><i class='fas fa-file-contract me-2'></i>Contract and Trip</div>
+                            <i class='fas fa-angle-down'></i>
+                        </div>
+                        <div class="collapse" id="contratCollapse">
+                            <ul class="navbar-nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="{{path('app_contrat_index')}}"><i class='fas fa-file-contract me-2'></i>Contract</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{path('app_voyage_index')}}"><i class="fa fa-plane me-2"></i>Trip</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link d-flex justify-content-between align-items-center" id="eventDropdown" role="button" data-bs-toggle="collapse" data-bs-target="#eventCollapse" aria-expanded="false" aria-controls="eventCollapse">
+                            <div><i class='far fa-images me-2'></i>Event and Planning</div>
+                            <i class='fas fa-angle-down'></i>
+                        </div>
+                        <div class="collapse" id="eventCollapse">
+                            <ul class="navbar-nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="{{path('app_evenement_index')}}"><i class='far fa-images me-2'></i>Events</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{path('app_planning_index')}}"><i class="far fa-clock me-2"></i>Planning</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link d-flex justify-content-between align-items-center" id="ticketDropdown" role="button" data-bs-toggle="collapse" data-bs-target="#ticketCollapse" aria-expanded="false" aria-controls="ticketCollapse">
+                            <div><i class="fa fa-ticket-alt me-2"></i>Ticket and Refund</div>
+                            <i class='fas fa-angle-down'></i>
+                        </div>
+                        <div class="collapse" id="ticketCollapse">
+                            <ul class="navbar-nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="{{path('app_ticket_index')}}"><i class="fa fa-ticket-alt"></i>Ticket</a></li>
+<li class="nav-item"><a class="nav-link" href="{{path('app_remboursement_index')}}"><i class="fa fa-undo me-2"></i>Refund</a></li>
+<li class="nav-item"><a class="nav-link" href="{{path('app_statique')}}" class="nav-item nav-link active"><i class="fas fa-chart-bar me-2"></i>Statistic of refund</a></li>
+</ul>
 </div>
-            </nav>
-        </div>
+</li>
+<li class="nav-item">
+<div class="nav-link d-flex justify-content-between align-items-center" id="espacetalentDropdown" role="button" data-bs-toggle="collapse" data-bs-target="#espacetalentCollapse" aria-expanded="false" aria-controls="espacetalentCollapse">
+<div><i class="fa fa-ticket-alt me-2"></i>Espacetalent</div>
+<i class='fas fa-angle-down'></i>
+</div>
+<div class="collapse" id="espacetalentCollapse">
+<ul class="navbar-nav flex-column">
+<li class="nav-item"><a class="nav-link" href="{{path('app_video_index')}}" class="nav-item nav-link active"><i class="fa fa-video-camera"></i>Video</a></li>
+<li class="nav-item"><a class="nav-link" href="{{path('app_espace_index')}}" class="nav-item nav-link active"><i class="fa fa-star-o"></i>Espace Talent</a></li>
+<li class="nav-item"><a class="nav-link" href="{{path('app_categorie_index')}}" class="nav-item nav-link active"><i class="fa fa-th-list"></i>Category</a></li>
+</ul>
+</div>
+</li>
+</ul>
+
+</nav>
+
+</div>
         <!-- Sidebar End -->
 
 

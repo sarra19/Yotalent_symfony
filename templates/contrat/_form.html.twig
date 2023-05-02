@@ -5,25 +5,25 @@
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
 <div class="form-group">
-  {{ form_label(form.nomc, 'Nom de  contrat :') }}
+  {{ form_label(form.nomc, 'Name of contract :') }}
   {{ form_widget(form.nomc, {'attr': {'class': 'form-control'}}) }}
   {{ form_errors(form.nomc, {'attr': {'class': 'text-danger'}}) }}
 </div>
 
 <div class="form-group">
-  {{ form_label(form.datedc, 'Date début :') }}
+  {{ form_label(form.datedc, 'Start date :') }}
   {{ form_widget(form.datedc, {'attr': {'class': 'form-control'}}) }}
   {{ form_errors(form.datedc, {'attr': {'class': 'text-danger'}}) }}
 </div>
 
 <div class="form-group">
-  {{ form_label(form.datefc, 'Date fin :') }}
+  {{ form_label(form.datefc, 'End date :') }}
   {{ form_widget(form.datefc, {'attr': {'class': 'form-control'}}) }}
   {{ form_errors(form.datefc, {'attr': {'class': 'text-danger'}}) }}
 </div>
 
 <div class="form-group">
-  {{ form_label(form.idest, 'Nom de l\'espace talent :') }}
+  {{ form_label(form.idest, 'Name espace talent :') }}
   {{ form_widget(form.idest, {'attr': {'class': 'form-control'}}) }}
   {{ form_errors(form.idest, {'attr': {'class': 'text-danger'}}) }}
 </div>

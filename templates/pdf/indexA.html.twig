@@ -1,4 +1,4 @@
-{% block title %} <style=" width:10px; height:100px;"><h1>LISTE DES Events</h1>{% endblock %}
+{% block title %} <style=" width:10px; height:100px;"><h1>LISTE DES Contrats</h1>{% endblock %}
       <div class="slider-item" style="background-image: url('{{asset('logo.png')}}');"></div>
 <table  border="1">
         <thead >
@@ -18,7 +18,6 @@
                 <td>{{ contrat.DateDC }}</td>
                 <td>{{ contrat.DateFC}}</td>
                            
-                <td><img src="{{ asset('77.jpg') }}" style=" width:89px; height:75px; " alt=""/></td>       
              </tr>
                         {% endfor %}
                     </tbody>

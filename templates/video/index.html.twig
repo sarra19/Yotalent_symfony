@@ -1,6 +1,5 @@
 {% extends 'Back.html.twig' %}
 
-{% block title %}Video index{% endblock %}
 
 {% block body %}
   <div class="row">
@@ -10,7 +9,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Rechercher par idvid, nomvid ou url" name="searchQuery" value="{{ app.request.query.get('searchQuery') }}">
+        <input type="text" class="form-control" placeholder="Find by idvid, nomvid ou url" name="searchQuery" value="{{ app.request.query.get('searchQuery') }}">
         <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
       </div>
     </div>
@@ -18,11 +17,11 @@
 </form>
 
         <div class="ms-3">
-          <a href="{{ path('app_video_index', {'sort': 'idvid'}) }}" class="btn btn-outline-primary">Trier par idvid</a>
+          <a href="{{ path('app_video_index', {'sort': 'idvid'}) }}" class="btn btn-outline-primary">Sort By idvid</a>
         </div>
 
         <div class="ms-3">
-          <a href="{{ path('app_video_index', {'sort': 'nomvid'}) }}" class="btn btn-outline-primary">Trier par nomvid</a>
+          <a href="{{ path('app_video_index', {'sort': 'nomvid'}) }}" class="btn btn-outline-primary">Sort By nomvid</a>
         </div>
       </div>
       <div class="table-responsive">
@@ -30,7 +29,7 @@
           <thead>
             <tr class="table-secondary">
               <th scope="col">Idvid</th>
-              <th scope="col">Nomvid</th>
+              <th scope="col">Name video</th>
               <th scope="col">Url</th>
               <th scope="col">Actions</th>
             </tr>
@@ -49,15 +48,15 @@
               </td>
               <td>
                 <div class="d-flex justify-content-center">
-                  <a href="{{ path('app_video_show', {'idvid': video.idvid}) }}" class="btn btn-primary me-2"><i class="fas fa-eye"></i> Voir</a>
-                  <a href="{{ path('app_video_edit', {'idvid': video.idvid}) }}" class="btn btn-success me-2"><i class="fas fa-edit"></i> Modifier</a>
+                  <a href="{{ path('app_video_show', {'idvid': video.idvid}) }}" class="btn btn-primary me-2"><i class="fas fa-eye"></i> Show</a>
+                  <a href="{{ path('app_video_edit', {'idvid': video.idvid}) }}" class="btn btn-success me-2"><i class="fas fa-edit"></i> Edit</a>
                   {{ include('video/_delete_form.html.twig') }}
                 </div>
               </td>
             </tr>
             {% else %}
             <tr>
-              <td colspan="4">Aucun enregistrement trouvé</td>
+              <td colspan="4">No records found</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -65,7 +64,7 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <a href="{{ path('app_video_new') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une vidéo</a>
+        <a href="{{ path('app_video_new') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Video</a>
       </div>
     </div>
   </div>
