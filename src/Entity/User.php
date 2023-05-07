@@ -25,18 +25,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     #[Groups(['user', 'posts:read'])]
-    private array $roles = [];
+    private string $role;
 
     /**
-     * @var string The hashed password
+     * @var string The hashed motpass
      */
     #[ORM\Column]
     #[Groups(['user', 'posts:read'])]
-    private ?string $password = null;
+    private ?string $motpass = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['user', 'posts:read'])]
-    private ?string $Name = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['user', 'posts:read'])]
@@ -76,16 +76,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        $role = $this->role;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $role = 'ROLE_USER';
+        $role = explode(',', $role);
 
-        return array_unique($roles);
+        return array_unique($role);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(string $role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }
@@ -95,12 +96,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->motpass;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $motpass): self
     {
-        $this->password = $password;
+        $this->motpass = $motpass;
 
         return $this;
     }
@@ -116,12 +117,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->nom;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $nom): self
     {
-        $this->Name = $Name;
+        $this->nom = $nom;
 
         return $this;
     }

@@ -74,12 +74,12 @@ public function authenticate(Request $request): Passport
                 
                 return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
             case 'User':
-                return new RedirectResponse($this->urlGenerator->generate('PUT PATH'));
+                return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
 
                 case 'Organization':
-                    return new RedirectResponse($this->urlGenerator->generate('PUT PATH'));
+                    return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
             default:
-                return new RedirectResponse($this->urlGenerator->generate('PUT PATH'));
+                return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
         }
     }
     

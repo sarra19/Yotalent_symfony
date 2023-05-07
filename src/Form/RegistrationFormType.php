@@ -26,6 +26,10 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $roles = ['ROLE_USER' => 'User', 'ROLE_ORG' => 'Organization' ];
+        //convert selected role to string
+        $roles = array_map(function($role) {
+            return (string) $role;
+        }, $roles);
         $builder
         ->add('email', null, [
             'constraints' => [
@@ -38,7 +42,7 @@ class RegistrationFormType extends AbstractType
             'choices' => $roles,
             'placeholder' => 'Choose a role',
             'required' => true,
-            'multiple' => true,
+            'multiple' => false,
             'attr' => ['class' => 'form-control mb-3'],
         ])
         ->add('image', FileType::class, [
