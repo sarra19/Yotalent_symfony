@@ -1,0 +1,313 @@
+{% extends 'FrontS.html.twig' %}
+{% block title %}Espacetalent index{% endblock %}
+
+{% block body %}
+<head>
+    
+
+		
+        <!-- icons -->
+        <link rel="icon" href="images/ico/favicon.ico"> 
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../images/ico/apple-touch-icon-144-precomposed.html">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/ico/apple-touch-icon-114-precomposed.html">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/ico/apple-touch-icon-72-precomposed.html">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="../images/ico/apple-touch-icon-57-precomposed.html"> 
+
+      
+    
+    </head>
+    <body class="body-band">
+       
+       
+
+        <div class="about-section about bg-image section-padding before-after">
+            <div class="section-title" >
+                <h1>About Us</h1>
+                <h2>Meet our Members</h2>
+            </div>
+            <div class="about-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="artists ">
+                                <div class="artists-overlay"></div>
+                                <img  class="img-fluid" src="images/artists/22.jpg" alt="Image">
+                                <div class="artists-info">
+                                    <ul class="list-inline">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                    <a href="#">Sarra Ben Hamida</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="artists ">
+                                <div class="artists-overlay"></div>
+                                <img  class="img-fluid" src="images/artists/23.jpg" alt="Image">
+                                <div class="artists-info">
+                                    <ul class="list-inline">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                    <a href="#">Ibtihel Chabbeh</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="artists ">
+                                <div class="artists-overlay"></div>
+                                <img  class="img-fluid" src="images/artists/24.jpg" alt="Image">
+                                <div class="artists-info">
+                                    <ul class="list-inline">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                    <a href="#">Hadir Elayeb</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="artists ">
+                                <div class="artists-overlay"></div>
+                                <img  class="img-fluid" src="images/artists/25.jpg" alt="Image">
+                                <div class="artists-info">
+                                    <ul class="list-inline">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                    <a href="#">Asma Glenza</a>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div><!-- row -->
+                </div><!-- container -->
+            </div><!-- about content -->
+        </div><!-- about section --> 
+
+        <div class="recent-albums section-padding bg-white before-after">
+            <div class="section-title">
+                <h1>Time For Music</h1>
+                <h2>Music for you</h2>
+            </div>        
+            <div class="container">
+                <div class="albums-slider slider-band">
+                    <div class="album-item">
+                        <div class="album-image">
+                            <div class="album-overlay"></div>
+                            <img  class="img-fluid" src="images/artists/fao.jpg" alt="Image">
+                            <div class="album-icons">
+                                <a onclick="playSong('song.mp3')"><i class="fa fa-play-circle"></i></a>
+
+                            </div>
+                        </div>
+                        <h2>Minefields</h2>
+                        <h3>Faouzia And John Legend</h3>
+                    </div>
+                    <div class="album-item">
+                        <div class="album-image">
+                            <div class="album-overlay"></div>
+                            <img  class="img-fluid" src="images/artists/noel.jpg" alt="Image">
+                            <div class="album-icons">
+                                <a  onclick="playSong('song1.mp3')"><i class="fa fa-play-circle"></i></a>
+                            </div>
+                        </div>
+                        <h2>Ann Alawan</h2>
+                        <h3>Noel Kharman</h3>
+                    </div>
+                    <div class="album-item">
+                        <div class="album-image">
+                            <div class="album-overlay"></div>
+                            <img  class="img-fluid" src="images/artists/spe.jpg" alt="Image">
+                            <div class="album-icons">
+                                <a  onclick="playSong('song2.mp3')"><i class="fa fa-play-circle"></i></a>
+                            </div>
+                        </div>
+                        <h2>Speechless</h2>
+                        <h3>Naomi Scott </h3>
+                    </div>
+                    <div class="album-item">
+                        <div class="album-image">
+                            <div class="album-overlay"></div>
+                            <img  class="img-fluid" src="images/artists/kha.jpg" alt="Image">
+                            <div class="album-icons">
+                                <a  onclick="playSong('song3.mp3')"><i class="fa fa-play-circle"></i></a>
+                            </div>
+                        </div>
+                        <h2>Khalini</h2>
+                        <h3>Mehdi Mouelhi & Kaso Ft Rana Zarrouk</h3>
+                    </div>
+                    <div class="album-item">
+                        <div class="album-image">
+                            <div class="album-overlay"></div>
+                            <img  class="img-fluid" src="images/artists/bet.jpg" alt="Image">
+                            <div class="album-icons">
+                                <a  onclick="playSong('song4.mp3')"><i class="fa fa-play-circle"></i></a>
+                                </div>
+                        </div>
+                        <h2>BETTER DAYS</h2>
+                        <h3>Rilès</h3>
+                    </div>
+                   
+                </div>
+            </div><!-- container -->
+        </div><!-- recent albums -->
+   <div class="shop-section section-padding before bg-image">
+            <div class="section-title">
+                <h1>For sell</h1>
+                <h2>Shop open</h2>
+            </div>
+            <div class="product-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="products item">
+                                <div class="product-thumb">
+                                    <a href="shop-details.html"><img  class="img-fluid" src="images/shop/16.png" alt="Image"></a>
+                                </div>
+                                <a href="shop-details.html">Rock n Roll Tshirt</a>
+                                <h5>$100.00</h5> 
+                                <div class="products-icons">
+                                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="products item">
+                                <div class="product-thumb">
+                                    <a href="shop-details.html"><img  class="img-fluid" src="images/shop/6.png" alt="Image"></a>
+                                </div>
+                                <a href="shop-details.html">Rock n Roll Tshirt</a>
+                                <h5>$100.00</h5> 
+                                <div class="products-icons">
+                                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="products item">
+                                <div class="product-thumb">
+                                    <a href="shop-details.html"><img  class="img-fluid" src="images/shop/5.png" alt="Image"></a>
+                                </div>
+                                <a href="shop-details.html">Rock n Roll Tshirt</a>
+                                <h5>$100.00</h5> 
+                                <div class="products-icons">
+                                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                </div>                           
+                            </div>
+                        </div>
+                    </div><!-- row -->
+                </div><!-- container -->
+            </div>
+        </div><!-- shop section -->
+     
+        <div class="blog-section section-padding before-after bg-white">
+            <div class="section-title">
+                <h1>Read it</h1>
+                <h2>News & updates</h2>
+            </div>
+            <div class="container">
+
+            <hr>
+            <hr>
+            <center>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="entry-post ">
+                            <div class="entry-thumbnail">
+                                <img  class="img-fluid" src="images/blog/333.jpg" alt="Image">
+                            </div>
+                            <div class="post-content">
+                              
+                                <div class="entry-title">
+                                   <a href="blog-details.html">Music Production – Be Better Than Your Past Self</a>
+                               </div> 
+                               <p>Starting from scratch in music production can be overwhelming, with endless acronyms,tools, software,virtual instruments, technical issues everywhere,and everything is daunting. But despite all difficulties, I feel it’s worth it because I love what I do.</p>
+                               <div class="post-icons">
+                                  <a href="{{ path('app_new') }}"><i class="fa fa-chevron-circle-right"></i></a>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="entry-post ">
+                            <div class="entry-thumbnail">
+                                <img  class="img-fluid" src="images/blog/2.jpg" alt="Image">
+                            </div>
+                            <div class="post-content">
+                              
+                                <div class="entry-title">
+                                   <a href="blog-details.html">Music Production – Be Better Than Your Past Self</a>
+                               </div> 
+                               <p>Starting from scratch in music production can be overwhelming, with endless acronyms,tools, software,virtual instruments, technical issues everywhere,and everything is daunting. But despite all difficulties, I feel it’s worth it because I love what I do.</p>
+                               <div class="post-icons">
+                                  <a href="{{ path('app_new') }}"><i class="fa fa-chevron-circle-right"></i></a>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="entry-post ">
+                            <div class="entry-thumbnail">
+                                <img  class="img-fluid" src="images/blog/9.jpg" alt="Image">
+                            </div>
+                            <div class="post-content">
+                               
+                                <div class="entry-title">
+                                   <a href="blog-details.html">UK Orchestra And Theatre Tax Relief Will Last Two Years
+</a>
+                               </div> 
+                               <p>The complex issue of funding for UK orchestras and theatre companies continues, with both positive and negative developments.here have been announcements in recent weeks that funding and relief with be both given and cut..</p>
+                               <div class="post-icons">
+                                   <a href="blog.html"><i class="fa fa-chevron-circle-right"></i></a>
+                               </div>
+                            </div>
+                        </div>
+                    </div>                     
+                </div><!-- row -->
+                </center>
+            </div><!-- container -->           
+        </div><!-- blog section -->        
+
+     
+
+
+
+      
+
+
+        <script>
+          var currentSong = null;
+
+// Fonction pour jouer une chanson
+function playSong(songUrl) {
+  // Vérifier si une chanson est déjà en cours de lecture
+  if (currentSong !== null) {
+    // Si oui, arrêter la lecture de la chanson en cours
+    currentSong.pause();
+  }
+  // Charger et jouer la nouvelle chanson
+  var newSong = new Audio(songUrl);
+  newSong.play();
+  // Mettre à jour la variable currentSong avec la nouvelle chanson
+  currentSong = newSong;
+}
+            </script>
+            <center>
+            <a href="{{ path('app') }}" class="btn btn-primary mx-2">
+Contacter nous
+</a>
+</center>
+    
+       
+    </body>
+
+
+    {% endblock %}

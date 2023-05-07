@@ -1,0 +1,45 @@
+{% extends 'Back.html.twig' %}
+
+{% block body %}
+    <h1>Liste of comments</h1>
+
+    {% if comments|length > 0 %}
+        <table class="table">
+           
+            <tbody>
+{% for comment in comments %}
+    <tr>
+        <td class="email">{{ comment.email }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="name-comment">{{ comment.name }} a commenté : <span class="comment">{{ comment.comment }}</span></td>
+    </tr>
+{% endfor %}
+
+<style>
+    td {
+        vertical-align: top;
+        font-size: 0.8em;
+    }
+
+    .email {
+        font-weight: bold;
+    }
+
+    .name-comment {
+        padding-top: 0.5em;
+    }
+
+    .comment {
+        color: blue;
+    }
+</style>
+
+
+            </tbody>
+        </table>
+    {% else %}
+        <p>No comments yet.</p>
+    {% endif %}
+{% endblock %}

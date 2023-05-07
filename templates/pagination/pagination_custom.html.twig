@@ -1,0 +1,20 @@
+<div class="pagination">
+    <ul>
+        {% if pagination.hasPreviousPage %}
+            <li>
+            
+                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): pagination.previousPageNumber})) }}">&laquo;</a>
+            </li>
+        {% endif %}
+        {% for page in pagination.pagesInRange %}
+            <li{% if pagination.currentPageNumber == page %} class="active"{% endif %}>
+                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): page})) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+        {% if pagination.hasNextPage %}
+            <li>
+                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({(pagination.pageParameterName): pagination.nextPageNumber})) }}">&raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

@@ -1,0 +1,32 @@
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <table>
+        <tr>
+          <td>{{ form_label(form.datedvoy, 'Start Date  :') }}</td>
+          <td>{{ form_widget(form.datedvoy, {'attr': {'class': 'form-control'}}) }}</td>
+          <td>{{ form_errors(form.datedvoy, {'attr': {'class': 'text-danger'}}) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.datervoy, 'End Date :') }}</td>
+          <td>{{ form_widget(form.datervoy, {'attr': {'class': 'form-control'}}) }}</td>
+          <td>{{ form_errors(form.datervoy, {'attr': {'class': 'text-danger'}}) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.destination, 'Destination :') }}</td>
+          <td>{{ form_widget(form.destination, {'attr': {'class': 'form-control'}}) }}</td>
+          <td>{{ form_errors(form.destination, {'attr': {'class': 'text-danger'}}) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.idc, 'ID of contract :') }}</td>
+          <td>{{ form_widget(form.idc, {'attr': {'class': 'form-control'}}) }}</td>
+          <td>{{ form_errors(form.idc, {'attr': {'class': 'text-danger'}}) }}</td>
+        </tr>
+      </table>
+      <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    </div>
+  </div>
+</div>
+{{ form_end(form) }}

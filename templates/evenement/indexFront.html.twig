@@ -1,0 +1,145 @@
+{% extends 'FrontS.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+   
+
+{#affichage #}
+<div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Evenements</h4>
+            </div>
+            
+            <div class="row">
+           {% for evenement in evenements %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-item">
+{#affichage #}
+
+<body>
+
+<div class="card">
+   <img src="{{ asset('uploads/' ~evenement.imageev)}}" style=" width:360px; height:250px;border-radius:16px;box-shadow: 0 10px 16px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5); " alt="">
+   <center><h1>{{ evenement.nomev }}</h1></center>
+  <p><strong style="color:#696969">Date de début:</strong> {{ evenement.datedev}}</p>
+          <p><strong style="color:#696969">Date de fin:</strong> {{ evenement.datefev}}</p>
+          <p><strong style="color:#696969" >localisation:</strong> {{ evenement.localisation }}  <a href="{{ path('app_evenement_mapf', {'idev': evenement.idev}) }}" class="btn btn-info rounded-pill m-2" ><i class="fa fa-map-marker "></i></a></p>
+  <p> <center><a href="{{ path('app_planning_fronts', {'idev': evenement.idev}) }}" class="btn btn-primary px-3 py-1">planning </a><center></p>  
+  <p> <center><a href="{{ path('test', {'idev': evenement.idev}) }}" class="btn btn-primary px-3 py-1">GET TICKET</a><center></p>      
+    
+
+ </div>
+{# -------------------------- Share ------------------------------------  #}
+         <div class="sharethis-inline-share-buttons"></div>
+         {# -------------------------- Share ------------------------------------  #}
+
+
+
+</body>
+
+
+
+
+ 
+
+{#affichage #}
+        </div>
+      </div>
+      
+{#affichage #}
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div  style="margin-left: 526px;" >
+        <style>
+ .pagination {
+    height: 40px;
+    margin: 20px 10px;
+}
+
+.pagination ul {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    margin-left: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    *zoom: 1;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 0px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a,
+.pagination span {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+}
+
+.pagination a:hover,
+.pagination .active a,
+.pagination .active span {
+    background-color: #f5f5f5;
+}
+
+.pagination .active a,
+.pagination .active span {
+    color: #999999;
+    cursor: default;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+    color: #999999;
+    cursor: default;
+    background-color: transparent;
+}
+
+.pagination li:first-child a,
+.pagination li:first-child span {
+    border-left-width: 1px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+
+.pagination li:last-child a,
+.pagination li:last-child span {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination-right {
+    text-align: right;
+}
+ </style>
+                                {{knp_pagination_render(evenements) }}
+                    
+                                     </div>
+   
+{% endblock %}

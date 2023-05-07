@@ -3,12 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\User;
+<<<<<<< HEAD
 use App\Form\UserType;
 use App\Repository\UserRepository;
+=======
+use App\Form\CategorieType;
+use Doctrine\ORM\EntityManagerInterface;
+>>>>>>> New/integ
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+<<<<<<< HEAD
 use BaconQrCode\Renderer\Image\Png;
 use BaconQrCode\Writer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -113,3 +119,26 @@ class UserController extends AbstractController
     }
     
 }
+=======
+
+
+class UserController extends AbstractController
+{
+  
+   
+    #[Route('/login', name: 'login', methods: ['GET'])]
+public function index(Request $request, EntityManagerInterface $entityManager): Response
+{
+    return $this->render('user/login.html.twig');
+}
+
+
+#[Route('/', name: 'accueila', methods: ['GET'])]
+public function indexaa(Request $request, EntityManagerInterface $entityManager): Response
+{
+    return $this->render('Front.html.twig');
+}
+
+
+}
+>>>>>>> New/integ

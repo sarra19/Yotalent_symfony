@@ -224,7 +224,11 @@ a:focus, button:focus, .btn:focus,
 
 .breadcrumb {
     z-index: 1;
+<<<<<<< HEAD
     background-image: url(../images/bg/7.jpg);
+=======
+    background-image: url(../images/bg/5.jpg);
+>>>>>>> New/integ
     background-color: transparent;
     position: relative;
     margin-bottom: 0;
@@ -242,7 +246,11 @@ a:focus, button:focus, .btn:focus,
     left: 0;
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
     background-color: rgba(237, 20, 91, 0.4);;
+=======
+    background-color: rgba(4, 205, 255, 0.4);;
+>>>>>>> New/integ
     z-index: -1;
 }
 
@@ -324,7 +332,11 @@ a:focus, button:focus, .btn:focus,
 }
 
 #navigation .navbar-nav>li>a {
+<<<<<<< HEAD
     color: #767676;
+=======
+    color: #8dbcef;
+>>>>>>> New/integ
     text-transform: uppercase;
     padding: 0 20px;
     line-height: 60px;
@@ -341,7 +353,28 @@ a:focus, button:focus, .btn:focus,
 #navigation .navbar-nav>.active>a:hover {
     color: #ed145b;  
 }
+<<<<<<< HEAD
 
+=======
+.bar {
+    height: 1px;
+    width: 2px;
+    display: inline-block;
+    background-color: #8dbcef;
+    bottom: 0;
+    position: absolute;
+    animation-duration: 500ms;
+    -webkit-animation-duration: 500ms;
+    animation-play-state: running;
+    -webkit-animation-play-state: running;
+    animation-direction: alternate;
+    -webkit-animation-direction: alternate;
+    animation-timing-function: linear;
+    -webkit-animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+>>>>>>> New/integ
 #navigation .navbar-nav li ul.sub-menu li a:hover, 
 #navigation .navbar-nav li ul.sub-menu li a:focus, 
 #navigation .navbar-nav li ul.sub-menu li a:active, 
@@ -369,7 +402,11 @@ ul.sub-menu {
   padding:7px 0;
   margin: 0;
   min-width: 180px;
+<<<<<<< HEAD
   border-top:1px solid #ed145b;
+=======
+  border-top:1px solid #007bff;
+>>>>>>> New/integ
   box-shadow: 0 3px 3px rgba(0,0,0,.1);
   -webkit-box-shadow: 0 3px 3px rgba(0,0,0,.1);  
   display: none;
@@ -389,7 +426,11 @@ ul.sub-menu {
 
 #navigation .navbar-nav li ul.sub-menu li a {
   display: block;
+<<<<<<< HEAD
   color: #767676;
+=======
+  color: #007bff;
+>>>>>>> New/integ
   padding: 7px 0 7px 20px;
   font-size: 14px;
   text-transform:uppercase;
@@ -483,6 +524,10 @@ ul.sub-menu {
     margin-top: -20px;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> New/integ
 .logo-intro span {
     font-family: 'Cookie', cursive;
     font-size: 58px;
@@ -543,7 +588,11 @@ ul.sub-menu {
 
 .home-banner .social a:hover,
 .social a:hover {
+<<<<<<< HEAD
     color: #ed145b;
+=======
+    color: #007bff;
+>>>>>>> New/integ
 }
 
 .album-cover {
@@ -2914,7 +2963,11 @@ textarea.form-control {
 }
 
 .home-banner.banner .banner-overlay {
+<<<<<<< HEAD
         background-color: rgba(237, 20, 91, 0.7);
+=======
+        background-color: #007bff;
+>>>>>>> New/integ
 }
 
 .home-banner.banner .home-content h2 {
@@ -2941,7 +2994,11 @@ textarea.form-control {
 }
 
 .home-content .btn.btn-primary:hover {
+<<<<<<< HEAD
 	background-color:rgba(237,20,91,0.7);
+=======
+	background-color:#007bff;
+>>>>>>> New/integ
 	color:#fff;
 }
 
@@ -2951,6 +3008,7 @@ textarea.form-control {
 
 .home-banner.banner .btn.btn-primary {
     background-color: #fff;
+<<<<<<< HEAD
     color: #ed145b;
 }
 
@@ -2960,6 +3018,17 @@ textarea.form-control {
 
 .home-banner.banner .btn.btn-primary:hover {
     background-color: #ed145b;
+=======
+    color: #007bff;
+}
+
+.home-banner.banner .btn.btn-primary i {
+    color: #007bff;
+}
+
+.home-banner.banner .btn.btn-primary:hover {
+    background-color: #007bff;
+>>>>>>> New/integ
     color: #fff;
 }
 
@@ -3117,11 +3186,19 @@ textarea.form-control {
 .ucoming-events .dropdown-menu>li>a:focus, 
 .ucoming-events .dropdown-menu>li>a:hover {
     background-color: transparent;
+<<<<<<< HEAD
     color: #ed145e;
 }
 
 .ucoming-events .dropdown i {
     color: #ed145b;
+=======
+    color: #007bff;
+}
+
+.ucoming-events .dropdown i {
+    color: #007bff;
+>>>>>>> New/integ
 }
 
 .ucoming-events .dropdown-menu {
@@ -3425,7 +3502,11 @@ textarea.form-control {
 } 
 
 .home-banner.band-banner .jp-play-bar {
+<<<<<<< HEAD
     background-color: #ed145b;
+=======
+    background-color: #007bff;
+>>>>>>> New/integ
 }
 
 
@@ -3813,7 +3894,11 @@ textarea.form-control {
 }
 
 .album-menu .dropdown-menu li:hover {
+<<<<<<< HEAD
     color: #ed145b;
+=======
+    color: #007bff;
+>>>>>>> New/integ
 }
 
 .album-menu .dropdown-menu li+li {
@@ -4047,7 +4132,11 @@ textarea.form-control {
 .home-banner.biography .home-content h1 {
     font-size: 60px;
     font-family: 'Cookie', cursive;
+<<<<<<< HEAD
     color: #ed145b;
+=======
+    color: #007bff;
+>>>>>>> New/integ
 }
 
 .home-banner.biography .home-content h2 {
@@ -4057,7 +4146,11 @@ textarea.form-control {
 }
 
 .home-banner.biography .jp-play-bar {
+<<<<<<< HEAD
     background-color: #ed145b;
+=======
+    background-color: #007bff;
+>>>>>>> New/integ
 }
 
 .about.about-biography .about-info h3 {
@@ -4425,7 +4518,11 @@ textarea.form-control {
 }
 
 .copyright a {
+<<<<<<< HEAD
     color: #ed145b;
+=======
+    color: #007bff;
+>>>>>>> New/integ
     font-family: 'allerbold';
 }
 
@@ -4478,7 +4575,14 @@ a, button, .artists-overlay,
     transition: all 500ms;
 } 
 
+<<<<<<< HEAD
 
+=======
+img.img-fluid {
+    max-width: 100%;
+    max-height: 100%;
+  }
+>>>>>>> New/integ
 @font-face {
     font-family: 'allerregular';
     src: url('../fonts/aller.regular-webfont.woff2') format('woff2'),

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+<<<<<<< HEAD
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -43,12 +44,82 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $image = null;
 
 
+=======
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity
+ */
+class User
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motpass", type="string", length=255, nullable=false)
+     */
+    private $motpass;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Role", type="string", length=255, nullable=false)
+     */
+    private $role;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Image", type="string", length=255, nullable=false)
+     */
+    private $image;
+>>>>>>> New/integ
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+<<<<<<< HEAD
+=======
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+>>>>>>> New/integ
     public function getEmail(): ?string
     {
         return $this->email;
@@ -61,6 +132,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+<<<<<<< HEAD
     /**
      * A visual identifier that represents this user.
      *
@@ -95,17 +167,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
+=======
+    public function getMotpass(): ?string
+>>>>>>> New/integ
     {
         return $this->motpass;
     }
 
+<<<<<<< HEAD
     public function setPassword(string $motpass): self
+=======
+    public function setMotpass(string $motpass): self
+>>>>>>> New/integ
     {
         $this->motpass = $motpass;
 
         return $this;
     }
 
+<<<<<<< HEAD
     /**
      * @see UserInterface
      */
@@ -123,6 +203,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(string $nom): self
     {
         $this->nom = $nom;
+=======
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+>>>>>>> New/integ
 
         return $this;
     }
@@ -138,4 +228,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+<<<<<<< HEAD
 }
+=======
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+}
+>>>>>>> New/integ

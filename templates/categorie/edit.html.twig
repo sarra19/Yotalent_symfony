@@ -1,0 +1,23 @@
+{% extends 'Back.html.twig' %}
+
+
+{% block body %}
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Edit Category</h1>
+                </div>
+                <div class="card-body">
+                    {{ include('categorie/_form.html.twig', {'button_label': 'Update'}) }}
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ path('app_categorie_index') }}" class="btn btn-secondary">Back to list</a>
+                    {{ include('categorie/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

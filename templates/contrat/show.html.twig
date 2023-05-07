@@ -1,0 +1,33 @@
+{% extends 'Back.html.twig' %}
+
+
+{% block body %}
+    <h1>Contract</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idc</th>
+                <td>{{ contrat.idc }}</td>
+            </tr>
+            <tr>
+                <th>Name Contract</th>
+                <td>{{ contrat.nomc }}</td>
+            </tr>
+            <tr>
+                <th>Srart Date</th>
+                <td>{{ contrat.datedc }}</td>
+            </tr>
+            <tr>
+                <th>End Date</th>
+                <td>{{ contrat.datefc }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_contrat_index') }}">back to list</a>
+
+    <a href="{{ path('app_contrat_edit', {'idc': contrat.idc}) }}">edit</a>
+
+    {{ include('contrat/_delete_form.html.twig') }}
+{% endblock %}

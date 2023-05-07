@@ -1,0 +1,35 @@
+{% extends 'Back.html.twig' %}
+
+
+{% block title %}Planning{% endblock %}
+
+{% block body %}
+    <h1>Planning</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idp</th>
+               <td>{{ planning.idp }}</td>
+            </tr>
+            <tr>
+                <th>Hour</th>
+                <td>{{ planning.hour }}</td>
+            </tr>
+            <tr>
+                <th>Nomactivite</th>
+                <td>{{ planning.nomactivite }}</td>
+            </tr>
+            <tr>
+                <th>Datepl</th>
+                <td>{{ planning.datepl }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planning_index') }}">back to list</a>
+
+    <a href="{{ path('app_planning_edit', {'idp': planning.idp}) }}">edit</a>
+
+    {{ include('planning/_delete_form.html.twig') }}
+{% endblock %}

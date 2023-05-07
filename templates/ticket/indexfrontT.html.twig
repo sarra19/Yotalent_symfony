@@ -1,0 +1,107 @@
+{% extends 'Back.html.twig' %}
+
+{% block title %}ticket index{% endblock %}
+
+
+
+    
+
+         {% block body %}
+
+
+
+         
+     
+     <center>
+     <table >
+
+<tr>
+
+<br>
+   <td>
+              <div>
+              
+      
+
+             
+               
+</td>
+<td>
+
+ <h1>Choose number of tickets</h1>
+
+    <form  class="btn" action="{{ path('front') }}" method="post">
+        <select name="number">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         
+        </select>
+        <button type="submit" class="btn btn-primary">Price</button>
+     
+    </form>
+
+
+
+     {% if result is not null %}
+
+
+
+
+        <h2>PRIX TOTAL</h2>
+        <p>Nombre Ticket: {{ result / 20 }}</p>
+        <p>prix TOTAL  : {{ result }}</p>
+        
+         
+
+
+
+        </select>
+
+
+
+    </form>
+
+ 
+       <a href="{{ path('payer', {'idt':38 }) }}" class="btn btn-primary">pay</a>
+   
+ </form>
+
+
+ 
+    {% endif %}
+
+
+
+</td>
+
+
+</tr>
+
+
+
+
+          
+      </table>
+ 
+
+
+<br> <br><br>
+
+    <a href="{{ path('app_remboursement_new') }}"class="btn btn-primary">Refund</a>
+
+
+
+
+</center>
+
+
+        
+
+
+  
+{% endblock %}
+
+

@@ -1,0 +1,42 @@
+{% extends 'Front.html.twig' %}
+
+
+{% block body %}
+
+
+{#affichage #}
+<div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste of contraCt</h4>
+            </div>
+            <div class="row">
+           {% for contrat in contrats %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-item">
+{#affichage #}
+
+
+<img class="img-fluid" src="../77.jpg" alt="Image">
+          <center><h3>Name Contrat : {{contrat.nomc }}</h3></center>
+          <center><h3>Start Date : {{contrat.datedc }}</h3></center>
+          <center><h3>End Date :{{contrat.datefc }}</h3></center>
+        
+
+
+<p><a href="{{ path('app_voyage_frontc', {'idc': contrat.idc}) }}" class="btn btn-primary px-3 py-1">Trip </a></p>
+{#affichage #}
+        </div>
+      </div>
+      
+{#affichage #}
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

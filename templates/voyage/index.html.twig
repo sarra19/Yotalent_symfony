@@ -1,0 +1,136 @@
+
+
+
+{% extends 'Back.html.twig' %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+
+<div class="d-flex justify-content-end mb-3">
+       <form action="{{ path('app_voyage_index') }}" method="get">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Find By idvoy , datervoy ou datedvoy" name="searchQuery" value="{{ app.request.query.get('searchQuery') }}">
+        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+</form>
+
+        <div class="ms-3">
+          <a href="{{ path('app_voyage_index', {'sort': 'idvoy'}) }}" class="btn btn-outline-primary">Sort By idvoy</a>
+        </div>
+
+        <div class="ms-3">
+          <a href="{{ path('app_voyage_index', {'sort': 'datedvoy'}) }}" class="btn btn-outline-primary">Sort By datedvoy</a>
+        </div>
+        <div class="ms-3">
+          <a href="{{ path('app_voyage_index', {'sort': 'datervoy'}) }}" class="btn btn-outline-primary">Sort By datervoy</a>
+        </div>
+        
+      </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col">ID</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Actions</th>
+                             <th scope="col">Map</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for voyage in voyages %}
+                            <tr>
+                                <td>{{ voyage.idvoy }}</td>
+                                <td>{{ voyage.datedvoy }}</td>
+                                <td>{{ voyage.datervoy }}</td>
+                                <td>{{ voyage.destination }}</td>
+                                
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="{{ path('app_voyage_show', {'idvoy': voyage.idvoy}) }}" class="btn btn-primary me-2"><i class="fas fa-eye"></i> Show</a>
+                                        
+                                        <a href="{{ path('app_voyage_edit', {'idvoy': voyage.idvoy}) }}" class="btn btn-success me-2"><i class="fas fa-edit"></i> Edit</a>
+                                        {{ include('voyage/_delete_form.html.twig') }}
+
+                                       <a href="{{ path('app_voy_map', {'idvoy': voyage.idvoy}) }}" class="fas fa-map-marker-alt"></a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No records found</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <a href="{{ path('app_voyage_new') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add trip</a>
+<a href="#" class="btn btn-warning text-white mx-2" onclick="showStats()">
+  <i class="fas fa-chart-bar"></i> Statistics
+</a>
+
+            </div>
+        </div>
+    </div>
+<div id="stats-circle" class="d-none">
+
+
+    <h1>Statistics</h1>
+
+<canvas id="myChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Tunis', 'Bizerte', 'Sousse'],
+            datasets: [{
+                label: 'Nombre de voyages',
+                data: [{{ tunis_voyages|length }}, {{ bizerte_voyages|length }}, {{ sousse_voyages|length }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    function showStats() {
+  // Get the statistics circle element
+  var statsCircle = document.getElementById("stats-circle");
+
+  // Remove the "d-none" CSS class to show the element
+  statsCircle.classList.remove("d-none");
+}
+
+</script>
+</div>
+{% endblock %}

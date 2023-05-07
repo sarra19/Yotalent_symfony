@@ -1,0 +1,27 @@
+{% block title %} <style=" width:10px; height:100px;"><h1>LISTE DES Events</h1>{% endblock %}
+      <div class="slider-item" style="background-image: url('{{asset('logo3.jpg')}}');"></div>
+<table  border="1">
+        <thead >
+            <tr>
+                <th  style="color:#009CFF;">Idev</th>
+                <th  style="color:#009CFF;">Nomev</th>
+                <th style="color:#009CFF;">Datedev</th>
+                <th  style="color:#009CFF;">Datefev</th>
+                <th  style="color:#009CFF;">Localisation</th>
+                <th  style="color:#009CFF;">Imageev</th>
+                 
+         </tr>  
+        </thead>
+            <tbody>
+                        {% for event in evenement %}
+            <tr>
+                <td style="color:#009CFF; margin-right:50px">{{ event.idev }}</td>
+                 <td>{{ event.nomev }}</td>
+                    <td>{{ event.datedev}}</td>
+                       <td>{{ event.datefev}}</td>
+                          <td>{{ event.localisation }}</td>      
+                <td><img src="{{ asset('uploads/'~event.imageev) }}" style=" width:89px; height:75px; " alt=""/></td>       
+             </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>

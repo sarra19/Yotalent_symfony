@@ -1,0 +1,18 @@
+{% extends 'Back.html.twig' %}
+
+
+{% block body %}
+<div class="container my-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="text-center">Create new Video</h1>
+        </div>
+        <div class="card-body">
+            {{ include('video/_formV.html.twig') }}
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{ path('app_video_index') }}" class="btn btn-secondary">back to list</a>
+    </div>
+</div>
+{% endblock %}

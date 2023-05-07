@@ -1,0 +1,181 @@
+{% extends 'Back.html.twig' %}
+
+{% block title %}Ticket index{% endblock %}
+
+{% block body %}
+   <div class="row">
+    <div class="col-md-12">
+
+      <div class="d-flex justify-content-end mb-3">
+        <form class="input-group" method="get">
+        <input type="search" id="myInput" class="form-control pl-6" placeholder="Search "/>
+					
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+					<script>
+						$(document).ready(function () {
+                        $("#myInput").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#rs tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                         })
+                        });
+					</script>
+  <div class="ms-3">
+          <a href="{{ path('app_ticket_index', {'sort': 'idt'}) }}" class="btn btn-outline-primary">Trier par id ticket</a>
+        </div>
+        <div class="ms-3">
+          <a href="{{ path('app_ticket_index', {'sort': 'prixt'}) }}" class="btn btn-outline-primary">Trier par prix ticket</a>
+        </div>
+ <div class="ms-3">
+          <a href="{{ path('app_ticket_index', {'sort': 'etat'}) }}" class="btn btn-outline-primary">Trier par etat</a>
+        </div>
+       
+       
+      </div>
+    {# <table class="table"> #}
+      <div class="table-responsive">
+        <table class="table table-striped" id='rs'>
+        <thead>
+            <tr class="table-secondary">
+                <th>Idt</th>
+                <th>Prixt</th>
+                <th>Nomev</th>
+                <th>Etat</th>
+                  <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+       {% for ticket in pagination %}
+            <tr>
+                <td>{{ ticket.idt }}</td>
+                <td>{{ ticket.prixt }}</td>
+                <td>{{ ticket.idev }}</td>
+                <td>{{ ticket.etat ? '1' : '0' }}</td>
+                <td>
+                    <a href="{{ path('app_ticket_show', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">show</a>
+                    <a href="{{ path('app_ticket_edit', {'idt': ticket.idt}) }}"class="btn btn-info px-3 py-1">edit</a>
+
+<td><a href="{{ path('codes', {'idt': ticket.idt}) }}" class="btn btn-primary px-3 py-1">qr code</a></td>
+ 
+           
+  
+                    
+                </td>
+
+
+
+                
+                <td> 
+                
+                
+                
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div  style="margin-left: 526px;" >
+        <style>
+ .pagination {
+    height: 40px;
+    margin: 20px 10px;
+}
+
+.pagination ul {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    margin-left: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    *zoom: 1;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 0px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a,
+.pagination span {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+}
+
+.pagination a:hover,
+.pagination .active a,
+.pagination .active span {
+    background-color: #f5f5f5;
+}
+
+.pagination .active a,
+.pagination .active span {
+    color: #999999;
+    cursor: default;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+    color: #999999;
+    cursor: default;
+    background-color: transparent;
+}
+
+.pagination li:first-child a,
+.pagination li:first-child span {
+    border-left-width: 1px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+
+.pagination li:last-child a,
+.pagination li:last-child span {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination-right {
+    text-align: right;
+}
+ </style>
+                                 {{ knp_pagination_render(pagination) }} 
+                    
+                                     </div>
+                        </div>
+
+</div>
+
+
+
+
+
+    <a href="{{ path('app_ticket_new') }}"class="btn btn-info px-3 py-1">Create new</a>
+     
+    <script>
+    document.getElementById('showPdfButton').addEventListener('click', function () {
+        window.open("{{ path('api_generate_pdf') }}", "_blank");
+    });
+</script>
+{% endblock %}
