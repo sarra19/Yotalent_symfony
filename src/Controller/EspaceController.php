@@ -262,8 +262,8 @@ public function pdfest(): Response
 
             
             $email = (new Email())
-            ->from('sarra.benhamida@esprit.tn')
-            ->To('sarra.benhamida@esprit.tn')
+            ->from('hadir.elayeb@esprit.tn')
+            ->To('hadir.elayeb@esprit.tn')
             ->subject('nouveau ajout')
                     ->text("espace talent ajouté");
            

@@ -256,8 +256,8 @@ class TicketController extends AbstractController
             ->from('hadir.elayeb@esprit.tn')
             ->to('hadir.elayeb@esprit.tn')
             ->subject('YOTALENT')
-            ->html('<p>Here is the invoice for your Event Tickets (Reférance Ticket: '.($ticket->getIdt()).'):</p>')
-            ->attachFromPath($pdfFilePath, 'facture.pdf', 'application/pdf');
+            ->html('<p>Here is the ticket for your Event  (Reférance Ticket: '.($ticket->getIdt()).'):</p>')
+            ->attachFromPath($pdfFilePath, 'ticket.pdf', 'application/pdf');
     
         // Envoyer l'e-mail
         try {
