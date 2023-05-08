@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Video
  *
- * @ORM\Table(name="video", indexes={@ORM\Index(name="idEST", columns={"idEST"})})
+ * @ORM\Table(name="videos", indexes={@ORM\Index(name="idEST", columns={"idEST"})})
  * @ORM\Entity
  * @UniqueEntity(fields={"idest"})
  */
@@ -22,6 +24,7 @@ class Video
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups("videos")]
     private $idvid;
 
      /**
@@ -36,6 +39,7 @@ class Video
      *      maxMessage = "Le nom de la vidéo ne doit pas dépasser {{ limit }} caractères."
      * )
      */
+    #[Groups("videos")]
     private $nomvid;
 
     /**
@@ -43,6 +47,7 @@ class Video
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=false)
      */
+    #[Groups("videos")]
     private $url;
 
     /**
@@ -53,6 +58,7 @@ class Video
      *   @ORM\JoinColumn(name="idEST", referencedColumnName="idEST")
      * })
      */
+    #[Groups("videos")]
     private $idest;
 
     public function getIdvid(): ?int

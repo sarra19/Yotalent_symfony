@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -21,6 +22,7 @@ class Espacetalent
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups("espacetalents")]
     private $idest;
 
     /**
@@ -35,14 +37,15 @@ class Espacetalent
      *      maxMessage = "Le nom de  username ne doit pas dépasser {{ limit }} caractères."
      * )
      */
+    #[Groups("espacetalents")]
     private $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     * 
      */
+    #[Groups("espacetalents")]
     private $image;
 
    /**
@@ -51,6 +54,7 @@ class Espacetalent
  * @ORM\Column(name="nbVotes", type="integer", nullable=false)
  * @Assert\PositiveOrZero(message="The number of votes must be a positive integer or zero.")
  */
+#[Groups("espacetalents")]
 private $nbvotes;
 
 
@@ -63,6 +67,7 @@ private $nbvotes;
  * })
  * @Assert\NotNull(message="The category must not be null.")
  */
+#[Groups("espacetalents")]
 private $idcat;
 
 
@@ -75,6 +80,7 @@ private $idcat;
  * })
  * @Assert\NotNull(message="The user must not be null.")
  */
+#[Groups("espacetalents")]
 private $idu;
 
 

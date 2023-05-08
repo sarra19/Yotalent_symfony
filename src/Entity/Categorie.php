@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -21,6 +22,7 @@ class Categorie
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups("categories")]
     private $idcat;
 
    /**
@@ -34,6 +36,7 @@ class Categorie
      *      message="Le nom de la catégorie doit contenir uniquement des lettres"
      * )
      */
+    #[Groups("categories")]
     private $nomcat;
 
     public function getIdcat(): ?int

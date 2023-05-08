@@ -4,8 +4,6 @@ namespace App\Controller;
 use App\Entity\Espacetalent;
 use App\Entity\Video;
 use App\Form\VideoType;
-use App\Form\VidType;
-
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +12,116 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\VideoRepository;
+
 
 #[Route('/video')]
 class VideoController extends AbstractController
 {
+
+
+    #[Route("/updateVidJSON/{id}", name: "updateVidJSON")]
+    public function updateVidJSON(Request $req, $id, NormalizerInterface $normalizer, EntityManagerInterface $entityManager)
+    {
+        // Find the video entity with the specified id
+        $video = $entityManager->getRepository(Video::class)->find($id);
+        if (!$video) {
+            throw new \Exception('Video not found for id '.$id);
+        }
+    
+        // Get the Espacetalent entity with the specified idEST and set it as the idEST property of the Video entity
+        $idEST = $req->get('idEST');
+        $espacetalent = $entityManager->getRepository(Espacetalent::class)->find($idEST);
+        if (!$espacetalent) {
+            throw new \Exception('Espacetalent not found for idEST '.$idEST);
+        }
+        $video->setIdEST($espacetalent);
+    
+        // Update the other properties of the Video entity
+        $video->setNomVid($req->get('nomVid'));
+        $video->setUrl($req->get('url'));
+    
+        // Persist the changes to the database
+        $entityManager->flush();
+    
+        // Normalize the updated Video entity and return a response
+        $jsonContent = $normalizer->normalize($video, 'json', ['groups' => 'videos']);
+        return new Response("Video updated successfully " . json_encode($jsonContent));
+    }
+    
+    #[Route("/deleteVidJSON/{id}", name: "deleteVidJSON")]
+    public function deleteVidJSON(Request $req, $id, NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $video = $em->getRepository(Video::class)->find($id);
+        $em->remove($video);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($video, 'json', ['groups' => 'videos']);
+        return new Response("Video deleted successfully " . json_encode($jsonContent));
+    }
+    #[Route("/addVidJSON", name: "addVidJSON")]
+    public function addVidJSON(Request $req, NormalizerInterface $normalizer): JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $video = new Video();
+        
+        // Get the User entity with the specified idU and set it as the idU property of the Espacetalent entity
+       
+        
+        // Get the Categorie entity with the specified idCat and set it as the idCat property of the Espacetalent entity
+        $idEST = $req->get('idEST');
+        $espacetalent = $em->getRepository(Espacetalent::class)->find($idEST);
+        if (!$espacetalent) {
+            throw new \Exception('Espacetalent not found for idEST ' . $idEST);
+        }
+        $video->setIdest($espacetalent);
+        
+       $video->setUrl($req->get('url'));
+       $video->setNomVid($req->get('nomVid'));
+        // Persist and flush the new entity
+        $em->persist($video);
+        $em->flush();
+        
+        // Normalize the new entity and return it as a JSON response
+        $jsonContent = $normalizer->normalize($video, 'json', ['groups' => 'videos']);
+        return new JsonResponse($jsonContent);
+    }
+    
+
+
+    
+    #[Route("/videoJson/{id}", name: "videoJson")]
+    public function VideoId($id, NormalizerInterface $normalizer, VideoRepository $repo)
+    {
+        $video = $repo->find($id);
+        $VideoNormalises = $normalizer->normalize($video, 'json', ['groups' => "videos"]);
+        return new Response(json_encode($VideoNormalises));
+    }
+    #[Route("/AllVideo", name: "listV")]
+    //* Dans cette fonction, nous utilisons les services NormlizeInterface et StudentRepository, 
+    //* avec la méthode d'injection de dépendances.
+    public function getEspace(VideoRepository $repo, SerializerInterface $serializer)
+    {
+        $videos = $repo->findAll();
+        //* Nous utilisons la fonction normalize qui transforme le tableau d'objets 
+        //* students en  tableau associatif simple.
+        // $studentsNormalises = $normalizer->normalize($students, 'json', ['groups' => "students"]);
+
+        // //* Nous utilisons la fonction json_encode pour transformer un tableau associatif en format JSON
+        // $json = json_encode($studentsNormalises);
+
+        $json = $serializer->serialize($videos, 'json', ['groups' => "videos"]);
+
+        //* Nous renvoyons une réponse Http qui prend en paramètre un tableau en format JSON
+        return new Response($json);
+    }
+
     #[Route('/', name: 'app_video_index', methods: ['GET'])]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {

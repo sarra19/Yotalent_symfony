@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-use App\Repository\EspaceRepository;
 
 use App\Entity\Categorie;
 use App\Entity\Espacetalent;
@@ -9,7 +8,7 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\EspacetalentType;
 use App\Form\EspaceType;
-use App\Entity\PdfGeneratorService;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Knp\Component\Pager\PaginatorInterface;
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Component\Mailer\MailerInterface;
@@ -24,12 +24,137 @@ use Symfony\Component\Mime\Email;
 
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
+use App\Repository\EspaceRepository;
 
 
 #[Route('/espace')]
 class EspaceController extends AbstractController
 {
   
+   
+    #[Route("/updateEspJSON/{id}", name: "updateEspJSON")]
+    public function updateEspJSON(Request $req, $id, NormalizerInterface $Normalizer, EntityManagerInterface $EM)
+    {
+        // Get the Espacetalent entity with the specified id and update its properties
+        $espace = $EM->getRepository(Espacetalent::class)->find($id);
+        if (!$espace) {
+            throw new \Exception('Espacetalent not found for id ' . $id);
+        }
+    
+        // Get the User entity with the specified idU and set it as the idU property of the Espacetalent entity
+        $idU = $req->get('idU');
+        $user = $EM->getRepository(User::class)->find($idU);
+        if (!$user) {
+            throw new \Exception('User not found for idU ' . $idU);
+        }
+        $espace->setIdU($user);
+    
+        // Get the Categorie entity with the specified idCat and set it as the idCat property of the Espacetalent entity
+        $idCat = $req->get('idCat');
+        $categorie = $EM->getRepository(Categorie::class)->find($idCat);
+        if (!$categorie) {
+            throw new \Exception('Categorie not found for idCat ' . $idCat);
+        }
+        $espace->setIdCat($categorie);
+    
+        // Update the other properties of the Espacetalent entity
+        $espace->setUsername($req->get('username'));
+        $espace->setImage($req->get('image'));
+        $espace->setNbVotes($req->get('nbVotes'));
+    
+        // Persist the changes to the database
+        $EM->flush();
+    
+        // Normalize the updated Espacetalent entity and return a response
+        $jsonContent = $Normalizer->normalize($espace, 'json', ['groups' => 'espacetalents']);
+        return new Response("Espacetalent updated successfully " . json_encode($jsonContent));
+    }
+    
+
+
+    #[Route("/deleteEspJSON/{id}", name: "deleteEspJSON")]
+    public function deleteEspJSON(Request $req, $id, NormalizerInterface $Normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $espacetalent = $em->getRepository(Espacetalent::class)->find($id);
+        $em->remove($espacetalent);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($espacetalent, 'json', ['groups' => 'espacetalents']);
+        return new Response("espacetalent deleted successfully " . json_encode($jsonContent));
+    }
+    
+    
+    #[Route("/addEstJSON", name: "addEstJSON")]
+    public function addEstJSON(Request $req, NormalizerInterface $normalizer): JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $espacetalent = new Espacetalent();
+        
+        // Get the User entity with the specified idU and set it as the idU property of the Espacetalent entity
+        $idU = $req->get('idU');
+        $user = $em->getRepository(User::class)->find($idU);
+        if (!$user) {
+            throw new \Exception('User not found for idU ' . $idU);
+        }
+        $espacetalent->setIdU($user);
+        
+        // Get the Categorie entity with the specified idCat and set it as the idCat property of the Espacetalent entity
+        $idCat = $req->get('idCat');
+        $categorie = $em->getRepository(Categorie::class)->find($idCat);
+        if (!$categorie) {
+            throw new \Exception('Categorie not found for idCat ' . $idCat);
+        }
+        $espacetalent->setIdCat($categorie);
+        
+        // Set the other properties of the Espacetalent entity
+        $espacetalent->setUsername($req->get('username'));
+        $espacetalent->setImage($req->get('image'));
+        $espacetalent->setNbVotes($req->get('nbVotes'));
+        
+        // Persist and flush the new entity
+        $em->persist($espacetalent);
+        $em->flush();
+        
+        // Normalize the new entity and return it as a JSON response
+        $jsonContent = $normalizer->normalize($espacetalent, 'json', ['groups' => 'espacetalents']);
+        return new JsonResponse($jsonContent);
+    }
+    
+
+
+
+    
+    #[Route("/space/{id}", name: "espacetalent")]
+    public function EspaceId($id, NormalizerInterface $normalizer, EspaceRepository $repo)
+    {
+        $espacetalent = $repo->find($id);
+        $espaceNormalises = $normalizer->normalize($espacetalent, 'json', ['groups' => "espacetalents"]);
+        return new Response(json_encode($espaceNormalises));
+    }
+    #[Route("/AllEspace", name: "listEsp")]
+    //* Dans cette fonction, nous utilisons les services NormlizeInterface et StudentRepository, 
+    //* avec la méthode d'injection de dépendances.
+    public function getEspace(EspaceRepository $repo, SerializerInterface $serializer)
+    {
+        $espaces = $repo->findAll();
+        //* Nous utilisons la fonction normalize qui transforme le tableau d'objets 
+        //* students en  tableau associatif simple.
+        // $studentsNormalises = $normalizer->normalize($students, 'json', ['groups' => "students"]);
+
+        // //* Nous utilisons la fonction json_encode pour transformer un tableau associatif en format JSON
+        // $json = json_encode($studentsNormalises);
+
+        $json = $serializer->serialize($espaces, 'json', ['groups' => "espacetalents"]);
+
+        //* Nous renvoyons une réponse Http qui prend en paramètre un tableau en format JSON
+        return new Response($json);
+    }
+
+
    
     #[Route('/', name: 'app_espace_index', methods: ['GET'])]
 public function index(Request $request, EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
@@ -167,6 +292,46 @@ public function generatePdf(EntityManagerInterface $entityManager): Response
 }
 
 
+#[Route('/piechart', name: 'piechart')]
+public function piechart(EspaceRepository $repo): JsonResponse
+{
+    // Query the database to get the number of votes for each Espacetalent object
+    $espacetalents = $repo->findAll();
+    $votes = array_map(function($espacetalent) {
+        return $espacetalent->getNbVotes();
+    }, $espacetalents);
+
+    // Group the votes into different intervals
+    $intervalCounts = [
+        '0-10' => 0,
+        '10-20' => 0,
+        '20-50' => 0
+    ];
+    foreach ($votes as $vote) {
+        if ($vote >= 0 && $vote <= 10) {
+            $intervalCounts['0-10']++;
+        } else if ($vote > 10 && $vote <= 20) {
+            $intervalCounts['10-20']++;
+        } else if ($vote > 20 && $vote <= 50) {
+            $intervalCounts['20-50']++;
+        }
+    }
+
+    // Format the data for the pie chart
+    $data = [];
+    foreach ($intervalCounts as $interval => $count) {
+        $data[] = [
+            'label' => $interval,
+            'value' => $count
+        ];
+    }
+
+    // Return the data as a JSON response
+    $response = new JsonResponse();
+    $response->setData($data);
+
+    return $response;
+}
 
  
 #[Route('/pdf/espace', name: 'generator_servicet')]
@@ -262,8 +427,8 @@ public function pdfest(): Response
 
             
             $email = (new Email())
-            ->from('hadir.elayeb@esprit.tn')
-            ->To('hadir.elayeb@esprit.tn')
+            ->from('sarra.benhamida@esprit.tn')
+            ->To('sarra.benhamida@esprit.tn')
             ->subject('nouveau ajout')
                     ->text("espace talent ajouté");
            

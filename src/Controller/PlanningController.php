@@ -3,6 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Planning;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
 use App\Form\PlanningType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +20,111 @@ use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use App\Entity\PdfGeneratorService;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/planning')]
 class PlanningController extends AbstractController
 {
+    
+    #[Route("/AllPlannings", name: "lists")]
+    public function getStudents(PlanningRepository $repo, SerializerInterface $serializer, LoggerInterface $logger)
+    {
+       
+        $planning = $repo->findAll();
+        //* Nous utilisons la fonction normalize qui transforme le tableau d'objets 
+        //* students en  tableau associatif simple.
+        // $studentsNormalises = $normalizer->normalize($students, 'json', ['groups' => "students"]);
+
+        // //* Nous utilisons la fonction json_encode pour transformer un tableau associatif en format JSON
+        // $json = json_encode($studentsNormalises);
+
+        $json = $serializer->serialize($planning, 'json', ['groups' => "Planning"]);
+
+        //* Nous renvoyons une réponse Http qui prend en paramètre un tableau en format JSON
+        return new Response($json);
+      
+    
+
+
+        
+    }
+
+
+
+   
+
+
+
+
+
+
+
+
+    #[Route("/Plannings/{idp}", name: "planning")]
+    public function StudentId($idp, NormalizerInterface $normalizer, PlanningRepository $repo)
+    {
+        $planning = $repo->find($idp);
+        $studentNormalises = $normalizer->normalize($planning, 'json', ['groups' => "Planning"]);
+        return new Response(json_encode($studentNormalises));
+    }
+    
+    #[Route("/addPlanningJSONs", name: "addPlanningJSON")]
+    public function addPlanningJSON(Request $req,NormalizerInterface $Normalizer,EntityManagerInterface $EM)
+    {
+
+        $planning = new Planning();
+        $event=$EM
+        ->getRepository(Evenement::class)
+        ->find($req->get('idev'));
+        $planning->setIdev($event);
+        //$ticket->setNomev($event->getNomev());
+        $planning->setHour($req->get('hour'));
+        $planning->setNomactivite($req->get('nomactivite'));
+        //$ticket->setEtat($req->get('etat'));
+        $EM->persist($planning);
+        $EM->flush();
+        
+
+        $jsonContent = $Normalizer->normalize($planning, 'json', ['groups' => 'Planning']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    #[Route("/updatePlanningtJSONs/{idp}", name: "updatePlanningtJSON")]
+    public function updatePlanningtJSON(Request $req, $idp, NormalizerInterface $Normalizer,EntityManagerInterface $EM)
+    {
+
+         $planning = new Planning();
+        $event=$EM
+        ->getRepository(Evenement::class)
+        ->find($req->get('idev'));
+       $planning->setIdev($event);
+       $planning = $EM->getRepository(Planning::class)->find($req->get('idp'));
+       $planning->setHour($req->get('hour'));
+       $planning->setNomactivite($req->get('nomactivite'));
+       //$ticket->setEtat($req->get('etat'));
+    
+       $EM->flush();
+
+       $jsonContent = $Normalizer->normalize($planning, 'json', ['groups' => 'Planning']);
+       return new Response("StudenTicket updated successfully " . json_encode($jsonContent));
+    }
+
+    #[Route("/deletePlanningJSONs/{idp}", name: "deletePlanningJSON")]
+    public function deleteTicketJSON(Request $req, $idp, NormalizerInterface $Normalizer,EntityManagerInterface $EM)
+    {
+
+        $planning = new Planning();
+      
+        $planning = $EM->getRepository(Planning::class)->find($idp);
+        $EM->remove($planning);
+        $EM->flush();
+        $jsonContent = $Normalizer->normalize($planning, 'json', ['groups' => 'Planning']);
+        return new Response("Ticket deleted successfully " . json_encode($jsonContent));
+    }
+
+
+
    
     #[Route('/', name: 'app_planning_index', methods: ['GET'])]
     public function index(Request $request, EntityManagerInterface $entityManager ): Response
@@ -54,7 +160,7 @@ class PlanningController extends AbstractController
         ]);
        
     }
-
+  
 
     #[Route('/front', name: 'app_planning_front', methods: ['GET'])]
     public function front(EntityManagerInterface $entityManager): Response

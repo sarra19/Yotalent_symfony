@@ -24,6 +24,7 @@ use Knp\Snappy\Pdf;
 use App\Entity\Ticket;
 
 use App\Form\TicketType;
+use Psr\Log\LoggerInterface;
 
 use Dompdf\Dompdf;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -36,12 +37,95 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
 
 
 
 #[Route('/evenement')]
 class EvenementController extends AbstractController
 {
+    #[Route("/polo", name: "polo")]
+    public function getStudents(EvenementRepository $repo, SerializerInterface $serializer, LoggerInterface $logger)
+    {
+        $evenements = $repo->sortBynomev();
+        
+dump($evenements);
+      
+        $json = $serializer->serialize($evenements, 'json', ['groups' => "Evenement"]);
+
+        //* Nous renvoyons une réponse Http qui prend en paramètre un tableau en format JSON
+        return new Response($json);
+    }
+  
+
+    
+
+    
+    
+    #[Route("/addJSON", name: "addJSON")]
+    public function addJSON(Request $req,   NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $evenement = new Evenement();
+        $evenement->setNomev($req->get('nomev'));
+       // $evenement->setDatedev($req->get('datedev'));
+       // $evenement->setDatefev($req->get('datefev'));
+        $evenement->setLocalisation($req->get('localisation'));
+        $evenement->setImageev($req->get('imageev'));
+        
+        $em->persist($evenement);
+        $em->flush();
+
+        $jsonContent = $Normalizer->normalize($evenement, 'json', ['groups' => 'Evenement']);
+        return new Response("Event ajouter successfully " .json_encode($jsonContent));
+    }
+
+    #[Route("/updateEventJSON/{idev}", name: "updateEventJSON")]
+    public function updateEventJSON(Request $req, $idev, NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $evenement = $em->getRepository(Evenement::class)->find($idev);
+        $evenement->setNomev($req->get('nomev'));
+       // $evenement->setDatedev($req->get('datedev'));
+       // $evenement->setDatefev($req->get('datefev'));
+       $evenement->setLocalisation($req->get('localisation'));
+       $evenement->setImageev($req->get('imageev'));
+        
+
+        $em->flush();
+
+        $jsonContent = $Normalizer->normalize($evenement, 'json', ['groups' => 'Evenement']);
+        return new Response("Event updated successfully " . json_encode($jsonContent));
+    }
+    #[Route("/deleteEventJSON/{idev}", name: "deleteEventJSON")]
+    public function deleteEventJSON(Request $req, $idev, NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $evenement = $em->getRepository(Evenement::class)->find($idev);
+        $em->remove($evenement);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($evenement, 'json', ['groups' => 'Evenement']);
+        return new Response("Event deleted successfully " . json_encode($jsonContent));
+    }
+    
+   
+    #[Route("/Evenement/{idev}", name: "evenement")]
+    public function EvenementId($idev, NormalizerInterface $normalizer, EvenementRepository $repo)
+    {
+        $evenement = $repo->find($idev);
+        $evenementNormalises = $normalizer->normalize($evenement, 'json', ['groups' => "Evenement"]);
+        return new Response(json_encode($evenementNormalises));
+    }
+
+
+
+
+
 
     #[Route('/show_in_map/{idev}', name: 'app_evenement_map', methods: ['GET'])]
     public function Map( Evenement $idev, EntityManagerInterface $entityManager ): Response

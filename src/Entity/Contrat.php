@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Normalizer\NormalizerIntertace;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -21,6 +23,7 @@ class Contrat
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups("contrats")]
     private $idc;
 
     /**
@@ -31,6 +34,7 @@ class Contrat
      *     message="Le nom ne doit contenir que des lettres"
      * )
      */
+    #[Groups("contrats")]
     private $nomc;
 
     
@@ -38,6 +42,7 @@ class Contrat
      * @ORM\Column(name="DateDC", type="string", length=255, nullable=false)
      * @Assert\Date
      */
+    #[Groups("contrats")]
     private $datedc;
 
      /**
@@ -48,6 +53,7 @@ class Contrat
      *     message="La date de fin doit être après la date de début"
      * )
      */
+    #[Groups("contrats")]
     private $datefc;
 
     /**
@@ -58,6 +64,7 @@ class Contrat
      *   @ORM\JoinColumn(name="idEST", referencedColumnName="idEST")
      * })
      */
+    #[Groups("contrats")]
     private $idest;
 
     public function getIdc(): ?int

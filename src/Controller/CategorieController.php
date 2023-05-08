@@ -10,9 +10,100 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
+use App\Repository\CatRepository;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
+
+    
+    #[Route("/updateCatJSON/{idcat}", name: "updateCatJSON")]
+    public function updateCatJSON(Request $req, $idcat, NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository(Categorie::class)->find($idcat);
+        $category->setNomcat($req->get('nomCat'));
+
+        $em->flush();
+
+        $jsonContent = $Normalizer->normalize($category, 'json', ['groups' => 'categories']);
+        return new Response("Category updated successfully " . json_encode($jsonContent));
+    }
+
+    #[Route("/deleteCatJSON/{id}", name: "deleteCatJSON")]
+    public function deleteCatJSON(Request $req, $id, NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository(Categorie::class)->find($id);
+        $em->remove($category);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($category, 'json', ['groups' => 'categories']);
+        return new Response("Category deleted successfully " . json_encode($jsonContent));
+    }
+    
+    #[Route("/addCatJSON", name: "addCatJSON")]
+    public function addCatJSON(Request $req, NormalizerInterface $Normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+    
+        // validate the input
+        $validator = Validation::createValidator();
+        $violations = $validator->validate($req->get('nomCat'), [
+            new Length(['min' => 5, 'minMessage' => 'The category name must be at least {{ limit }} characters.']),
+        ]);
+        if (count($violations) > 0) {
+            $errors = [];
+            foreach ($violations as $violation) {
+                $errors[$violation->getPropertyPath()][] = $violation->getMessage();
+            }
+            return new JsonResponse(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+        }
+    
+        $category = new Categorie();
+        $category->setNomcat($req->get('nomCat'));
+        $em->persist($category);
+        $em->flush();
+    
+        $jsonContent = $Normalizer->normalize($category, 'json', ['groups' => 'categories']);
+        return new Response(json_encode($jsonContent));
+    }
+    
+
+    
+    #[Route("/Category/{idcat}", name: "category")]
+    public function CategoryId($idcat, NormalizerInterface $normalizer, CatRepository $repo)
+    {
+        $category = $repo->find($idcat);
+        $categoryNormalises = $normalizer->normalize($category, 'json', ['groups' => "categories"]);
+        return new Response(json_encode($categoryNormalises));
+    }
+    #[Route("/AllCategory", name: "listS")]
+    //* Dans cette fonction, nous utilisons les services NormlizeInterface et StudentRepository, 
+    //* avec la méthode d'injection de dépendances.
+    public function getCategory(CatRepository $repo, SerializerInterface $serializer)
+    {
+        $students = $repo->findAll();
+        //* Nous utilisons la fonction normalize qui transforme le tableau d'objets 
+        //* students en  tableau associatif simple.
+        // $studentsNormalises = $normalizer->normalize($students, 'json', ['groups' => "students"]);
+
+        // //* Nous utilisons la fonction json_encode pour transformer un tableau associatif en format JSON
+        // $json = json_encode($studentsNormalises);
+
+        $json = $serializer->serialize($students, 'json', ['groups' => "categories"]);
+
+        //* Nous renvoyons une réponse Http qui prend en paramètre un tableau en format JSON
+        return new Response($json);
+    }
+
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {

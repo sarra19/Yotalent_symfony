@@ -4,13 +4,15 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Normalizer\NormalizerIntertace;
 /**
  * Voyage
  *
  * @ORM\Table(name="voyage", indexes={@ORM\Index(name="idC", columns={"idC"})})
  * @ORM\Entity
  */
+
 class Voyage
 {
     /**
@@ -20,12 +22,14 @@ class Voyage
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups("voyages")]
     private $idvoy;
 
     /**
      * @ORM\Column(name="dateDVoy", type="string", length=255, nullable=false)
      * @Assert\Date
      */
+    #[Groups("voyages")]
     private $datedvoy;
 
     /**
@@ -36,6 +40,7 @@ class Voyage
      *     message="La date de fin doit être après la date de début"
      * )
      */
+    #[Groups("voyages")]
     private $datervoy;
 
     /**
@@ -46,6 +51,7 @@ class Voyage
      *     message="Le destination ne doit contenir que des lettres"
      * )
      */
+    #[Groups("voyages")]
     private $destination;
 
     /**
@@ -56,6 +62,7 @@ class Voyage
      *   @ORM\JoinColumn(name="idC", referencedColumnName="idC")
      * })
      */
+    #[Groups("voyages")]
     private $idc;
 
     public function getIdvoy(): ?int
