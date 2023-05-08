@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/MyApplication.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/SignUpForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/SignInForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/ActivateForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/ListVidForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/AjoutVidForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/AjoutCatForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/entities/Categorie.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/utils/Statics.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/entities/Espacetalent.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/BaseForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/NewsfeedForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/ProfileForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/modifierEsp.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/modifierCat.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/ListEspForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/ListCatForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/entities/Video.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/AjoutEspForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/MapForm.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/services/EspaceService.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/modifierVid.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/services/CategorieService.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/services/VideoService.java</file>
+            <file>file:/C:/Users/sarra/Downloads/aaa/aaa/AdoDocMobile/src/com/mycompany/myapp/gui/WalkthruForm.java</file>
+        </group>
+    </open-files>
+</project-private>
